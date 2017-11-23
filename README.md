@@ -7,9 +7,7 @@
 
 A customisable React Native video player for Android and IOS
 
-![Demo](https://gfycat.com/gifs/detail/HilariousLateBlueandgoldmackaw)
-
-<iframe src='https://gfycat.com/ifr/HilariousLateBlueandgoldmackaw' frameborder='0' scrolling='no' width='532' height='944'></iframe>
+[[ https://thumbs.gfycat.com/HilariousLateBlueandgoldmackaw-size_restricted.gif | height = 300px ]]
 
 ## Features
 

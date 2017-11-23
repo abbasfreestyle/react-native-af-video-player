@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const url = ''
+const url = 'https://your-url.com/video.mp4'
 
 class VideoExample extends React.Component {
 

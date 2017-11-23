@@ -7,7 +7,7 @@
 
 A customisable React Native video player for Android and IOS
 
-[[ https://thumbs.gfycat.com/HilariousLateBlueandgoldmackaw-size_restricted.gif | height = 300px ]]
+![Demo](https://thumbs.gfycat.com/HilariousLateBlueandgoldmackaw-size_restricted.gif)
 
 ## Features
 

@@ -79,7 +79,7 @@ class VideoPlayer extends Component {
         if (this.props.fullScreenOnly) {
           this.setState({ fullScreen: true }, () => {
             this.props.onFullScreen(this.state.fullScreen)
-            Orientation.lockToLandscape()
+            if (this.props.rotateOnFullScreen) Orientation.lockToLandscape()
           })
         }
       }
@@ -101,7 +101,7 @@ class VideoPlayer extends Component {
     // Add this condition incase if inline and fullscreen options are turned on
     if (this.props.inlineOnly) return
     const orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT'
-    if (this.props.rotateOnFullScreen || this.props.fullScreenOnly) {
+    if (this.props.rotateOnFullScreen) {
       if (orientation === 'LANDSCAPE') {
         this.setState({
           fullScreen: true,
@@ -139,8 +139,8 @@ class VideoPlayer extends Component {
     if (this.state.fullScreen) {
       this.setState({ fullScreen: false }, () => {
         this.props.onFullScreen(this.state.fullScreen)
-        if (this.props.fullScreenOnly || this.props.rotateOnFullScreen) {
-          if (this.props.fullScreenOnly && !this.state.paused) this.togglePlay()
+        if (this.props.fullScreenOnly) {
+          if (!this.state.paused) this.togglePlay()
           Orientation.lockToPortrait()
           Orientation.unlockAllOrientations()
         }
@@ -162,7 +162,7 @@ class VideoPlayer extends Component {
         if (this.props.fullScreenOnly && !this.state.fullScreen) {
           this.setState({ fullScreen: true }, () => {
             this.props.onFullScreen(this.state.fullScreen)
-            Orientation.lockToLandscape()
+            if (this.props.rotateOnFullScreen) Orientation.lockToLandscape()
           })
         }
         KeepAwake.activate()
@@ -178,7 +178,7 @@ class VideoPlayer extends Component {
     }, () => {
       if (this.state.fullScreen) {
         this.props.onFullScreen(this.state.fullScreen)
-        if (this.props.rotateOnFullScreen || this.props.fullScreenOnly) Orientation.lockToLandscape()
+        if (this.props.rotateOnFullScreen) Orientation.lockToLandscape()
       } else {
         if (this.props.fullScreenOnly) this.setState({ paused: true })
         this.props.onFullScreen(this.state.fullScreen)

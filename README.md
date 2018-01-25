@@ -67,21 +67,21 @@ AppRegistry.registerComponent('VideoExample', () => VideoExample)
 
 Prop                  | Type     | Required | Default                   | Description
 --------------------- | -------- | -------- | ------------------------- | -----------
-url                   | string   | Yes      |                           | a URL string is required.
-autoPlay              | bool     | No       | false                     | Autoplay the video as soon as it's loaded
-loop                  | bool     | No       | false                     | Allow the video to continuously loop
-title                 | string   | No       | ''                        | Add a title of your video at the top of the player
-placeholder           | string   | No       | undefined                 | Add an image placeholder while it's loading and stopped at the beginning
-logo                  | string   | No       | undefined                 | Add an image logo at the top left corner of the video
-theme                 | string   | No       | 'white'                   | Add an optional theme colour to the players controls
-resizeMode            | string   | No       | 'contain'                 | Fill the whole screen at aspect ratio. contain, cover etc
+url                   | string   | Yes      |                           | A URL string is required.
+autoPlay              | bool     | No       | false                     | Autoplays the video as soon as it's loaded
+loop                  | bool     | No       | false                     | Allows the video to continuously loop
+title                 | string   | No       | ''                        | Adds a title of your video at the top of the player
+placeholder           | string   | No       | undefined                 | Adds an image placeholder while it's loading and stopped at the beginning
+logo                  | string   | No       | undefined                 | Adds an image logo at the top left corner of the video
+theme                 | string   | No       | 'white'                   | Adds an optional theme colour to the players controls
+resizeMode            | string   | No       | 'contain'                 | Fills the whole screen at aspect ratio. contain, cover etc
 rotateOnFullScreen    | bool     | No       | false                     | Tapping the fullscreen button will rotate the screen. Also rotating the screen will automatically switch to fullscreen mode
-fullScreenOnly        | bool     | No       | false                     | This will only play in landscape fullscreen mode
+fullScreenOnly        | bool     | No       | false                     | This will play only in fullscreen mode
 inlineOnly            | bool     | No       | false                     | This hides the fullscreen button and only plays the video in inline mode
 playInBackground      | bool     | No       | false                     | Audio continues to play when app enters background.
 playWhenInactive      | bool     | No       | false                     | [iOS] Video continues to play when control or notification center are shown.
-rate                  | number   | No       | 1                         | Adjust the speed of the video. 0 = stopped, 1.0 = normal
-volume                | number   | No       | 1                         | Adjust the volume of the video. 0 = mute, 1.0 = full volume
+rate                  | number   | No       | 1                         | Adjusts the speed of the video. 0 = stopped, 1.0 = normal
+volume                | number   | No       | 1                         | Adjusts the volume of the video. 0 = mute, 1.0 = full volume
 onMorePress           | function | No       | undefined                 | Adds an action button at the top right of the player. Use this callback function for your own use. e.g share link
 onFullScreen          | function | No       |                           | Returns the fullscreen status whenever it toggles. Useful for situations like react navigation.
 onTimedMetadata       | function | No       | undefined                 | Callback when the stream receives metadata
@@ -170,7 +170,7 @@ export default ReactNavigationExample
 
 For your sanity you should use https especially if you’re planning to use this for iOS. Using http will not work due to App Transport Security Settings and may result in AppStore rejection.
 
-## Issues
+## Known Issues
 
 ### Fullscreen videos inside a ScrollView
 

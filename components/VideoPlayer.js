@@ -16,7 +16,6 @@ import Orientation from 'react-native-orientation'
 import Icons from 'react-native-vector-icons/MaterialIcons'
 import { Controls } from './'
 const Win = Dimensions.get('window')
-
 const backgroundColor = 'black'
 
 const styles = StyleSheet.create({
@@ -46,6 +45,7 @@ class VideoPlayer extends Component {
       paused: !props.autoPlay,
       muted: false,
       fullScreen: false,
+      height: Win.height,
       loading: false,
       duration: 0,
       progress: 0,
@@ -79,7 +79,7 @@ class VideoPlayer extends Component {
         if (this.props.fullScreenOnly) {
           this.setState({ fullScreen: true }, () => {
             this.props.onFullScreen(this.state.fullScreen)
-            if (this.props.rotateOnFullScreen) Orientation.lockToLandscape()
+            if (this.props.rotateToFullScreen) Orientation.lockToLandscape()
           })
         }
       }
@@ -101,11 +101,12 @@ class VideoPlayer extends Component {
     // Add this condition incase if inline and fullscreen options are turned on
     if (this.props.inlineOnly) return
     const orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT'
-    if (this.props.rotateOnFullScreen) {
+    if (this.props.rotateToFullScreen) {
       if (orientation === 'LANDSCAPE') {
         this.setState({
           fullScreen: true,
-          landscape: true
+          landscape: true,
+          height
         }, () => {
           this.props.onFullScreen(this.state.fullScreen)
         })
@@ -114,11 +115,14 @@ class VideoPlayer extends Component {
         this.setState({
           fullScreen: false,
           landscape: false,
+          height,
           paused: (this.props.fullScreenOnly && this.state.landscape) || this.state.paused
         }, () => {
           this.props.onFullScreen(this.state.fullScreen)
         })
       }
+    } else {
+      this.setState({ height })
     }
   }
 
@@ -137,13 +141,13 @@ class VideoPlayer extends Component {
 
   BackHandler() {
     if (this.state.fullScreen) {
-      this.setState({ fullScreen: false }, () => {
+      this.setState({ fullScreen: false, landscape: false }, () => {
         this.props.onFullScreen(this.state.fullScreen)
-        if (this.props.fullScreenOnly) {
-          if (!this.state.paused) this.togglePlay()
-          Orientation.lockToPortrait()
+        if (this.props.fullScreenOnly && !this.state.paused) this.togglePlay()
+        Orientation.lockToPortrait()
+        setTimeout(() => {
           Orientation.unlockAllOrientations()
-        }
+        }, 1500)
       })
       return true
     }
@@ -162,7 +166,7 @@ class VideoPlayer extends Component {
         if (this.props.fullScreenOnly && !this.state.fullScreen) {
           this.setState({ fullScreen: true }, () => {
             this.props.onFullScreen(this.state.fullScreen)
-            if (this.props.rotateOnFullScreen) Orientation.lockToLandscape()
+            if (this.props.rotateToFullScreen) Orientation.lockToLandscape()
           })
         }
         KeepAwake.activate()
@@ -178,12 +182,14 @@ class VideoPlayer extends Component {
     }, () => {
       if (this.state.fullScreen) {
         this.props.onFullScreen(this.state.fullScreen)
-        if (this.props.rotateOnFullScreen) Orientation.lockToLandscape()
+        if (this.props.rotateToFullScreen) Orientation.lockToLandscape()
       } else {
         if (this.props.fullScreenOnly) this.setState({ paused: true })
         this.props.onFullScreen(this.state.fullScreen)
         Orientation.lockToPortrait()
-        Orientation.unlockAllOrientations()
+        setTimeout(() => {
+          Orientation.unlockAllOrientations()
+        }, 1500)
       }
     })
   }
@@ -230,6 +236,7 @@ class VideoPlayer extends Component {
       loading,
       progress,
       duration,
+      height,
       currentTime
     } = this.state
     // console.log(paused)
@@ -251,7 +258,7 @@ class VideoPlayer extends Component {
     } = this.props
     return (
       <View
-        style={[styles.background, fullScreen ? styles.fullScreen : styles.inline]}
+        style={[styles.background, fullScreen ? (styles.fullScreen, { height }) : styles.inline]}
       >
         <StatusBar hidden={fullScreen} />
         {
@@ -322,7 +329,7 @@ VideoPlayer.propTypes = {
   onTimedMetadata: PropTypes.func,
   theme: PropTypes.string,
   placeholder: PropTypes.string,
-  rotateOnFullScreen: PropTypes.bool,
+  rotateToFullScreen: PropTypes.bool,
   fullScreenOnly: PropTypes.bool,
   inlineOnly: PropTypes.bool,
   rate: PropTypes.number,
@@ -342,7 +349,7 @@ VideoPlayer.defaultProps = {
   onTimedMetadata: undefined,
   theme: 'white',
   placeholder: undefined,
-  rotateOnFullScreen: false,
+  rotateToFullScreen: false,
   fullScreenOnly: false,
   inlineOnly: false,
   playInBackground: false,

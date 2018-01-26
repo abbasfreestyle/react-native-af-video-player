@@ -75,7 +75,7 @@ placeholder           | string   | No       | undefined                 | Adds a
 logo                  | string   | No       | undefined                 | Adds an image logo at the top left corner of the video
 theme                 | string   | No       | 'white'                   | Adds an optional theme colour to the players controls
 resizeMode            | string   | No       | 'contain'                 | Fills the whole screen at aspect ratio. contain, cover etc
-rotateOnFullScreen    | bool     | No       | false                     | Tapping the fullscreen button will rotate the screen. Also rotating the screen will automatically switch to fullscreen mode
+rotateToFullScreen    | bool     | No       | false                     | Tapping the fullscreen button will rotate the screen. Also rotating the screen will automatically switch to fullscreen mode
 fullScreenOnly        | bool     | No       | false                     | This will play only in fullscreen mode
 inlineOnly            | bool     | No       | false                     | This hides the fullscreen button and only plays the video in inline mode
 playInBackground      | bool     | No       | false                     | Audio continues to play when app enters background.
@@ -86,7 +86,7 @@ onMorePress           | function | No       | undefined                 | Adds a
 onFullScreen          | function | No       |                           | Returns the fullscreen status whenever it toggles. Useful for situations like react navigation.
 onTimedMetadata       | function | No       | undefined                 | Callback when the stream receives metadata
 
-## Troubleshoot
+## Issues
 
 ### React Navigation
 
@@ -104,18 +104,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#F5FCFF'
   }
 })
 
 class ReactNavigationExample extends Component {
-
-  componentDidMount() {
-    this.url = 'https://your-url.com/video.mp4'
-    this.logo = 'https://your-url.com/logo.png'
-    this.placeholder = 'https://your-url.com/placeholder.png'
-    this.title = 'My video title'
-  }
 
   static navigationOptions = ({ navigation }) => {
     const { state } = navigation
@@ -130,6 +122,13 @@ class ReactNavigationExample extends Component {
     }
   }
 
+  componentDidMount() {
+    this.url = 'https://your-url.com/video.mp4'
+    this.logo = 'https://your-url.com/logo.png'
+    this.placeholder = 'https://your-url.com/placeholder.png'
+    this.title = 'My video title'
+  }
+
   onFullScreen(status) {
     // Set the params to pass in the fullscreen status to navigationOptions
     this.props.navigation.setParams({
@@ -138,7 +137,11 @@ class ReactNavigationExample extends Component {
   }
 
   onMorePress() {
-    Alert.alert('Boom', 'This is an action call!', [{ text: 'Aw yeah!' }])
+    Alert.alert(
+      'Boom',
+      'This is an action call!',
+      [{ text: 'Aw yeah!' }]
+    )
   }
 
   render() {
@@ -155,7 +158,7 @@ class ReactNavigationExample extends Component {
           fullScreenOnly
         />
         <ScrollView>
-          <Text>Aww yeah!</Text>
+          <Text>Some content here...</Text>
         </ScrollView>
       </View>
     )
@@ -170,33 +173,66 @@ export default ReactNavigationExample
 
 For your sanity you should use https especially if you’re planning to use this for iOS. Using http will not work due to App Transport Security Settings and may result in AppStore rejection.
 
-## Known Issues
-
 ### Fullscreen videos inside a ScrollView
 
-Sadly fullscreen isn’t supported for videos inside a ScrollView, it causes weird layout behaviour by filling the entire ScrollView. However playing videos inline will still work as normal. The best solution is to disable fullscreen by adding inlineOnly prop to remove the fullscreen button.
+~~Sadly fullscreen isn’t supported for videos inside a ScrollView, it causes weird layout behaviour by filling the entire ScrollView. However playing videos inline will still work as normal. The best solution is to disable fullscreen by adding inlineOnly prop to remove the fullscreen button.~~
+
+There's now a work around in version 0.1.5 or above. Yes i know it's not pretty however, for those that really need fullscreen support within a ScrollView, you need to hide all content inside the ScrollView during fullscreen mode and avoid adding alignItems:'center' to the View container, alignItems:'stretch' is fine. Feel free to PR or suggest a better/cleaner solution :)
+
+### Example
 
 ```jsx
-  <View style={styles.container}>
-    <ScrollView>
-      <Text>Some text above</Text>
-      <VideoPlayer
-        autoPlay
-        url={url}
-        title={title}
-        logo={logo}
-        placeholder={logo}
-        inlineOnly
-      />
-      <Text>Some text beneath</Text>
-    </ScrollView>
-  </View>
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1
+    }
+  })
+
+  class VideoInScrollView extends Component {
+    constructor(){
+      super()
+      this.state = {
+        fullScreen: false
+      }
+    }
+
+    onFullScreen(fullScreen) {
+      this.setState({ fullScreen })
+    }
+
+    render() {
+      const { fullScreen } = this.state
+      return (
+        <View style={styles.container}>
+          <ScrollView>
+
+            { fullScreen ? null : <Text>Some content above</Text> }
+
+            <VideoPlayer
+              autoPlay
+              url={url}
+              title={title}
+              logo={logo}
+              placeholder={logo}
+              rotateToFullScreen
+              onFullScreen={status => this.onFullScreen(status)}
+            />
+
+            { fullScreen ? null : <Text>Some content below</Text> }
+
+          </ScrollView>
+        </View>
+      )
+    }
+  }
 ```
 
 ## To Do
 
 * Improve scrubber controls for iOS
 * Customise specific components for better theming
+* ~~Provide fullscreen support within a ScrollView~~
 
 ---
 

@@ -97,32 +97,61 @@ class VideoPlayer extends Component {
     this.setState({ currentTime: 0 }, () => this.controls.showControls())
   }
 
-  onRotated({ window: { width, height } }) {
-    // Add this condition incase if inline and fullscreen options are turned on
-    if (this.props.inlineOnly) return
-    const orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT'
-    if (this.props.rotateToFullScreen) {
-      if (orientation === 'LANDSCAPE') {
+  onFullScreenCallback() {
+    this.props.onFullScreen(this.state.fullScreen);
+  }
+
+  setStateAfterRotate(orientation, height) {
+    switch (orientation) {
+      case 'LANDSCAPE':
         this.setState({
           fullScreen: true,
           landscape: true,
           height
-        }, () => {
-          this.props.onFullScreen(this.state.fullScreen)
-        })
-      }
-      if (orientation === 'PORTRAIT') {
+        }, this.onFullScreenCallback());
+        break;
+      case 'PORTRAIT':
         this.setState({
-          fullScreen: false,
+          fullsScreen: false,
           landscape: false,
           height,
           paused: (this.props.fullScreenOnly && this.state.landscape) || this.state.paused
-        }, () => {
-          this.props.onFullScreen(this.state.fullScreen)
-        })
+        }, this.onFullScreenCallback());
+      default:
+        return;
+    }
+  }
+
+  rotateAndroid(width, height) {
+    Orientation.getOrientation((err, orientation) => {
+      if (orientation === 'LANDSCAPE') {
+        this.setStateAfterRotate(orientation, Math.min(width, height));
       }
+      if (orientation === 'PORTRAIT') {
+        this.setStateAfterRotate(orientation, Math.max(width, height));
+      }
+    });
+  }
+
+  rotateIOS(width, height) {
+    const orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
+    if (orientation === 'LANDSCAPE') {
+      this.setStateAfterRotate(orientation, height);
+    }
+    if (orientation === 'PORTRAIT') {
+      this.setStateAfterRotate(orientation, height);
+    }
+  }
+
+  onRotated({ window: { width, height } }) {
+    // Add this condition in case if inline and fullscreen options are turned on
+    if (this.props.inlineOnly) return;
+    const _width = width;
+    const _height = height;
+    if (this.props.rotateToFullScreen) {
+      Platform.OS === 'ios' ? this.rotateIOS(_width, _height) : this.rotateAndroid(_width, _height);
     } else {
-      this.setState({ height })
+      this.setState({ height: _height });
     }
   }
 

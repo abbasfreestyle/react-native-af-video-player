@@ -146,6 +146,8 @@ class VideoPlayer extends Component {
   onRotated({ window: { width, height } }) {
     // Add this condition in case if inline and fullscreen options are turned on
     if (this.props.inlineOnly) return;
+    // Only rotate to FS when video is already playing
+    if (this.state.paused) return;
     const _width = width;
     const _height = height;
     if (this.props.rotateToFullScreen) {

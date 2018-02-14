@@ -17,8 +17,8 @@
     "jest": "21.2.1",
     "react-test-renderer": "16.0.0-beta.5"
   },
-  "description": "A customisable React Native video player for Android and IOS",
-  "homepage": "https://github.com/abbasfreestyle/react-native-af-video-player#readme",
+  "description": "Fork of the great abbasfreestyle/react-native-af-video-player. A customisable React Native video player for Android and IOS",
+  "homepage": "https://github.com/no-weller/react-native-af-video-player#readme",
   "keywords": [
     "react-component",
     "react-native",
@@ -30,14 +30,14 @@
   ],
   "maintainers": [
     {
-      "name": "abbasfreestyle",
-      "email": "abbasfreestyle@gmail.com"
+      "name": "no-weller",
+      "email": "git@blackthorn-hill.de"
     }
   ],
   "license": "MIT",
   "author": {
-    "name": "Abbas Farid",
-    "email": "abbasfreestyle@gmail.com",
-    "url": "https://github.com/abbasfreestyle"
+    "name": "Nils Weller",
+    "email": "git@blackthorn-hill.de",
+    "url": "https://github.com/no-weller"
   }
 }

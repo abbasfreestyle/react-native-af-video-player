@@ -1,5 +1,5 @@
 import React from 'react'
-import { string, func, bool } from 'prop-types'
+import PropTypes from 'prop-types'
 
 import {
   View,
@@ -73,11 +73,11 @@ const TopBar = (props) => {
 }
 
 TopBar.propTypes = {
-  title: string,
-  logo: string,
-  more: bool,
-  onMorePress: func,
-  theme: string
+  title: PropTypes.string,
+  logo: PropTypes.string,
+  more: PropTypes.bool,
+  onMorePress: PropTypes.func,
+  theme: PropTypes.string
 }
 
 TopBar.defaultProps = {

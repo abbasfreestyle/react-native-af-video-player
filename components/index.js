@@ -7,3 +7,6 @@ export * from './Loading'
 export * from './TopBar'
 export * from './ToggleIcon'
 export * from './ProgressBar'
+export * from './VideoPlayer'
+
+export { default as Video } from './VideoScrollHandler'

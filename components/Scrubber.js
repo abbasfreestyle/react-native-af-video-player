@@ -1,5 +1,5 @@
 import React from 'react' // eslint-disable-line
-import { func, number, string } from 'prop-types'
+import PropTypes from 'prop-types'
 import {
   View,
   Platform,
@@ -29,7 +29,7 @@ const Scrubber = (props) => {
         <Slider
           onValueChange={val => props.onSeek(val)}
           onSlidingComplete={val => props.onSeekRelease(val)}
-          value={progress === Number.POSITIVE_INFINITY ? 0: progress}
+          value={progress === Number.POSITIVE_INFINITY ? 0 : progress}
           thumbTintColor={theme}
           thumbStyle={thumbStyle}
           trackStyle={trackStyle}
@@ -52,10 +52,10 @@ const Scrubber = (props) => {
 }
 
 Scrubber.propTypes = {
-  onSeek: func,
-  onSeekRelease: func,
-  progress: number,
-  theme: string
+  onSeek: PropTypes.func,
+  onSeekRelease: PropTypes.func,
+  progress: PropTypes.number,
+  theme: PropTypes.string
 }
 
 Scrubber.defaultProps = {

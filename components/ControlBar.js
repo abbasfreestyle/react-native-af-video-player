@@ -1,5 +1,5 @@
 import React from 'react'
-import { func, bool, number, string } from 'prop-types'
+import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { ToggleIcon, Time, Scrubber } from './'
@@ -59,17 +59,17 @@ const ControlBar = (props) => {
 }
 
 ControlBar.propTypes = {
-  toggleFS: func,
-  toggleMute: func,
-  onSeek: func,
-  onSeekRelease: func,
-  fullscreen: bool,
-  muted: bool,
-  inlineOnly: bool,
-  progress: number,
-  currentTime: number,
-  duration: number,
-  theme: string
+  toggleFS: PropTypes.func,
+  toggleMute: PropTypes.func,
+  onSeek: PropTypes.func,
+  onSeekRelease: PropTypes.func,
+  fullscreen: PropTypes.bool,
+  muted: PropTypes.bool,
+  inlineOnly: PropTypes.bool,
+  progress: PropTypes.number,
+  currentTime: PropTypes.number,
+  duration: PropTypes.number,
+  theme: PropTypes.string
 }
 
 ControlBar.defaultProps = {

@@ -1,2 +1,2 @@
-import VideoPlayer from './components/VideoPlayer'
-export default VideoPlayer
+import { Video } from './components'
+export default Video

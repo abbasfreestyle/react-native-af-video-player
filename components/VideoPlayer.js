@@ -8,7 +8,8 @@ import {
   Dimensions,
   BackHandler,
   Image,
-  Alert
+  Alert,
+  Platform
 } from 'react-native'
 import Video from 'react-native-video'
 import KeepAwake from 'react-native-keep-awake'
@@ -108,7 +109,9 @@ class VideoPlayer extends Component {
           fullScreen: true,
           landscape: true,
           height
-        }, this.onFullScreenCallback());
+        }, () => {
+          this.props.onFullScreen(this.state.fullScreen);
+        });
         break;
       case 'PORTRAIT':
         this.setState({
@@ -116,7 +119,9 @@ class VideoPlayer extends Component {
           landscape: false,
           height,
           paused: (this.props.fullScreenOnly && this.state.landscape) || this.state.paused
-        }, this.onFullScreenCallback());
+        }, () => {
+          this.props.onFullScreen(this.state.fullScreen);
+        });
       default:
         return;
     }
@@ -125,9 +130,11 @@ class VideoPlayer extends Component {
   rotateAndroid(width, height) {
     Orientation.getOrientation((err, orientation) => {
       if (orientation === 'LANDSCAPE') {
+        console.log(orientation);
         this.setStateAfterRotate(orientation, Math.min(width, height));
       }
       if (orientation === 'PORTRAIT') {
+        console.log(orientation);
         this.setStateAfterRotate(orientation, Math.max(width, height));
       }
     });
@@ -208,25 +215,30 @@ class VideoPlayer extends Component {
   }
 
   toggleFS() {
-    this.setState({
-      fullScreen: !this.state.fullScreen
-    }, () => {
-      if (this.state.fullScreen) {
-        this.props.onFullScreen(this.state.fullScreen)
-        if (this.props.rotateToFullScreen) Orientation.lockToLandscape()
-      } else {
-        if (this.props.fullScreenOnly) this.setState({ paused: true })
-        this.props.onFullScreen(this.state.fullScreen)
-        Orientation.lockToPortrait()
-        setTimeout(() => {
-          Orientation.unlockAllOrientations()
-        }, 1500)
-      }
-    })
+    if ((!this.state.paused && !this.state.fullScreen) || (this.state.fullScreen)) {
+      this.setState({
+        fullScreen: !this.state.fullScreen
+      }, () => {
+        if (this.state.fullScreen) {
+          this.props.onFullScreen(this.state.fullScreen)
+          if (this.props.rotateToFullScreen) Orientation.lockToLandscape()
+        } else {
+          if (this.props.fullScreenOnly) this.setState({ paused: true })
+          this.props.onFullScreen(this.state.fullScreen)
+          Orientation.lockToPortrait()
+          setTimeout(() => {
+            Orientation.unlockAllOrientations()
+          }, 1500)
+        }
+      });
+    }
   }
 
   toggleMute() {
-    this.setState({ muted: !this.state.muted })
+    this.setState({ muted: !this.state.muted });
+    if (this.props.storeMute) {
+      this.props.storeMute();
+    }
   }
 
   seek(val) {
@@ -358,6 +370,7 @@ VideoPlayer.propTypes = {
   onMorePress: PropTypes.func,
   onFullScreen: PropTypes.func,
   onTimedMetadata: PropTypes.func,
+  storeMute: PropTypes.func,
   theme: PropTypes.string,
   placeholder: PropTypes.string,
   rotateToFullScreen: PropTypes.bool,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { bool, string } from 'prop-types'
+import PropTypes from 'prop-types'
 import {
   View,
   Easing,
@@ -81,8 +81,8 @@ class Loading extends Component {
 }
 
 Loading.propTypes = {
-  loading: bool,
-  theme: string
+  loading: PropTypes.bool,
+  theme: PropTypes.string
 }
 
 Loading.defaultProps = {

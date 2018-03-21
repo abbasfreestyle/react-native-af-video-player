@@ -17,7 +17,7 @@ import Orientation from 'react-native-orientation'
 import Icons from 'react-native-vector-icons/MaterialIcons'
 import { Controls } from './'
 const Win = Dimensions.get('window')
-const backgroundColor = 'black'
+const backgroundColor = '#000'
 
 const styles = StyleSheet.create({
   background: {
@@ -93,9 +93,12 @@ class VideoPlayer extends Component {
   // }
 
   onEnd() {
-    this.togglePlay()
+    const { loop } = this.props
+    if (!loop) this.pause()
     this.onSeekRelease(0)
-    this.setState({ currentTime: 0 }, () => this.controls.showControls())
+    this.setState({ currentTime: 0 }, () => {
+      if (!loop) this.controls.showControls()
+    })
   }
 
   onFullScreenCallback() {
@@ -184,7 +187,7 @@ class VideoPlayer extends Component {
         if (this.props.fullScreenOnly && !this.state.paused) this.togglePlay()
         Orientation.lockToPortrait()
         setTimeout(() => {
-          Orientation.unlockAllOrientations()
+          if (!this.props.lockPortraitOnFsExit) Orientation.unlockAllOrientations()
         }, 1500)
       })
       return true
@@ -193,8 +196,15 @@ class VideoPlayer extends Component {
   }
 
   loadStart() {
-    // console.log('load started')
     this.setState({ paused: true, loading: true })
+  }
+
+  pause() {
+    if (!this.state.paused) this.togglePlay()
+  }
+
+  play() {
+    if (this.state.paused) this.togglePlay()
   }
 
   togglePlay() {
@@ -227,10 +237,10 @@ class VideoPlayer extends Component {
           this.props.onFullScreen(this.state.fullScreen)
           Orientation.lockToPortrait()
           setTimeout(() => {
-            Orientation.unlockAllOrientations()
+            if (!this.props.lockPortraitOnFsExit) Orientation.unlockAllOrientations()
           }, 1500)
         }
-      });
+      })
     }
   }
 
@@ -282,7 +292,7 @@ class VideoPlayer extends Component {
       height,
       currentTime
     } = this.state
-    // console.log(paused)
+
     const {
       url,
       loop,
@@ -299,6 +309,7 @@ class VideoPlayer extends Component {
       playInBackground,
       playWhenInactive
     } = this.props
+
     return (
       <View
         style={[styles.background, fullScreen ? (styles.fullScreen, { height }) : styles.inline]}
@@ -379,7 +390,8 @@ VideoPlayer.propTypes = {
   rate: PropTypes.number,
   volume: PropTypes.number,
   playInBackground: PropTypes.bool,
-  playWhenInactive: PropTypes.bool
+  playWhenInactive: PropTypes.bool,
+  lockPortraitOnFsExit: PropTypes.bool
 }
 
 VideoPlayer.defaultProps = {
@@ -399,7 +411,8 @@ VideoPlayer.defaultProps = {
   playInBackground: false,
   playWhenInactive: false,
   rate: 1,
-  volume: 1
+  volume: 1,
+  lockPortraitOnFsExit: false
 }
 
-export default VideoPlayer
+export { VideoPlayer }

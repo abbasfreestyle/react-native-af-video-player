@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { func, bool, number, string } from 'prop-types'
+import PropTypes from 'prop-types'
 import {
   View,
   Animated,
@@ -178,24 +178,24 @@ class Controls extends Component {
 }
 
 Controls.propTypes = {
-  toggleFS: func,
-  toggleMute: func,
-  togglePlay: func,
-  onSeek: func,
-  onSeekRelease: func,
-  onMorePress: func,
-  paused: bool,
-  inlineOnly: bool,
-  fullscreen: bool,
-  muted: bool,
-  more: bool,
-  loading: bool,
-  progress: number,
-  currentTime: number,
-  duration: number,
-  title: string,
-  logo: string,
-  theme: string
+  toggleFS: PropTypes.func,
+  toggleMute: PropTypes.func,
+  togglePlay: PropTypes.func,
+  onSeek: PropTypes.func,
+  onSeekRelease: PropTypes.func,
+  onMorePress: PropTypes.func,
+  paused: PropTypes.bool,
+  inlineOnly: PropTypes.bool,
+  fullscreen: PropTypes.bool,
+  muted: PropTypes.bool,
+  more: PropTypes.bool,
+  loading: PropTypes.bool,
+  progress: PropTypes.number,
+  currentTime: PropTypes.number,
+  duration: PropTypes.number,
+  title: PropTypes.string,
+  logo: PropTypes.string,
+  theme: PropTypes.string
 }
 
 Controls.defaultProps = {

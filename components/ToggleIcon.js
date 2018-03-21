@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import Icons from 'react-native-vector-icons/MaterialIcons'
 
 const backgroundColor = 'transparent'
@@ -23,18 +23,24 @@ const ToggleIcon = (props) => {
     theme,
     size
   } = props
+
+  const padding = {
+    paddingLeft: paddingLeft ? 10 : 0,
+    paddingRight: paddingRight ? 5 : 0
+  }
+
   return (
     <View style={styles.btnContainer}>
-      <Icons
-        style={{ // eslint-disable-line
-          paddingLeft: paddingLeft ? 10 : 0,
-          paddingRight: paddingRight ? 5 : 0
-        }}
+      <TouchableOpacity
         onPress={() => props.onPress()}
-        name={isOn ? iconOn : iconOff}
-        color={theme}
-        size={size}
-      />
+      >
+        <Icons
+          style={padding}
+          name={isOn ? iconOn : iconOff}
+          color={theme}
+          size={size}
+        />
+      </TouchableOpacity>
     </View>
   )
 }

@@ -4,6 +4,7 @@
 [![npm downloads](http://img.shields.io/npm/dm/react-native-af-video-player.svg?style=flat-square)](https://npmjs.org/package/react-native-af-video-player "View this project on npm")
 [![npm licence](http://img.shields.io/npm/l/react-native-af-video-player.svg?style=flat-square)](https://npmjs.org/package/react-native-af-video-player "View this project on npm")
 [![Platform](https://img.shields.io/badge/platform-ios%20%7C%20android-989898.svg?style=flat-square)](https://npmjs.org/package/react-native-af-video-player "View this project on npm")
+[![npm](https://img.shields.io/npm/dt/react-native-af-video-player.svg?style=flat-square)](https://npmjs.org/package/react-native-af-video-player "View this project on npm")
 
 A customisable React Native video player for Android and IOS
 
@@ -37,13 +38,12 @@ react-native link react-native-linear-gradient
 ```jsx
 import React from 'react'
 import { AppRegistry, StyleSheet, View } from 'react-native'
-import VideoPlayer from 'react-native-af-video-player'
+import Video from 'react-native-af-video-player'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'center'
   }
 })
 
@@ -54,7 +54,7 @@ class VideoExample extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <VideoPlayer url={url} />
+        <Video url={url} />
       </View>
     )
   }
@@ -85,8 +85,47 @@ volume                | number   | No       | 1                         | Adjust
 onMorePress           | function | No       | undefined                 | Adds an action button at the top right of the player. Use this callback function for your own use. e.g share link
 onFullScreen          | function | No       |                           | Returns the fullscreen status whenever it toggles. Useful for situations like react navigation.
 onTimedMetadata       | function | No       | undefined                 | Callback when the stream receives metadata
+contentAbove          | node     | No       | null                      | This adds content above the video inside a ScrollView
+contentBelow          | node     | No       | null                      | This adds content below the video inside a ScrollView
+scrollBounce          | bool     | No       | false                     | Enables the bounce effect for the ScrollView
+lockPortraitOnFsExit  | bool     | No       | false                     | Keep Portrait mode locked after Exiting from Fullscreen mode
+
+### Referencing
+
+To toggle play/pause manually, you can do it like so:
+
+```jsx
+
+  class MyComponent extends Component {
+
+    play() {
+      this.video.play()
+    }
+
+    pause() {
+      this.video.pause()
+    }
+
+    render() {
+      return (
+        <View>
+          <Video
+            url={url}
+            ref={(ref) => { this.video = ref }}
+          />
+          <Button onPress={() => this.play()}>Play</Button>
+          <Button onPress={() => this.pause()}>Pause</Button>
+        </View>
+      )
+    }
+  }
+```
 
 ## Issues
+
+### Container
+
+Avoid adding alignItems: 'center' to the container, it can cause fullscreen mode to disappear :D
 
 ### React Navigation
 
@@ -98,12 +137,11 @@ If you’re using react-navigation you need to manually hide the headers / tab b
 import React, { Component } from 'react'
 import { StyleSheet, View, ScrollView, Alert, Text } from 'react-native'
 
-import VideoPlayer from 'react-native-af-video-player'
+import Video from 'react-native-af-video-player'
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
+    flex: 1
   }
 })
 
@@ -122,13 +160,6 @@ class ReactNavigationExample extends Component {
     }
   }
 
-  componentDidMount() {
-    this.url = 'https://your-url.com/video.mp4'
-    this.logo = 'https://your-url.com/logo.png'
-    this.placeholder = 'https://your-url.com/placeholder.png'
-    this.title = 'My video title'
-  }
-
   onFullScreen(status) {
     // Set the params to pass in the fullscreen status to navigationOptions
     this.props.navigation.setParams({
@@ -145,14 +176,20 @@ class ReactNavigationExample extends Component {
   }
 
   render() {
+
+    const url = 'https://your-url.com/video.mp4'
+    const logo = 'https://your-url.com/logo.png'
+    const placeholder = 'https://your-url.com/placeholder.png'
+    const title = 'My video title'
+
     return (
       <View style={styles.container}>
-        <VideoPlayer
+        <Video
           autoPlay
-          url={this.url}
-          title={this.title}
-          logo={this.logo}
-          placeholder={this.placeholder}
+          url={url}
+          title={title}
+          logo={logo}
+          placeholder={placeholder}
           onMorePress={() => this.onMorePress()}
           onFullScreen={status => this.onFullScreen(status)}
           fullScreenOnly
@@ -171,13 +208,12 @@ export default ReactNavigationExample
 
 ### http vs https
 
-For your sanity you should use https especially if you’re planning to use this for iOS. Using http will not work due to App Transport Security Settings and may result in AppStore rejection.
+For your sanity you should use https especially if you’re planning to use this for iOS. Using http will not work due to App Transport Security Settings will result in AppStore rejection.
 
 ### Fullscreen videos inside a ScrollView
 
-~~Sadly fullscreen isn’t supported for videos inside a ScrollView, it causes weird layout behaviour by filling the entire ScrollView. However playing videos inline will still work as normal. The best solution is to disable fullscreen by adding inlineOnly prop to remove the fullscreen button.~~
-
-There's now a work around in version 0.1.5 or above. Yes i know it's not pretty however, for those that really need fullscreen support within a ScrollView, you need to hide all content inside the ScrollView during fullscreen mode and avoid adding alignItems:'center' to the View container, alignItems:'stretch' is fine. Feel free to PR or suggest a better/cleaner solution :)
+If you want a video inside a ScrollView. Simply use the props contentAbove and/or contentBelow like so:
+The reason for this is because we need to hide all of it's content due to ScrollView styling challenges when enabling fullscreen mode. We wouldn't want you deal with that headache, instead let this component handle it :)
 
 ### Example
 
@@ -205,23 +241,21 @@ There's now a work around in version 0.1.5 or above. Yes i know it's not pretty 
       const { fullScreen } = this.state
       return (
         <View style={styles.container}>
-          <ScrollView>
-
-            { fullScreen ? null : <Text>Some content above</Text> }
-
-            <VideoPlayer
-              autoPlay
-              url={url}
-              title={title}
-              logo={logo}
-              placeholder={logo}
-              rotateToFullScreen
-              onFullScreen={status => this.onFullScreen(status)}
-            />
-
-            { fullScreen ? null : <Text>Some content below</Text> }
-
-          </ScrollView>
+          <Video
+            autoPlay
+            url={url}
+            title={title}
+            logo={logo}
+            placeholder={logo}
+            rotateToFullScreen
+            onFullScreen={status => this.onFullScreen(status)}
+            contentAbove={
+              <Text>Some content above</Text>
+            }
+            contentBelow={
+              <Text>Some content below</Text>
+            }
+          />
         </View>
       )
     }

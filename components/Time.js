@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { number, string } from 'prop-types'
+import PropTypes from 'prop-types'
 import { View, Text, StyleSheet } from 'react-native'
 
 const backgroundColor = 'transparent'
@@ -15,10 +15,10 @@ const styles = StyleSheet.create({
 })
 
 class Time extends Component {
-  getTime(s) {
+  getTime(time) {
     // format the seconds saved into 00:00:00
-    const secs = s % 60
-    const s2 = (s - secs) / 60
+    const secs = time % 60
+    const s2 = (time - secs) / 60
     const mins = s2 % 60
     const hrs = (s2 - mins) / 60
     const hours = this.addZeros(hrs) > 0 ? `${this.addZeros(hrs)}:` : ''
@@ -39,8 +39,8 @@ class Time extends Component {
 }
 
 Time.propTypes = {
-  time: number,
-  theme: string
+  time: PropTypes.number,
+  theme: PropTypes.string
 }
 
 Time.defaultProps = {

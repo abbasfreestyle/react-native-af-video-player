@@ -209,6 +209,9 @@ class VideoPlayer extends Component {
 
   togglePlay() {
     this.setState({ paused: !this.state.paused }, () => {
+      if (this.props.togglePlayCB) {
+        this.props.togglePlayCB();
+      }
       if (this.props.inlineOnly) return
       if (!this.state.paused) {
         if (this.props.fullScreenOnly && !this.state.fullScreen) {
@@ -382,6 +385,7 @@ VideoPlayer.propTypes = {
   onFullScreen: PropTypes.func,
   onTimedMetadata: PropTypes.func,
   storeMute: PropTypes.func,
+  togglePlayCB: PropTypes.func,
   theme: PropTypes.string,
   placeholder: PropTypes.string,
   rotateToFullScreen: PropTypes.bool,

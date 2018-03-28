@@ -147,7 +147,7 @@ class VideoPlayer extends Component {
       this.setState({ fullScreen: false, landscape: false }, () => {
         this.props.onFullScreen(this.state.fullScreen)
         if (this.props.fullScreenOnly && !this.state.paused) this.togglePlay()
-        Orientation.lockToPortrait()
+        Orientation.lockToPortrait
         setTimeout(() => {
           if (!this.props.lockPortraitOnFsExit) Orientation.unlockAllOrientations()
         }, 1500)

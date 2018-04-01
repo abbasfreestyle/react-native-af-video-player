@@ -20,7 +20,7 @@ A customisable React Native video player for Android and IOS
 ## Install
 
 ```shell
-npm i -s react-native-af-video-player
+npm i -S react-native-af-video-player
 ```
 
 Then link
@@ -158,15 +158,15 @@ class ReactNavigationExample extends Component {
     const header = state.params && (state.params.fullscreen ? undefined : null)
     const tabBarVisible = state.params ? state.params.fullscreen : true
     return {
-      // If you're using stack navigators, you can hide the header bar like so
+      // For stack navigators, you can hide the header bar like so
       header,
-      // If you're using the tab navigators, you can hide the tab bar like so
+      // For the tab navigators, you can hide the tab bar like so
       tabBarVisible,
     }
   }
 
   onFullScreen(status) {
-    // Set the params to pass in the fullscreen status to navigationOptions
+    // Set the params to pass in fullscreen status to navigationOptions
     this.props.navigation.setParams({
       fullscreen: !status
     })
@@ -217,7 +217,7 @@ For your sanity you should use https especially if you’re planning to use this
 
 ### Fullscreen videos inside a ScrollView
 
-If you need the video inside a ScrollView, use our own ScrollView instead:
+If you need the video inside a ScrollView, use our ScrollView instead:
 The reason for this is because we need to hide all of it's content due to ScrollView styling challenges when enabling fullscreen mode. We wouldn't want you deal with that headache, instead let this component handle it :)
 You can also apply styles to the video by wrapping our Container around it. Note: wrapping the video with your own element can cause fullscreen defects.
 
@@ -275,11 +275,11 @@ You can also apply styles to the video by wrapping our Container around it. Note
 
 ## To Do
 
-[ ] Improve scrubber controls for iOS
-[ ] Customise specific components for better theming
-[ ] Option to use custom icons
-[ ] Support Immersive mode for Android
-[x] Provide fullscreen support within a ScrollView
+- [ ] Improve scrubber controls for iOS
+- [ ] Customise specific components for better theming
+- [ ] Option to use custom icons
+- [ ] Support Immersive mode for Android
+- [x] Provide fullscreen support within a ScrollView
 
 ---
 

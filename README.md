@@ -67,13 +67,14 @@ AppRegistry.registerComponent('VideoExample', () => VideoExample)
 
 Prop                  | Type     | Required | Default                   | Description
 --------------------- | -------- | -------- | ------------------------- | -----------
-url                   | string   | Yes      |                           | A URL string is required.
+url                   | string, number | Yes |                          | A URL string (or number for local) is required.
 autoPlay              | bool     | No       | false                     | Autoplays the video as soon as it's loaded
 loop                  | bool     | No       | false                     | Allows the video to continuously loop
 title                 | string   | No       | ''                        | Adds a title of your video at the top of the player
 placeholder           | string   | No       | undefined                 | Adds an image placeholder while it's loading and stopped at the beginning
 logo                  | string   | No       | undefined                 | Adds an image logo at the top left corner of the video
 theme                 | string   | No       | 'white'                   | Adds an optional theme colour to the players controls
+style                 | number, object | No | {}                        | Apply styles directly to the Video player (ignored in fullscreen mode)
 resizeMode            | string   | No       | 'contain'                 | Fills the whole screen at aspect ratio. contain, cover etc
 rotateToFullScreen    | bool     | No       | false                     | Tapping the fullscreen button will rotate the screen. Also rotating the screen will automatically switch to fullscreen mode
 fullScreenOnly        | bool     | No       | false                     | This will play only in fullscreen mode
@@ -85,10 +86,14 @@ volume                | number   | No       | 1                         | Adjust
 onMorePress           | function | No       | undefined                 | Adds an action button at the top right of the player. Use this callback function for your own use. e.g share link
 onFullScreen          | function | No       |                           | Returns the fullscreen status whenever it toggles. Useful for situations like react navigation.
 onTimedMetadata       | function | No       | undefined                 | Callback when the stream receives metadata
-contentAbove          | node     | No       | null                      | This adds content above the video inside a ScrollView
-contentBelow          | node     | No       | null                      | This adds content below the video inside a ScrollView
 scrollBounce          | bool     | No       | false                     | Enables the bounce effect for the ScrollView
 lockPortraitOnFsExit  | bool     | No       | false                     | Keep Portrait mode locked after Exiting from Fullscreen mode
+lockRatio             | number   | No       | undefined                 | Force a specific ratio to the Video player. e.g. lockRatio={16 / 9}
+onLoad                | function | No       | (data) => {}              | Returns data once video is loaded
+onProgress            | function | No       | (progress) => {}          | Returns progress data
+onEnd                 | function | No       | () => {}                  | Invoked when video finishes playing  
+onError               | function | No       | (error) => {}             | Returns an error message argument
+error                 | boolean, object | No | true                     | Pass in an object to Alert. See https://facebook.github.io/react-native/docs/alert.html
 
 ### Referencing
 
@@ -212,35 +217,45 @@ For your sanity you should use https especially if you’re planning to use this
 
 ### Fullscreen videos inside a ScrollView
 
-If you want a video inside a ScrollView. Simply use the props contentAbove and/or contentBelow like so:
+If you need the video inside a ScrollView, use our own ScrollView instead:
 The reason for this is because we need to hide all of it's content due to ScrollView styling challenges when enabling fullscreen mode. We wouldn't want you deal with that headache, instead let this component handle it :)
+You can also apply styles to the video by wrapping our Container around it. Note: wrapping the video with your own element can cause fullscreen defects.
 
 ### Example
 
 ```jsx
 
+  import Video, { ScrollView, Container } from 'react-native-af-video-player'
+
   const styles = StyleSheet.create({
     container: {
       flex: 1
+    },
+    videoContainer: {
+      margin: 10
     }
   })
 
-  class VideoInScrollView extends Component {
-    constructor(){
-      super()
-      this.state = {
-        fullScreen: false
-      }
-    }
-
-    onFullScreen(fullScreen) {
-      this.setState({ fullScreen })
-    }
+  class VideoInScrollView extends React.Component {
 
     render() {
-      const { fullScreen } = this.state
       return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
+
+          <Text>Some content above</Text>
+
+          <Container style={styles.videoContainer}>
+            <Video
+              autoPlay
+              url={url}
+              title={title}
+              logo={logo}
+              placeholder={logo}
+              rotateToFullScreen
+            />
+          </Container>
+
+          {/* Or use without the Container */}
           <Video
             autoPlay
             url={url}
@@ -248,15 +263,11 @@ The reason for this is because we need to hide all of it's content due to Scroll
             logo={logo}
             placeholder={logo}
             rotateToFullScreen
-            onFullScreen={status => this.onFullScreen(status)}
-            contentAbove={
-              <Text>Some content above</Text>
-            }
-            contentBelow={
-              <Text>Some content below</Text>
-            }
           />
-        </View>
+
+          <Text>Some content below</Text>
+
+        </ScrollView>
       )
     }
   }
@@ -264,9 +275,11 @@ The reason for this is because we need to hide all of it's content due to Scroll
 
 ## To Do
 
-* Improve scrubber controls for iOS
-* Customise specific components for better theming
-* ~~Provide fullscreen support within a ScrollView~~
+[ ] Improve scrubber controls for iOS
+[ ] Customise specific components for better theming
+[ ] Option to use custom icons
+[ ] Support Immersive mode for Android
+[x] Provide fullscreen support within a ScrollView
 
 ---
 

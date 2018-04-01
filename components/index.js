@@ -1,3 +1,4 @@
+import Video from './Video'
 export * from './PlayButton'
 export * from './Controls'
 export * from './ControlBar'
@@ -7,6 +8,7 @@ export * from './Loading'
 export * from './TopBar'
 export * from './ToggleIcon'
 export * from './ProgressBar'
-export * from './VideoPlayer'
+export * from './ScrollView'
+export * from './Container'
 
-export { default as Video } from './VideoScrollHandler'
+export default Video

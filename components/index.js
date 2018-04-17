@@ -10,5 +10,6 @@ export * from './ToggleIcon'
 export * from './ProgressBar'
 export * from './ScrollView'
 export * from './Container'
+export * from './FlatList'
 
 export default Video

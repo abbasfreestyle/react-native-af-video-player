@@ -1,4 +1,4 @@
-## react-native-af-video-player
+# react-native-af-video-player
 
 [![npm version](http://img.shields.io/npm/v/react-native-af-video-player.svg?style=flat-square)](https://npmjs.org/package/react-native-af-video-player "View this project on npm")
 [![npm downloads](http://img.shields.io/npm/dm/react-native-af-video-player.svg?style=flat-square)](https://npmjs.org/package/react-native-af-video-player "View this project on npm")
@@ -16,6 +16,7 @@ A customisable React Native video player for Android and IOS
 * Works with react-navigation
 * Optional action button for custom use
 * Add your own logo and/or placeholder
+* Customise theme
 
 ## Install
 
@@ -93,18 +94,35 @@ onLoad                | function | No       | (data) => {}              | Return
 onProgress            | function | No       | (progress) => {}          | Returns progress data
 onEnd                 | function | No       | () => {}                  | Invoked when video finishes playing  
 onError               | function | No       | (error) => {}             | Returns an error message argument
+onPlay                | function | No       | (playing) => {}           | Returns a boolean during playback
 error                 | boolean, object | No | true                     | Pass in an object to Alert. See https://facebook.github.io/react-native/docs/alert.html
+theme                 | object   | No       | all white                 | Pass in an object to theme. (See example below to see the full list of available settings)
 
-### Referencing
+## Referencing
 
 To toggle play/pause manually, you can do it like so:
 
 ```jsx
 
+  const theme = {
+    title: '#FFF',
+    more: '#446984',
+    center: '#7B8F99',
+    fullscreen: '#446984',
+    volume: '#A5957B',
+    scrubberThumb: '#234458',
+    scrubberBar: '#DBD5C7',
+    seconds: '#DBD5C7',
+    duration: '#DBD5C7',
+    progress: '#446984',
+    loading: '#DBD5C7'
+  }
+
   class MyComponent extends Component {
 
     play() {
       this.video.play()
+      this.video.seekTo(25)
     }
 
     pause() {
@@ -117,6 +135,7 @@ To toggle play/pause manually, you can do it like so:
           <Video
             url={url}
             ref={(ref) => { this.video = ref }}
+            theme={theme}
           />
           <Button onPress={() => this.play()}>Play</Button>
           <Button onPress={() => this.pause()}>Pause</Button>
@@ -126,17 +145,17 @@ To toggle play/pause manually, you can do it like so:
   }
 ```
 
-## Issues
+# Issues
 
-### Container
+## Container
 
 Avoid adding alignItems: 'center' to the container, it can cause fullscreen mode to disappear :D
 
-### React Navigation
+## React Navigation
 
 If you’re using react-navigation you need to manually hide the headers / tab bars to take advantage of fullscreen videos.
 
-### Example
+## Example
 
 ```jsx
 import React, { Component } from 'react'
@@ -211,17 +230,18 @@ export default ReactNavigationExample
 
 ```
 
-### http vs https
+## http vs https
 
 For your sanity you should use https especially if you’re planning to use this for iOS. Using http will not work due to App Transport Security Settings will result in AppStore rejection.
 
-### Fullscreen videos inside a ScrollView
+## Fullscreen videos inside a ScrollView
 
 If you need the video inside a ScrollView, use our ScrollView instead:
 The reason for this is because we need to hide all of it's content due to ScrollView styling challenges when enabling fullscreen mode. We wouldn't want you deal with that headache, instead let this component handle it :)
 You can also apply styles to the video by wrapping our Container around it. Note: wrapping the video with your own element can cause fullscreen defects.
+Also having multiple videos in a ScrollView isn't perfect, so use at your own risk.
 
-### Example
+## Example
 
 ```jsx
 
@@ -273,13 +293,15 @@ You can also apply styles to the video by wrapping our Container around it. Note
   }
 ```
 
-## To Do
+# To Do
 
 - [ ] Improve scrubber controls for iOS
-- [ ] Customise specific components for better theming
 - [ ] Option to use custom icons
 - [ ] Support Immersive mode for Android
+- [ ] improve multiple videos fullscreen support within a ScrollView
+- [ ] investigate subtitle support
 - [x] Provide fullscreen support within a ScrollView
+- [x] Customise specific components for better theming
 
 ---
 

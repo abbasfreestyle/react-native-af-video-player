@@ -10,6 +10,7 @@ import {
 
 import LinearGradient from 'react-native-linear-gradient'
 import { ToggleIcon } from './'
+import { checkSource } from './utils'
 
 const backgroundColor = 'transparent'
 
@@ -48,9 +49,9 @@ const TopBar = (props) => {
   return (
     <LinearGradient colors={['rgba(0,0,0,0.75)', 'rgba(0,0,0,0)']} style={styles.container}>
       <View style={styles.row}>
-        { logo && <Image style={styles.logo} resizeMode="contain" source={{ uri: logo }} />}
+        { logo && <Image style={styles.logo} resizeMode="contain" {...checkSource(logo)} />}
         <Text
-          style={[styles.title, { color: theme }]}
+          style={[styles.title, { color: theme.title }]}
           numberOfLines={1}
           ellipsizeMode="tail"
         >
@@ -63,7 +64,7 @@ const TopBar = (props) => {
             paddingRight
             iconOff="more-horiz"
             iconOn="more-horiz"
-            theme={theme}
+            theme={theme.more}
             size={25}
           />
         }
@@ -73,19 +74,11 @@ const TopBar = (props) => {
 }
 
 TopBar.propTypes = {
-  title: PropTypes.string,
-  logo: PropTypes.string,
-  more: PropTypes.bool,
-  onMorePress: PropTypes.func,
-  theme: PropTypes.string
-}
-
-TopBar.defaultProps = {
-  title: '',
-  logo: undefined,
-  more: false,
-  onMorePress: undefined,
-  theme: null
+  title: PropTypes.string.isRequired,
+  logo: PropTypes.string.isRequired,
+  more: PropTypes.bool.isRequired,
+  onMorePress: PropTypes.func.isRequired,
+  theme: PropTypes.object.isRequired
 }
 
 export { TopBar }

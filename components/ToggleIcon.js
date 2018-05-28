@@ -50,7 +50,7 @@ ToggleIcon.propTypes = {
   isOn: PropTypes.bool,
   iconOff: PropTypes.string.isRequired,
   iconOn: PropTypes.string.isRequired,
-  theme: PropTypes.string,
+  theme: PropTypes.string.isRequired,
   size: PropTypes.number,
   paddingRight: PropTypes.bool,
   paddingLeft: PropTypes.bool
@@ -59,7 +59,6 @@ ToggleIcon.propTypes = {
 ToggleIcon.defaultProps = {
   onPress: undefined,
   isOn: false,
-  theme: null,
   size: 25,
   paddingRight: false,
   paddingLeft: false

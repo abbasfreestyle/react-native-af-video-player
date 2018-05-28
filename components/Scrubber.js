@@ -30,10 +30,10 @@ const Scrubber = (props) => {
           onValueChange={val => props.onSeek(val)}
           onSlidingComplete={val => props.onSeekRelease(val)}
           value={progress === Number.POSITIVE_INFINITY ? 0 : progress}
-          thumbTintColor={theme}
+          thumbTintColor={theme.scrubberThumb}
           thumbStyle={thumbStyle}
           trackStyle={trackStyle}
-          minimumTrackTintColor={theme}
+          minimumTrackTintColor={theme.scrubberBar}
           maximumTrackTintColor={trackColor}
         />
       :
@@ -42,8 +42,8 @@ const Scrubber = (props) => {
           onValueChange={val => props.onSeek(val)}
           onSlidingComplete={val => props.onSeekRelease(val)}
           value={progress}
-          thumbTintColor={theme}
-          minimumTrackTintColor={theme}
+          thumbTintColor={theme.scrubberThumb}
+          minimumTrackTintColor={theme.scrubberBar}
           maximumTrackTintColor={trackColor}
         />
       }
@@ -52,17 +52,10 @@ const Scrubber = (props) => {
 }
 
 Scrubber.propTypes = {
-  onSeek: PropTypes.func,
-  onSeekRelease: PropTypes.func,
-  progress: PropTypes.number,
-  theme: PropTypes.string
-}
-
-Scrubber.defaultProps = {
-  onSeek: undefined,
-  onSeekRelease: undefined,
-  progress: 0,
-  theme: null
+  onSeek: PropTypes.func.isRequired,
+  onSeekRelease: PropTypes.func.isRequired,
+  progress: PropTypes.number.isRequired,
+  theme: PropTypes.object.isRequired
 }
 
 export { Scrubber }

@@ -81,13 +81,12 @@ class Loading extends Component {
 }
 
 Loading.propTypes = {
-  loading: PropTypes.bool,
-  theme: PropTypes.string
+  theme: PropTypes.string.isRequired,
+  loading: PropTypes.bool
 }
 
 Loading.defaultProps = {
-  loading: true,
-  theme: null
+  loading: true
 }
 
 export { Loading }

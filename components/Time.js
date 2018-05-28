@@ -39,13 +39,8 @@ class Time extends Component {
 }
 
 Time.propTypes = {
-  time: PropTypes.number,
-  theme: PropTypes.string
-}
-
-Time.defaultProps = {
-  time: 0,
-  theme: null
+  time: PropTypes.number.isRequired,
+  theme: PropTypes.string.isRequired
 }
 
 export { Time }

@@ -99,7 +99,7 @@ class Controls extends Component {
     return (
       <Touchable style={styles.container} onPress={() => this.showControls()}>
         <Animated.View style={[styles.container, { paddingBottom: this.progressbar }]}>
-          <ProgressBar theme={this.props.theme} progress={this.props.progress} />
+          <ProgressBar theme={this.props.theme.progress} progress={this.props.progress} />
         </Animated.View>
       </Touchable>
     )
@@ -108,7 +108,7 @@ class Controls extends Component {
   loading() {
     return (
       <View style={styles.container}>
-        <Loading theme={this.props.theme} />
+        <Loading theme={this.props.theme.loading} />
       </View>
     )
   }
@@ -130,6 +130,8 @@ class Controls extends Component {
       inlineOnly
     } = this.props
 
+    const { center, ...controlBar } = theme
+
     return (
       <Touchable onPress={() => this.hideControls()}>
         <Animated.View style={[styles.container, { opacity: this.animControls }]}>
@@ -138,14 +140,14 @@ class Controls extends Component {
             logo={logo}
             more={more}
             onMorePress={() => onMorePress()}
-            theme={theme}
+            theme={{ title: theme.title, more: theme.more }}
           />
           <Animated.View style={[styles.flex, { transform: [{ scale: this.scale }] }]}>
             <PlayButton
               onPress={() => this.props.togglePlay()}
               paused={paused}
               loading={loading}
-              theme={theme}
+              theme={center}
             />
           </Animated.View>
           <ControlBar
@@ -160,7 +162,7 @@ class Controls extends Component {
             progress={progress}
             currentTime={currentTime}
             duration={duration}
-            theme={theme}
+            theme={controlBar}
             inlineOnly={inlineOnly}
           />
         </Animated.View>
@@ -178,45 +180,24 @@ class Controls extends Component {
 }
 
 Controls.propTypes = {
-  toggleFS: PropTypes.func,
-  toggleMute: PropTypes.func,
-  togglePlay: PropTypes.func,
-  onSeek: PropTypes.func,
-  onSeekRelease: PropTypes.func,
-  onMorePress: PropTypes.func,
-  paused: PropTypes.bool,
-  inlineOnly: PropTypes.bool,
-  fullscreen: PropTypes.bool,
-  muted: PropTypes.bool,
-  more: PropTypes.bool,
-  loading: PropTypes.bool,
-  progress: PropTypes.number,
-  currentTime: PropTypes.number,
-  duration: PropTypes.number,
-  title: PropTypes.string,
-  logo: PropTypes.string,
-  theme: PropTypes.string
-}
-
-Controls.defaultProps = {
-  toggleFS: undefined,
-  toggleMute: undefined,
-  togglePlay: undefined,
-  onMorePress: undefined,
-  onSeek: undefined,
-  onSeekRelease: undefined,
-  paused: false,
-  more: false,
-  inlineOnly: false,
-  fullscreen: false,
-  muted: false,
-  loading: true,
-  progress: 0,
-  currentTime: 0,
-  duration: 0,
-  title: '',
-  logo: undefined,
-  theme: null
+  toggleFS: PropTypes.func.isRequired,
+  toggleMute: PropTypes.func.isRequired,
+  togglePlay: PropTypes.func.isRequired,
+  onSeek: PropTypes.func.isRequired,
+  onSeekRelease: PropTypes.func.isRequired,
+  onMorePress: PropTypes.func.isRequired,
+  paused: PropTypes.bool.isRequired,
+  inlineOnly: PropTypes.bool.isRequired,
+  fullscreen: PropTypes.bool.isRequired,
+  muted: PropTypes.bool.isRequired,
+  more: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+  progress: PropTypes.number.isRequired,
+  currentTime: PropTypes.number.isRequired,
+  duration: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  logo: PropTypes.string.isRequired,
+  theme: PropTypes.object.isRequired
 }
 
 export { Controls }

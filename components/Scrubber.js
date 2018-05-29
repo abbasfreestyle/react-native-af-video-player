@@ -15,32 +15,38 @@ const styles = StyleSheet.create({
   },
   slider: {
     marginHorizontal: -10
+  },
+  thumbStyle: {
+    width: 15,
+    height: 15
+  },
+  trackStyle: {
+    borderRadius: 1
   }
 })
 
 const Scrubber = (props) => {
   const trackColor = 'rgba(255,255,255,0.5)'
-  const { progress, theme } = props
-  const thumbStyle = { width: 15, height: 15 }
-  const trackStyle = { borderRadius: 1 }
+  const { progress, theme, onSeek, onSeekRelease } = props
   return (
     <View style={styles.container}>
       { Platform.OS === 'ios' ?
         <Slider
-          onValueChange={val => props.onSeek(val)}
-          onSlidingComplete={val => props.onSeekRelease(val)}
+          onValueChange={val => onSeek(val)}
+          onSlidingComplete={val => onSeekRelease(val)}
           value={progress === Number.POSITIVE_INFINITY ? 0 : progress}
           thumbTintColor={theme.scrubberThumb}
-          thumbStyle={thumbStyle}
-          trackStyle={trackStyle}
+          thumbStyle={styles.thumbStyle}
+          trackStyle={styles.trackStyle}
           minimumTrackTintColor={theme.scrubberBar}
           maximumTrackTintColor={trackColor}
+          trackClickable
         />
       :
         <RNSlider
           style={styles.slider}
-          onValueChange={val => props.onSeek(val)}
-          onSlidingComplete={val => props.onSeekRelease(val)}
+          onValueChange={val => onSeek(val)}
+          onSlidingComplete={val => onSeekRelease(val)}
           value={progress}
           thumbTintColor={theme.scrubberThumb}
           minimumTrackTintColor={theme.scrubberBar}

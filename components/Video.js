@@ -31,6 +31,8 @@ const styles = StyleSheet.create({
   },
   image: {
     ...StyleSheet.absoluteFillObject,
+    width: undefined,
+    height: undefined,
     zIndex: 99
   }
 })

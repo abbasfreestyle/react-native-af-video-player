@@ -85,7 +85,7 @@ playWhenInactive      | bool     | No       | false                     | [iOS] 
 rate                  | number   | No       | 1                         | Adjusts the speed of the video. 0 = stopped, 1.0 = normal
 volume                | number   | No       | 1                         | Adjusts the volume of the video. 0 = mute, 1.0 = full volume
 onMorePress           | function | No       | undefined                 | Adds an action button at the top right of the player. Use this callback function for your own use. e.g share link
-onFullScreen          | function | No       |                           | Returns the fullscreen status whenever it toggles. Useful for situations like react navigation.
+onFullScreen          | function | No       | (value) => {}             | Returns the fullscreen status whenever it toggles. Useful for situations like react navigation.
 onTimedMetadata       | function | No       | undefined                 | Callback when the stream receives metadata
 scrollBounce          | bool     | No       | false                     | Enables the bounce effect for the ScrollView
 lockPortraitOnFsExit  | bool     | No       | false                     | Keep Portrait mode locked after Exiting from Fullscreen mode
@@ -295,11 +295,11 @@ Also having multiple videos in a ScrollView isn't perfect, so use at your own ri
 
 # To Do
 
-- [ ] Improve scrubber controls for iOS
 - [ ] Option to use custom icons
 - [ ] Support Immersive mode for Android
 - [ ] improve multiple videos fullscreen support within a ScrollView
 - [ ] investigate subtitle support
+- [x] Improve scrubber controls for iOS
 - [x] Provide fullscreen support within a ScrollView
 - [x] Customise specific components for better theming
 

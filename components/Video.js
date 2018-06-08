@@ -510,7 +510,7 @@ Video.defaultProps = {
   rate: 1,
   volume: 1,
   lockRatio: undefined,
-  logo: undefined,
+  logo: '',
   title: '',
   theme: defaultTheme,
   resizeMode: 'contain'

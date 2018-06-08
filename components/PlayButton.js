@@ -33,15 +33,9 @@ const PlayButton = props => (
 )
 
 PlayButton.propTypes = {
-  onPress: PropTypes.func,
-  paused: PropTypes.bool,
-  theme: PropTypes.string
-}
-
-PlayButton.defaultProps = {
-  onPress: undefined,
-  paused: false,
-  theme: null
+  onPress: PropTypes.func.isRequired,
+  paused: PropTypes.bool.isRequired,
+  theme: PropTypes.string.isRequired
 }
 
 export { PlayButton }

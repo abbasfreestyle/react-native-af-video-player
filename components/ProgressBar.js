@@ -48,11 +48,7 @@ class ProgressBar extends Component {
 
 ProgressBar.propTypes = {
   progress: PropTypes.number.isRequired,
-  theme: PropTypes.string
-}
-
-ProgressBar.defaultProps = {
-  theme: 'white'
+  theme: PropTypes.string.isRequired
 }
 
 export { ProgressBar }

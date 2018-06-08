@@ -28,23 +28,23 @@ const ControlBar = (props) => {
 
   return (
     <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.75)']} style={styles.container}>
-      <Time time={currentTime} theme={theme} />
+      <Time time={currentTime} theme={theme.seconds} />
       <Scrubber
         onSeek={pos => onSeek(pos)}
         onSeekRelease={pos => onSeekRelease(pos)}
         progress={progress}
-        theme={theme}
+        theme={{ scrubberThumb: theme.scrubberThumb, scrubberBar: theme.scrubberBar }}
       />
       <ToggleIcon
         paddingLeft
-        theme={theme}
+        theme={theme.volume}
         onPress={() => props.toggleMute()}
         isOn={muted}
         iconOff="volume-up"
         iconOn="volume-mute"
         size={20}
       />
-      <Time time={duration} theme={theme} />
+      <Time time={duration} theme={theme.duration} />
       { !inlineOnly &&
       <ToggleIcon
         paddingRight
@@ -52,38 +52,24 @@ const ControlBar = (props) => {
         iconOff="fullscreen"
         iconOn="fullscreen-exit"
         isOn={fullscreen}
-        theme={theme}
+        theme={theme.fullscreen}
       />}
     </LinearGradient>
   )
 }
 
 ControlBar.propTypes = {
-  toggleFS: PropTypes.func,
-  toggleMute: PropTypes.func,
-  onSeek: PropTypes.func,
-  onSeekRelease: PropTypes.func,
-  fullscreen: PropTypes.bool,
-  muted: PropTypes.bool,
-  inlineOnly: PropTypes.bool,
-  progress: PropTypes.number,
-  currentTime: PropTypes.number,
-  duration: PropTypes.number,
-  theme: PropTypes.string
-}
-
-ControlBar.defaultProps = {
-  toggleFS: undefined,
-  toggleMute: undefined,
-  onSeek: undefined,
-  onSeekRelease: undefined,
-  inlineOnly: false,
-  fullscreen: false,
-  muted: false,
-  progress: 0,
-  currentTime: 0,
-  duration: 0,
-  theme: null
+  toggleFS: PropTypes.func.isRequired,
+  toggleMute: PropTypes.func.isRequired,
+  onSeek: PropTypes.func.isRequired,
+  onSeekRelease: PropTypes.func.isRequired,
+  fullscreen: PropTypes.bool.isRequired,
+  muted: PropTypes.bool.isRequired,
+  inlineOnly: PropTypes.bool.isRequired,
+  progress: PropTypes.number.isRequired,
+  currentTime: PropTypes.number.isRequired,
+  duration: PropTypes.number.isRequired,
+  theme: PropTypes.object.isRequired
 }
 
 export { ControlBar }

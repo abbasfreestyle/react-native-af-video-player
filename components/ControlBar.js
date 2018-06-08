@@ -11,8 +11,10 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'flex-end'
   }
-})
+});
 
+// TODO: remove toggleMute icon
+// TODO: implement streaming quality switch
 const ControlBar = (props) => {
   const {
     onSeek,
@@ -24,7 +26,7 @@ const ControlBar = (props) => {
     fullscreen,
     theme,
     inlineOnly
-  } = props
+  } = props;
 
   return (
     <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.75)']} style={styles.container}>
@@ -56,7 +58,7 @@ const ControlBar = (props) => {
       />}
     </LinearGradient>
   )
-}
+};
 
 ControlBar.propTypes = {
   toggleFS: PropTypes.func.isRequired,
@@ -70,6 +72,6 @@ ControlBar.propTypes = {
   currentTime: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,
   theme: PropTypes.object.isRequired
-}
+};
 
 export { ControlBar }

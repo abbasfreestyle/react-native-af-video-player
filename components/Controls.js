@@ -22,19 +22,19 @@ const styles = StyleSheet.create({
   flex: {
     flex: 1
   }
-})
+});
 
 class Controls extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       hideControls: false,
       seconds: 0,
       seeking: false
-    }
-    this.animControls = new Animated.Value(1)
-    this.scale = new Animated.Value(1)
-    this.progressbar = new Animated.Value(2)
+    };
+    this.animControls = new Animated.Value(1);
+    this.scale = new Animated.Value(1);
+    this.progressbar = new Animated.Value(2);
   }
 
   componentDidMount() {
@@ -46,14 +46,14 @@ class Controls extends Component {
   }
 
   onSeek(pos) {
-    this.props.onSeek(pos)
+    this.props.onSeek(pos);
     if (!this.state.seeking) {
       this.setState({ seeking: true })
     }
   }
 
   onSeekRelease(pos) {
-    this.props.onSeekRelease(pos)
+    this.props.onSeekRelease(pos);
     this.setState({ seeking: false, seconds: 0 })
   }
 
@@ -62,15 +62,15 @@ class Controls extends Component {
       switch (true) {
         case this.state.seeking:
           // do nothing
-          break
+          break ;
         case this.props.paused:
           if (this.state.seconds > 0) this.setState({ seconds: 0 })
-          break
+          break;
         case this.state.hideControls:
-          break
+          break;
         case this.state.seconds > 3:
-          this.hideControls()
-          break
+          this.hideControls();
+          break;
         default:
           this.setState({ seconds: this.state.seconds + 1 })
       }
@@ -119,7 +119,6 @@ class Controls extends Component {
       fullscreen,
       muted,
       loading,
-      logo,
       more,
       onMorePress,
       title,
@@ -130,17 +129,18 @@ class Controls extends Component {
       inlineOnly
     } = this.props
 
-    const { center, ...controlBar } = theme
+    const { center, ...controlBar } = theme;
 
     return (
       <Touchable onPress={() => this.hideControls()}>
         <Animated.View style={[styles.container, { opacity: this.animControls }]}>
           <TopBar
             title={title}
-            logo={logo}
             more={more}
             onMorePress={() => onMorePress()}
-            theme={{ title: theme.title, more: theme.more }}
+            theme={{ title: theme.title, more: theme.more, fullscreen: theme.fullscreen }}
+            toggleFS={() => this.props.toggleFS()}
+            fullscreen={fullscreen}
           />
           <Animated.View style={[styles.flex, { transform: [{ scale: this.scale }] }]}>
             <PlayButton
@@ -196,8 +196,7 @@ Controls.propTypes = {
   currentTime: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  logo: PropTypes.string.isRequired,
   theme: PropTypes.object.isRequired
-}
+};
 
 export { Controls }

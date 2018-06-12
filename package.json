@@ -1,6 +1,6 @@
 {
   "name": "react-native-af-video-player",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "dependencies": {
     "react-native-keep-awake": "^2.0.6",
     "react-native-linear-gradient": "^2.4.0",

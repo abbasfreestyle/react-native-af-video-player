@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import Icons from 'react-native-vector-icons/MaterialIcons'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import Icons from 'react-native-vector-icons/MaterialIcons';
 
-const backgroundColor = 'transparent'
+const backgroundColor = 'transparent';
 
 const styles = StyleSheet.create({
   btnContainer: {
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     backgroundColor,
     justifyContent: 'center'
   }
-})
+});
 
 const ToggleIcon = (props) => {
   const {
@@ -22,12 +22,12 @@ const ToggleIcon = (props) => {
     iconOff,
     theme,
     size
-  } = props
+  } = props;
 
   const padding = {
     paddingLeft: paddingLeft ? 10 : 0,
     paddingRight: paddingRight ? 5 : 0
-  }
+  };
 
   return (
     <View style={styles.btnContainer}>
@@ -43,7 +43,7 @@ const ToggleIcon = (props) => {
       </TouchableOpacity>
     </View>
   )
-}
+};
 
 ToggleIcon.propTypes = {
   onPress: PropTypes.func,
@@ -54,7 +54,7 @@ ToggleIcon.propTypes = {
   size: PropTypes.number,
   paddingRight: PropTypes.bool,
   paddingLeft: PropTypes.bool
-}
+};
 
 ToggleIcon.defaultProps = {
   onPress: undefined,
@@ -62,6 +62,6 @@ ToggleIcon.defaultProps = {
   size: 25,
   paddingRight: false,
   paddingLeft: false
-}
+};
 
-export { ToggleIcon }
+export { ToggleIcon };

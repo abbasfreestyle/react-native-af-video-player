@@ -44,7 +44,7 @@ const TopBar = (props) => {
     <LinearGradient colors={['rgba(0,0,0,0.75)', 'rgba(0,0,0,0)']} style={styles.container}>
       <View style={styles.row}>
         <ToggleIcon
-          onPress={() => props.toggleFs()}
+          onPress={() => props.toggleFS()}
           iconOff="fullscreen"
           iconOn="fullscreen-exit"
           isOn={fullscreen}
@@ -62,8 +62,8 @@ const TopBar = (props) => {
             style={styles.more}
             onPress={() => onMorePress()}
             paddingRight
-            iconOff="more-horiz"
-            iconOn="more-horiz"
+            iconOff="subtitles"
+            iconOn="subtitles"
             theme={theme.more}
             size={25}
           />

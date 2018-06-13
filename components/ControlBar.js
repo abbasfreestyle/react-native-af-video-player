@@ -13,8 +13,6 @@ const styles = StyleSheet.create({
   }
 });
 
-// TODO: remove toggleMute icon
-// TODO: implement streaming quality switch
 const ControlBar = (props) => {
   const {
     onSeek,
@@ -23,9 +21,10 @@ const ControlBar = (props) => {
     currentTime,
     duration,
     muted,
-    fullscreen,
+    showMute,
     theme,
-    inlineOnly
+    settings,
+    onSettingsPress
   } = props;
 
   return (
@@ -37,6 +36,7 @@ const ControlBar = (props) => {
         progress={progress}
         theme={{ scrubberThumb: theme.scrubberThumb, scrubberBar: theme.scrubberBar }}
       />
+      { showMute &&
       <ToggleIcon
         paddingLeft
         theme={theme.volume}
@@ -45,33 +45,35 @@ const ControlBar = (props) => {
         iconOff="volume-up"
         iconOn="volume-mute"
         size={20}
-      />
+      />}
       <Time time={duration} theme={theme.duration} />
-      { !inlineOnly &&
+      { settings &&
       <ToggleIcon
+        style={styles.settings}
+        onPress={() => onSettingsPress()}
         paddingRight
-        onPress={() => props.toggleFS()}
-        iconOff="fullscreen"
-        iconOn="fullscreen-exit"
-        isOn={fullscreen}
-        theme={theme.fullscreen}
+        iconOff="settings"
+        iconOn="settings"
+        theme={theme.settings}
+        size={25}
       />}
     </LinearGradient>
   )
 };
 
 ControlBar.propTypes = {
-  toggleFS: PropTypes.func.isRequired,
   toggleMute: PropTypes.func.isRequired,
+  showMute: PropTypes.bool.isRequired,
   onSeek: PropTypes.func.isRequired,
   onSeekRelease: PropTypes.func.isRequired,
-  fullscreen: PropTypes.bool.isRequired,
   muted: PropTypes.bool.isRequired,
   inlineOnly: PropTypes.bool.isRequired,
   progress: PropTypes.number.isRequired,
   currentTime: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
+  settings: PropTypes.bool.isRequired,
+  onSettingsPress: PropTypes.func.isRequired
 };
 
 export { ControlBar }

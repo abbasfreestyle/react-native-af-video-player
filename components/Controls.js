@@ -126,8 +126,10 @@ class Controls extends Component {
       currentTime,
       duration,
       theme,
-      inlineOnly
-    } = this.props
+      inlineOnly,
+      settings,
+      onSettingsPress
+    } = this.props;
 
     const { center, ...controlBar } = theme;
 
@@ -151,7 +153,7 @@ class Controls extends Component {
             />
           </Animated.View>
           <ControlBar
-            toggleFS={() => this.props.toggleFS()}
+            showMute={false}
             toggleMute={() => this.props.toggleMute()}
             togglePlay={() => this.props.togglePlay()}
             muted={muted}
@@ -164,6 +166,8 @@ class Controls extends Component {
             duration={duration}
             theme={controlBar}
             inlineOnly={inlineOnly}
+            settings={settings}
+            onSettingsPress={() => onSettingsPress()}
           />
         </Animated.View>
       </Touchable>
@@ -196,7 +200,9 @@ Controls.propTypes = {
   currentTime: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
+  settings: PropTypes.bool.isRequired,
+  onSettingsPress: PropTypes.func.isRequired
 };
 
 export { Controls }

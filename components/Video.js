@@ -240,7 +240,7 @@ class Video extends Component {
           const height = orientation !== initialOrient ?
             Win.width : Win.height
             this.props.onFullScreen(this.state.fullScreen)
-            if (this.props.rotateToFullScreen) Orientation.lockToLandscape()
+            // if (this.props.rotateToFullScreen) Orientation.lockToLandscape()
             this.animToFullscreen(height)
         } else {
           if (this.props.fullScreenOnly) {
@@ -312,7 +312,7 @@ class Video extends Component {
         style={[styles.background, fullScreen ? styles.fullScreen : inline]}
       >
         <Text style={textStyle}>Video loading failed</Text>
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity style={styles.btn} onPress>
           <Text style={textStyle}>Click to try again</Text>
         </TouchableOpacity>
       </Animated.View>

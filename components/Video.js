@@ -37,8 +37,7 @@ const styles = StyleSheet.create({
     zIndex: 99
   },
   btn: {
-    padding: 3,
-    borderRadius: 5,
+    borderRadius: 10,
     borderColor: "white",
     borderStyle: "solid",
     borderWidth: 2,

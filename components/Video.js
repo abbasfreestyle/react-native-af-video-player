@@ -34,6 +34,13 @@ const styles = StyleSheet.create({
     width: undefined,
     height: undefined,
     zIndex: 99
+  },
+  btn: {
+    padding: 3,
+    borderRadius: 5,
+    borderColor: "white",
+    borderStyle: "solid",
+    borderWidth: 2,
   }
 })
 
@@ -169,22 +176,7 @@ class Video extends Component {
 
   onError(msg) {
     this.props.onError(msg)
-    const { error } = this.props
-    this.setState({ renderError: true }, () => {
-      let type
-      switch (true) {
-        case error === false:
-          type = error
-          break
-        case typeof error === 'object':
-          type = Alert.alert(error.title, error.message, error.button, error.options)
-          break
-        default:
-          type = Alert.alert('Oops!', 'There was an error playing this video, please try again later.', [{ text: 'Close' }])
-          break
-      }
-      return type
-    })
+    this.setState({ renderError: true });
   }
 
   BackHandler() {
@@ -314,13 +306,10 @@ class Video extends Component {
       <Animated.View
         style={[styles.background, fullScreen ? styles.fullScreen : inline]}
       >
-        <Text style={textStyle}>Retry</Text>
-        <Icons
-          name="replay"
-          size={60}
-          color={this.props.theme}
-          onPress={() => this.setState({ renderError: false })}
-        />
+        <Text style={textStyle}>Video loading failed</Text>
+        <TouchableOpacity style={styles.btn}>
+          <Text style={textStyle}>Click to try again</Text>
+        </TouchableOpacity>
       </Animated.View>
     )
   }

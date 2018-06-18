@@ -91,6 +91,11 @@ class Video extends Component {
 
   onLoadStart() {
     this.setState({ paused: true, loading: true })
+    setTimeout(() => {
+      if(this.state.loading) {
+        this.renderError("Loading failed");
+      }
+    }, 30000)
   }
 
   onLoad(data) {

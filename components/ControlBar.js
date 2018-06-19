@@ -48,6 +48,7 @@ const ControlBar = (props) => {
       <Time time={duration} theme={theme.duration} />
       { !inlineOnly &&
       <ToggleIcon
+        name="screen"
         paddingRight
         onPress={() => props.toggleFS()}
         iconOff="fullscreen"

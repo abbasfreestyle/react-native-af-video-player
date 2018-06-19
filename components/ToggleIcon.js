@@ -60,6 +60,7 @@ const ToggleIcon = (props) => {
 ToggleIcon.propTypes = {
   onPress: PropTypes.func,
   isOn: PropTypes.bool,
+  name: PropTypes.string,
   iconOff: PropTypes.string.isRequired,
   iconOn: PropTypes.string.isRequired,
   theme: PropTypes.string.isRequired,

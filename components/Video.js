@@ -71,7 +71,7 @@ class Video extends Component {
       progress: 0,
       currentTime: 0,
       seeking: false,
-      renderError: false
+      renderError: false,
     }
     this.animInline = new Animated.Value(Win.width * 0.5625)
     this.animFullscreen = new Animated.Value(Win.width * 0.5625)
@@ -312,7 +312,7 @@ class Video extends Component {
         style={[styles.background, fullScreen ? styles.fullScreen : inline]}
       >
         <Text style={textStyle}>Video loading failed</Text>
-        <TouchableOpacity style={styles.btn} onPress>
+        <TouchableOpacity style={styles.btn} onPress={() => this.props.reconnect()}>
           <Text style={textStyle}>Click to try again</Text>
         </TouchableOpacity>
       </Animated.View>
@@ -346,7 +346,8 @@ class Video extends Component {
       onMorePress,
       inlineOnly,
       playInBackground,
-      playWhenInactive
+      playWhenInactive,
+      reconnect,
     } = this.props
 
     const inline = {

@@ -94,6 +94,7 @@ class Video extends Component {
   }
 
   onLoad(data) {
+    console.log(data, 'data');
     if (this.props.connection === 'none' || this.props.connection === 'unknown') {
       this.renderError();
     }

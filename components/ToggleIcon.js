@@ -34,7 +34,7 @@ const ToggleIcon = (props) => {
       <TouchableOpacity
         onPress={() => props.onPress()}
       >
-        {this.props.name === 'volume' && isOn
+        {props.name === 'volume' && isOn
           ? <Icons
             style={padding}
             name={iconOn}
@@ -43,7 +43,7 @@ const ToggleIcon = (props) => {
           />
           : <Image source={require('../images/drawable-hdpi/icn_education_sound.png')} />
         }
-        {this.props.name !== 'volume'
+        {props.name !== 'volume'
           ? <Icons
           style={padding}
           name={isOn ? iconOn : iconOff}

@@ -91,14 +91,12 @@ class Video extends Component {
 
   onLoadStart() {
     this.setState({ paused: true, loading: true })
-    setTimeout(() => {
-      if(this.state.loading) {
-        this.renderError("Loading failed");
-      }
-    }, 30000)
   }
 
   onLoad(data) {
+    if (this.props.connection === 'none' || this.props.connection === 'unknown') {
+      this.renderError();
+    }
     if (!this.state.loading) return
     this.props.onLoad(data)
     const { height, width } = data.naturalSize   
@@ -347,6 +345,7 @@ class Video extends Component {
       inlineOnly,
       playInBackground,
       playWhenInactive,
+      connection,
       reconnect,
     } = this.props
 

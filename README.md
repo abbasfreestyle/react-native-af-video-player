@@ -5,7 +5,9 @@
 [![npm licence](http://img.shields.io/npm/l/react-native-af-video-player.svg?style=flat-square)](https://npmjs.org/package/react-native-af-video-player "View this project on npm")
 [![Platform](https://img.shields.io/badge/platform-ios%20%7C%20android-989898.svg?style=flat-square)](https://npmjs.org/package/react-native-af-video-player "View this project on npm")
 [![npm](https://img.shields.io/npm/dt/react-native-af-video-player.svg?style=flat-square)](https://npmjs.org/package/react-native-af-video-player "View this project on npm")
+
 (THIS IS A FORK FROM react-native-af-video-player THAT I WILL UPDATE END MAKE NEW FEATURES AND CHANGES)
+
 A customisable React Native video player for Android and IOS
 
 ![Demo](https://github.com/abbasfreestyle/react-native-af-video-player/blob/master/demo.gif)
@@ -294,7 +296,7 @@ Also having multiple videos in a ScrollView isn't perfect, so use at your own ri
 ```
 
 # To Do
-
+- [ ] Screen mirroring suport
 - [ ] Option to use custom icons
 - [ ] Support Immersive mode for Android
 - [ ] improve multiple videos fullscreen support within a ScrollView

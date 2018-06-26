@@ -1,11 +1,11 @@
-# react-native-af-video-player
+# React Native Video Player
 
 [![npm version](http://img.shields.io/npm/v/react-native-af-video-player.svg?style=flat-square)](https://npmjs.org/package/react-native-af-video-player "View this project on npm")
 [![npm downloads](http://img.shields.io/npm/dm/react-native-af-video-player.svg?style=flat-square)](https://npmjs.org/package/react-native-af-video-player "View this project on npm")
 [![npm licence](http://img.shields.io/npm/l/react-native-af-video-player.svg?style=flat-square)](https://npmjs.org/package/react-native-af-video-player "View this project on npm")
 [![Platform](https://img.shields.io/badge/platform-ios%20%7C%20android-989898.svg?style=flat-square)](https://npmjs.org/package/react-native-af-video-player "View this project on npm")
 [![npm](https://img.shields.io/npm/dt/react-native-af-video-player.svg?style=flat-square)](https://npmjs.org/package/react-native-af-video-player "View this project on npm")
-
+(THIS IS A FORK FROM react-native-af-video-player THAT I WILL UPDATE END MAKE NEW FEATURES AND CHANGES)
 A customisable React Native video player for Android and IOS
 
 ![Demo](https://github.com/abbasfreestyle/react-native-af-video-player/blob/master/demo.gif)

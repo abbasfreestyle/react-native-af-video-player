@@ -312,7 +312,6 @@ class Video extends Component {
         <Text style={textStyle}>Video loading failed</Text>
         <TouchableOpacity style={styles.btn} onPress={() => {
           if (this.props.connection !== 'none') {
-            this.props.test();
             this.setState({ renderError: false });
           }
         }}>

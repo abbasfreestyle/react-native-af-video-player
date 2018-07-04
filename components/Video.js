@@ -312,7 +312,7 @@ class Video extends Component {
         <Text style={textStyle}>Video loading failed</Text>
         <TouchableOpacity style={styles.btn} onPress={() => {
           if (this.props.connection === 'wifi' || this.props.connection === 'cellular') {
-            this.seekTo(0);
+            this.setState({ renderError: false });
           }
         }}>
           <Text style={textStyle}>Click to try again</Text>

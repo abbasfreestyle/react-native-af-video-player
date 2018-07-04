@@ -311,8 +311,9 @@ class Video extends Component {
       >
         <Text style={textStyle}>Video loading failed</Text>
         <TouchableOpacity style={styles.btn} onPress={() => {
-          this.props.reconnect();
-          this.props.test();
+          if (this.props.connection === 'wifi' || this.props.connection === 'cellular') {
+            this.seekTo(0);
+          }
         }}>
           <Text style={textStyle}>Click to try again</Text>
         </TouchableOpacity>

@@ -94,7 +94,6 @@ class Video extends Component {
   }
 
   onLoad(data) {
-    console.log(data, 'data');
     if (this.props.connection === 'none' || this.props.connection === 'unknown') {
       this.renderError();
     }
@@ -311,7 +310,10 @@ class Video extends Component {
         style={[styles.background, fullScreen ? styles.fullScreen : inline]}
       >
         <Text style={textStyle}>Video loading failed</Text>
-        <TouchableOpacity style={styles.btn} onPress={() => this.onLoad()}>
+        <TouchableOpacity style={styles.btn} onPress={() => {
+          this.props.reconnect();
+          this.props.test();
+        }}>
           <Text style={textStyle}>Click to try again</Text>
         </TouchableOpacity>
       </Animated.View>

@@ -18,7 +18,7 @@ import Icons from 'react-native-vector-icons/MaterialIcons'
 import { Controls } from './'
 import { checkSource } from './utils'
 const Win = Dimensions.get('window')
-const backgroundColor = '#000'
+const backgroundColor = '#228eff'
 
 const styles = StyleSheet.create({
   background: {
@@ -51,10 +51,10 @@ const defaultTheme = {
   fullscreen: '#FFF',
   volume: '#FFF',
   scrubberThumb: '#FFF',
-  scrubberBar: '#FFF',
+  scrubberBar: '#228eff',
   seconds: '#FFF',
   duration: '#FFF',
-  progress: '#FFF',
+  progress: '#228eff',
   loading: '#FFF'
 }
 

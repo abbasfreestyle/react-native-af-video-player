@@ -21,6 +21,7 @@ const ControlBar = (props) => {
     currentTime,
     duration,
     muted,
+    paused,
     fullscreen,
     theme,
     inlineOnly
@@ -28,7 +29,16 @@ const ControlBar = (props) => {
 
   return (
     <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.75)']} style={styles.container}>
-      <Time time={currentTime} theme={theme.seconds} />
+      {/* <Time time={currentTime} theme={theme.seconds} /> */}
+      <ToggleIcon
+        paddingLeft
+        name="play"
+        theme={theme.volume}
+        onPress={() => props.togglePlay()}
+        iconOn="play-arrow"
+        iconOff="pause"
+        isOn={paused}
+      />
       <Scrubber
         onSeek={pos => onSeek(pos)}
         onSeekRelease={pos => onSeekRelease(pos)}
@@ -45,7 +55,7 @@ const ControlBar = (props) => {
         iconOn="volume-mute"
         size={20}
       />
-      <Time time={duration} theme={theme.duration} />
+      <Time time={duration - currentTime} theme={theme.duration} />
       { !inlineOnly &&
       <ToggleIcon
         name="screen"

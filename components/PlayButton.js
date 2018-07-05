@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   }
-})
+});
 
 const PlayButton = props => (
   <View style={styles.playContainer}>
@@ -30,12 +30,12 @@ const PlayButton = props => (
       />
     </TouchableOpacity>
   </View>
-)
+);
 
 PlayButton.propTypes = {
   onPress: PropTypes.func.isRequired,
   paused: PropTypes.bool.isRequired,
   theme: PropTypes.string.isRequired
-}
+};
 
 export { PlayButton }

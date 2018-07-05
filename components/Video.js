@@ -17,8 +17,8 @@ import Orientation from 'react-native-orientation'
 import Icons from 'react-native-vector-icons/MaterialIcons'
 import { Controls } from './'
 import { checkSource } from './utils'
-const Win = Dimensions.get('window')
-const backgroundColor = '#000'
+const Win = Dimensions.get('window');
+const backgroundColor = '#000';
 
 const styles = StyleSheet.create({
   background: {
@@ -68,19 +68,19 @@ class Video extends Component {
       seeking: false,
       renderError: false
     };
-    this.animInline = new Animated.Value(Win.width * 0.5625)
-    this.animFullscreen = new Animated.Value(Win.width * 0.5625)
-    this.BackHandler = this.BackHandler.bind(this)
+    this.animInline = new Animated.Value(Win.width * 0.5625);
+    this.animFullscreen = new Animated.Value(Win.width * 0.5625);
+    this.BackHandler = this.BackHandler.bind(this);
     this.onRotated = this.onRotated.bind(this)
   }
 
   componentDidMount() {
-    Dimensions.addEventListener('change', this.onRotated)
+    Dimensions.addEventListener('change', this.onRotated);
     BackHandler.addEventListener('hardwareBackPress', this.BackHandler)
   }
 
   componentWillUnmount() {
-    Dimensions.removeEventListener('change', this.onRotated)
+    Dimensions.removeEventListener('change', this.onRotated);
     BackHandler.removeEventListener('hardwareBackPress', this.BackHandler)
   }
 
@@ -89,11 +89,11 @@ class Video extends Component {
   }
 
   onLoad(data) {
-    if (!this.state.loading) return
-    this.props.onLoad(data)
-    const { height, width } = data.naturalSize
+    if (!this.state.loading) return;
+    this.props.onLoad(data);
+    const { height, width } = data.naturalSize;
     const ratio = height === 'undefined' && width === 'undefined' ?
-      (9 / 16) : (height / width)
+      (9 / 16) : (height / width);
     const inlineHeight = this.props.lockRatio ?
       (Win.width / this.props.lockRatio)
       : (Win.width * ratio);
@@ -103,7 +103,7 @@ class Video extends Component {
       inlineHeight,
       duration: data.duration
     }, () => {
-      Animated.timing(this.animInline, { toValue: inlineHeight, duration: 200 }).start()
+      Animated.timing(this.animInline, { toValue: inlineHeight, duration: 200 }).start();
       this.props.onPlay(!this.state.paused);
       if (!this.state.paused) {
         KeepAwake.activate();
@@ -155,7 +155,7 @@ class Video extends Component {
           paused: this.props.fullScreenOnly || this.state.paused
         }, () => {
           this.animToInline();
-          if (this.props.fullScreenOnly) this.props.onPlay(!this.state.paused)
+          if (this.props.fullScreenOnly) this.props.onPlay(!this.state.paused);
           this.props.onFullScreen(this.state.fullScreen)
         });
         return
@@ -174,19 +174,19 @@ class Video extends Component {
   }
 
   onError(msg) {
-    this.props.onError(msg)
-    const { error } = this.props
+    this.props.onError(msg);
+    const { error } = this.props;
     this.setState({ renderError: true }, () => {
-      let type
+      let type;
       switch (true) {
         case error === false:
-          type = error
-          break
+          type = error;
+          break;
         case typeof error === 'object':
-          type = Alert.alert(error.title, error.message, error.button, error.options)
-          break
+          type = Alert.alert(error.title, error.message, error.button, error.options);
+          break;
         default:
-          type = Alert.alert('Oops!', 'There was an error playing this video, please try again later.', [{ text: 'Close' }])
+          type = Alert.alert('Oops!', 'There was an error playing this video, please try again later.', [{ text: 'Close' }]);
           break
       }
       return type
@@ -196,14 +196,14 @@ class Video extends Component {
   BackHandler() {
     if (this.state.fullScreen) {
       this.setState({ fullScreen: false }, () => {
-        this.animToInline()
-        this.props.onFullScreen(this.state.fullScreen)
-        if (this.props.fullScreenOnly && !this.state.paused) this.togglePlay()
-        if (this.props.rotateToFullScreen) Orientation.lockToPortrait()
+        this.animToInline();
+        this.props.onFullScreen(this.state.fullScreen);
+        if (this.props.fullScreenOnly && !this.state.paused) this.togglePlay();
+        if (this.props.rotateToFullScreen) Orientation.lockToPortrait();
         setTimeout(() => {
           if (!this.props.lockPortraitOnFsExit) Orientation.unlockAllOrientations()
         }, 1500)
-      })
+      });
       return true
     }
     return false
@@ -219,20 +219,20 @@ class Video extends Component {
 
   togglePlay() {
     this.setState({ paused: !this.state.paused }, () => {
-      this.props.onPlay(!this.state.paused)
+      this.props.onPlay(!this.state.paused);
       Orientation.getOrientation((e, orientation) => {
         if (this.props.togglePlayCB) {
           this.props.togglePlayCB();
         }
-        if (this.props.inlineOnly) return
+        if (this.props.inlineOnly) return;
         if (!this.state.paused) {
           if (this.props.fullScreenOnly && !this.state.fullScreen) {
             this.setState({ fullScreen: true }, () => {
-              this.props.onFullScreen(this.state.fullScreen)
-              const initialOrient = Orientation.getInitialOrientation()
+              this.props.onFullScreen(this.state.fullScreen);
+              const initialOrient = Orientation.getInitialOrientation();
               const height = orientation !== initialOrient ?
-                Win.width : Win.height
-              this.animToFullscreen(height)
+                Win.width : Win.height;
+              this.animToFullscreen(height);
               if (this.props.rotateToFullScreen) Orientation.lockToLandscape()
             })
           }
@@ -248,19 +248,19 @@ class Video extends Component {
     this.setState({ fullScreen: !this.state.fullScreen }, () => {
       Orientation.getOrientation((e, orientation) => {
         if (this.state.fullScreen) {
-          const initialOrient = Orientation.getInitialOrientation()
+          const initialOrient = Orientation.getInitialOrientation();
           const height = orientation !== initialOrient ?
-            Win.width : Win.height
-            this.props.onFullScreen(this.state.fullScreen)
-            if (this.props.rotateToFullScreen) Orientation.lockToLandscape()
+            Win.width : Win.height;
+            this.props.onFullScreen(this.state.fullScreen);
+            if (this.props.rotateToFullScreen) Orientation.lockToLandscape();
             this.animToFullscreen(height)
         } else {
           if (this.props.fullScreenOnly) {
             this.setState({ paused: true }, () => this.props.onPlay(!this.state.paused))
           }
-          this.props.onFullScreen(this.state.fullScreen)
-          if (this.props.rotateToFullScreen) Orientation.lockToPortrait()
-          this.animToInline()
+          this.props.onFullScreen(this.state.fullScreen);
+          if (this.props.rotateToFullScreen) Orientation.lockToPortrait();
+          this.animToInline();
           setTimeout(() => {
             if (!this.props.lockPortraitOnFsExit) Orientation.unlockAllOrientations()
           }, 1500)
@@ -365,7 +365,9 @@ class Video extends Component {
       inlineOnly,
       playInBackground,
       playWhenInactive,
-      onSettingsPress
+      onSettingsPress,
+      alternatePlayBtn,
+      mediaType
     } = this.props;
 
     const inline = {
@@ -436,6 +438,8 @@ class Video extends Component {
           inlineOnly={inlineOnly}
           settings={!!onSettingsPress}
           onSettingsPress={() => onSettingsPress()}
+          alternatePlayBtn={alternatePlayBtn}
+          mediaType={mediaType}
         />
       </Animated.View>
     )
@@ -490,6 +494,8 @@ Video.propTypes = {
   storeMute: PropTypes.func,
   togglePlayCB: PropTypes.func,
   onSettingsPress: PropTypes.func,
+  alternatePlayBtn: PropTypes.bool,
+  mediaType: PropTypes.oneOf(['video', 'audio'])
 };
 
 Video.defaultProps = {
@@ -519,7 +525,9 @@ Video.defaultProps = {
   title: '',
   theme: defaultTheme,
   resizeMode: 'contain',
-  onSettingsPress: undefined
+  onSettingsPress: undefined,
+  alternatePlayBtn: false,
+  mediaType: 'video'
 };
 
 export default Video

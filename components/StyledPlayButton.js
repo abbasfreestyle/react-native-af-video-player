@@ -5,6 +5,7 @@ import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 const backgroundColor = 'rgba(255, 255, 255, 0.7)';
 const videoImgSource = require('../assets/img/icoPlayVideo.png');
 const audioImgSource = require('../assets/img/icoPlayAudio.png');
+const pauseImgSource = require('../assets/img/icoPause.png');
 
 const styles = StyleSheet.create({
   playButton: {
@@ -27,6 +28,28 @@ const styles = StyleSheet.create({
   }
 });
 
+const VideoPlayButton = (
+  <Image style={styles.playButton} source={videoImgSource} resizeMode='contain' />
+);
+
+const AudioPlayButton = (
+  <Image style={styles.playButton} source={audioImgSource} resizeMode='contain' />
+);
+
+const PauseButton = (
+  <Image style={styles.playButton} source={pauseImgSource} resizeMode='contain' />
+);
+
+const Button = (paused, mediaType) => {
+  if (!paused) return PauseButton;
+
+  if (paused && mediaType === 'video') return VideoPlayButton;
+
+  if (paused && mediaType === 'audio') return AudioPlayButton;
+
+  return null;
+};
+
 const StyledPlayButton = props => (
   <View style={styles.playContainer}>
     <TouchableOpacity
@@ -34,9 +57,7 @@ const StyledPlayButton = props => (
     >
       <View style={styles.playButtonContainer}>
         {
-          props.mediaType === 'video' ?
-            <Image style={styles.playButton} source={videoImgSource} resizeMode='contain' /> :
-            <Image style={styles.playButton} source={audioImgSource} resizeMode='contain' />
+          Button(props.paused, props.mediaType)
         }
       </View>
     </TouchableOpacity>
@@ -45,6 +66,7 @@ const StyledPlayButton = props => (
 
 StyledPlayButton.propTypes = {
   onPress: PropTypes.func.isRequired,
+  paused: PropTypes.bool.isRequired,
   mediaType: PropTypes.oneOf(['video', 'audio'])
 };
 

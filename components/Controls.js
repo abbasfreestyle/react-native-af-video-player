@@ -11,9 +11,9 @@ import {
   ControlBar,
   Loading,
   TopBar,
-  ProgressBar
-} from './'
-import {StyledPlayButton} from "./StyledPlayButton";
+  ProgressBar,
+  StyledPlayButton
+} from './';
 
 const styles = StyleSheet.create({
   container: {
@@ -153,6 +153,7 @@ class Controls extends Component {
                 (
                   <StyledPlayButton
                     onPress={() => this.props.togglePlay()}
+                    paused={paused}
                     mediaType={mediaType}
                   />
                 ) :

@@ -422,7 +422,7 @@ class Video extends Component {
           volume={volume}
           style={fullScreen ? styles.fullScreen : inline}
 
-          onAudioBecomingNoisy={() => this.onAudioBecomingNoisy())}
+          onAudioBecomingNoisy={() => this.onAudioBecomingNoisy()}
           onLoadStart={() => this.onLoadStart()} // Callback when video starts to load
           onLoad={e => this.onLoad(e)} // Callback when video loads
           onProgress={e => this.progress(e)} // Callback every ~250ms with currentTime

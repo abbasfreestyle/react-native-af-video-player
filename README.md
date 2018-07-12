@@ -6,7 +6,7 @@
 [![Platform](https://img.shields.io/badge/platform-ios%20%7C%20android-989898.svg?style=flat-square)](https://npmjs.org/package/react-native-af-video-player "View this project on npm")
 [![npm](https://img.shields.io/npm/dt/react-native-af-video-player.svg?style=flat-square)](https://npmjs.org/package/react-native-af-video-player "View this project on npm")
 
-(THIS IS A FORK FROM react-native-af-video-player THAT I WILL UPDATE END MAKE NEW FEATURES AND CHANGES)
+(THIS IS A FORK FROM react-native-af-video-player THAT I WILL UPDATE AND MAKE NEW FEATURES AND CHANGES, beacause react-native-af-video-player looks like will not be updated)
 
 A customisable React Native video player for Android and IOS
 

@@ -18,7 +18,7 @@ import Icons from 'react-native-vector-icons/MaterialIcons'
 import { Controls } from './'
 import { checkSource } from './utils'
 const Win = Dimensions.get('window')
-const backgroundColor = '#228eff'
+const backgroundColor = 'black';
 
 const styles = StyleSheet.create({
   background: {

@@ -41,6 +41,10 @@ const styles = StyleSheet.create({
     borderColor: "white",
     borderStyle: "solid",
     borderWidth: 2,
+  },
+  retry: {
+    height: 32,
+    width: 32,
   }
 })
 
@@ -309,14 +313,14 @@ class Video extends Component {
       <Animated.View
         style={[styles.background, fullScreen ? styles.fullScreen : inline]}
       >
-        <Text style={textStyle}>Video loading failed</Text>
         <TouchableOpacity style={styles.btn} onPress={() => {
           if (this.props.connection !== 'none') {
             this.setState({ renderError: false });
           }
         }}>
-          <Text style={textStyle}>Click to try again</Text>
+          <Image style={styles.retry} source={require('../images/drawable-hdpi/ic_refresh_white.png')} />
         </TouchableOpacity>
+        <Text style={textStyle}>Video loading failed</Text>
       </Animated.View>
     )
   }

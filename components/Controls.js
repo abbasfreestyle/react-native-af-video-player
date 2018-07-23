@@ -108,7 +108,7 @@ class Controls extends Component {
   loading() {
     return (
       <View style={styles.container}>
-        <Loading theme={this.props.theme.loading} />
+        <Progress.Circle indeterminate color="white" />
       </View>
     )
   }

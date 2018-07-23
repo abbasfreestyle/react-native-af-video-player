@@ -5,6 +5,7 @@
     "react-native-keep-awake": "^2.0.6",
     "react-native-linear-gradient": "^2.3.0",
     "react-native-orientation": "^3.1.0",
+    "react-native-progress": "^3.5.0",
     "react-native-slider": "https://github.com/abbasfreestyle/react-native-slider.git",
     "react-native-vector-icons": "^4.4.2",
     "react-native-video": "^2.0.0"

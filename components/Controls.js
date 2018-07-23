@@ -23,6 +23,12 @@ const styles = StyleSheet.create({
   },
   flex: {
     flex: 1
+  },
+  centered: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 })
 
@@ -109,7 +115,7 @@ class Controls extends Component {
 
   loading() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, styles.centered]}>
         <Progress.Circle indeterminate color="white" />
       </View>
     )

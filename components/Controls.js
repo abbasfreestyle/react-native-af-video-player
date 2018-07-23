@@ -14,6 +14,8 @@ import {
   ProgressBar
 } from './'
 
+import * as Progress from 'react-native-progress';
+
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,

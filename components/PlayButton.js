@@ -7,7 +7,9 @@ const backgroundColor = 'transparent'
 
 const styles = StyleSheet.create({
   playButton: {
-    opacity: 0.9
+    opacity: 0.9,
+    height: 52,
+    width: 52,
   },
   playContainer: {
     flex: 1,
@@ -22,12 +24,6 @@ const PlayButton = props => (
     <TouchableOpacity
       onPress={() => props.onPress()}
     >
-      {/* <Icons
-        style={styles.playButton}
-        name={props.paused ? 'play-circle-outline' : 'pause-circle-outline'}
-        color={props.theme}
-        size={75}
-      /> */}
       {props.paused
         ? <Image style={styles.playButton} src={require('../images/drawable-hdpi/btn_play_video.png')} />
         : <Image style={styles.playButton} src={require('../images/drawable-hdpi/btn_pause_video.png')} />}

@@ -25,8 +25,8 @@ const PlayButton = props => (
       onPress={() => props.onPress()}
     >
       {props.paused
-        ? <Image style={styles.playButton} src={require('../images/drawable-hdpi/btn_play_video.png')} />
-        : <Image style={styles.playButton} src={require('../images/drawable-hdpi/btn_pause_video.png')} />}
+        ? <Image style={styles.playButton} source={require('../images/drawable-hdpi/btn_play_video.png')} />
+        : <Image style={styles.playButton} source={require('../images/drawable-hdpi/btn_pause_video.png')} />}
     </TouchableOpacity>
   </View>
 )

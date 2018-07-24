@@ -37,12 +37,10 @@ const styles = StyleSheet.create({
     zIndex: 99
   },
   btn: {
-    borderRadius: 10,
-    borderColor: "white",
-    borderStyle: "solid",
-    borderWidth: 2,
+    borderWidth: 0,
   },
   retry: {
+    paddingTop: 10,
     height: 32,
     width: 32,
   }
@@ -308,7 +306,7 @@ class Video extends Component {
       height: this.animInline,
       alignSelf: 'stretch'
     }
-    const textStyle = { color: 'white', padding: 10 }
+    const textStyle = {fontFamily: 'Roboto-Regular', color: 'white', fontSize: 16, padding: 10 }
     return (
       <Animated.View
         style={[styles.background, fullScreen ? styles.fullScreen : inline]}

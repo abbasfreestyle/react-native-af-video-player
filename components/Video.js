@@ -306,7 +306,7 @@ class Video extends Component {
       height: this.animInline,
       alignSelf: 'stretch'
     }
-    const textStyle = {fontFamily: 'Roboto-Regular', color: 'white', fontSize: 16, padding: 10 }
+    const textStyle = {fontFamily: 'Roboto-Regular', color: 'white', fontSize: 16, paddingTop: 20 }
     return (
       <Animated.View
         style={[styles.background, fullScreen ? styles.fullScreen : inline]}

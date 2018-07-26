@@ -315,6 +315,9 @@ class Video extends Component {
           if (this.props.connection !== 'none') {
             this.setState({ renderError: false });
           }
+          if (this.props.onReconnect) {
+            this.props.onReconnect();
+          }
         }}>
           <Image style={styles.retry} source={require('../images/drawable-hdpi/ic_refresh_white.png')} />
         </TouchableOpacity>

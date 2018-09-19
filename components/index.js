@@ -11,5 +11,6 @@ export * from './ProgressBar'
 export * from './ScrollView'
 export * from './Container'
 export * from './StyledPlayButton';
+export * from './FlatList';
 
 export default Video

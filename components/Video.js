@@ -510,7 +510,7 @@ Video.propTypes = {
   togglePlayCB: PropTypes.func,
   onSettingsPress: PropTypes.func,
   alternatePlayBtn: PropTypes.bool,
-  mediaType: PropTypes.oneOf(['video', 'audio'])
+  mediaType: PropTypes.oneOf(['video', 'audio']),
   allowsExternalPlayback: PropTypes.bool,
   audioOnly: PropTypes.bool,
   bufferConfig: PropTypes.shape({

@@ -69,8 +69,7 @@ class FlatList extends Component {
       bounces,
       renderItem,
       scrollEventThrottle,
-      ...listProps,
-      ...this.props
+      ...listProps
     } = this.props;
 
     return (

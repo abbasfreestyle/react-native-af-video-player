@@ -371,7 +371,16 @@ class Video extends Component {
       playWhenInactive,
       onSettingsPress,
       alternatePlayBtn,
-      mediaType
+      mediaType,
+      allowsExternalPlayback,
+      audioOnly,
+      ignoreSilentSwitch,
+      progressUpdateInterval,
+      selectedAudioTrack,
+      selectedTextTrack,
+      stereoPan,
+      textTracks,
+      useTextureView
     } = this.props;
 
     const inline = {
@@ -414,8 +423,8 @@ class Video extends Component {
           rate={rate}
           repeat={loop}
           resizeMode={resizeMode}
-          selectedAudioTrack={selectAudioTrack}
-          selectedTextTrack={selectTextTrack}
+          selectedAudioTrack={selectedAudioTrack}
+          selectedTextTrack={selectedTextTrack}
           stereoPan={stereoPan}
           textTracks={textTracks}
           useTextureView={useTextureView}

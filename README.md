@@ -101,6 +101,11 @@ allowsExternalPlayback| bool     | No       | true                      | Indica
 audioOnly             | bool     | No       | false                     | Indicates whether the player should only play audio track and instead of displaying the video track, show poster instead
 bufferConfig          | object   | No       | {}                        | Adjust the buffer settings. This prop takes an object with one or more of the properties listed in [bufferConfig](#bufferConfig)
 ignoreSilentSwitch    | string   | No       | 'inherit'                 | Controls th iOS silent switch behaivor, values listed in [ignoreSilentSwitch](#ignoreSilentSwitch)
+progressUpdateInterval| number   | No       | 250.0                     | Delay in milliseconds between onProgress events in milliseconds
+selectedAudioTrack    | object   | No       | {}                        | Configure which audio track, if any, is played. See also: [selectedAudioTrack](#selectedAudioTrack)
+selectedTextTrack     | object   | No       | {}                        | Configure which text track (caption or subtitle), if any, is shown. See also: [selectedTextTrack](#selectedTextTrack)
+stereoPan             | number   | No       | 0.0                       | Adjust the balance of the left and right audio channels. Any value between -1.0 and 1.0 is accepted. [stereoPan](#stereoPan)
+textTracks            | array    | No       | []                        | List of "sidecar" text tracks, [textTracks](#textTracks)
 
 ## Props
 
@@ -132,6 +137,107 @@ Platforms: Android ExoPlayer
 * **"obey"** - Don't play audio if the silent switch is set
 
 Platform: iOS
+
+#### selectedAudioTrack
+Structure:
+```
+selectedAudioTrack={{
+  type: Type,
+  value: Value
+}}
+```
+
+Example:
+```
+selectedAudioTrack={{
+  type: 'title',
+  value: 'Dubbing'
+}}
+```
+
+Type                | Value   | Description
+ ---                |  ---    | ---
+ "system" (default) | N/A     | Play the audio track that matches the system language. If none match, play the first track.
+ "disabled"         | N/A     | Turn off audio
+ "title"            | string  | Play the audio track with the title specified as the Value, e.g. "French"
+ "language"         | string  | Play the audio track with the language specified as the Value, e.g. "fr"
+ "index"            | number  | Play the audio track with the index specified as the value, e.g. 0
+
+ If a track matching the specified Type (and Value if appropriate) is unavailable, the first audio track will be played. If multiple tracks match the criteria, the first match will be used.
+
+ Platforms: Android ExoPlayer, iOS
+
+ #### selectedTextTrack
+ Structure:
+ ```
+ selectedTextTrack={{
+   type: Type,
+   value: Value
+ }}
+ ```
+
+ Example:
+ ```
+ selectedTextTrack={{
+   type: 'title',
+   value: 'English Subtitles'
+ }}
+ ```
+
+ Type                 | Value   | Description
+  ---                 | ---     | ---
+  "system" (default)  | N/A     | Display captions only if the system preference for captions is enabled
+  "disabled"          | N/A     | Don't display a text track
+  "title"             | string  | Display the text track with the title specified as the Value, e.g. "French"
+  "language"          | string  | Display the text track with the language specified as the Value, e.g. "fr"
+  "index"             | number  | Display the text track with the index specified as the value, e.g. 0
+
+  Both iOS & Android (only 4.4 and higher) offer Settings to enable Captions for hearing impaired people. If "system" is selected and the Captions setting is enabled, iOS/Android will look for a caption that matches that customer's language and display it.
+
+  If a track matching the specified Type (and Value if appropriate) is unavailable, no text track will be displayed. If multiple tracks match the criteria, the first match will be used.
+
+  Platforms: Android ExoPlayer, iOS
+
+#### stereoPan
+* **-1.0** - Full left
+* **0.0 (default)** - Center
+* **1.0** - Full right
+
+Platforms: Android ExoPlayer
+
+#### textTracks
+Load one or more "sidecar" text tracks. This takes an array of objects representing each track. Each object should have the format:
+
+Property | Description
+--- | ---
+title | Descriptive name for the track
+language | 2 letter [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) representing the language
+type | Mime type of the track<br> * TextTrackType.SRT - SubRip (.srt)<br> * TextTrackType.TTML - TTML (.ttml)<br> * TextTrackType.VTT - WebVTT (.vtt)<br>iOS only supports VTT, Android ExoPlayer supports all 3
+uri | URL for the text track. Currently, only tracks hosted on a websever are supported
+
+On iOS, sidecar text tracks are only supported for individual files, not HLS playlists. For HLS, you should include the text tracks as part of the playlist.
+
+Example:
+```
+import { TextTrackType }, Video from 'react-native-video';
+
+textTracks={[
+  {
+    title: "English CC",
+    language: "en",
+    type: TextTrackType.VTT, // "text/vtt"
+    uri: "https://bitdash-a.akamaihd.net/content/sintel/subtitles/subtitles_en.vtt"
+  },
+  {
+    title: "Spanish Subtitles",
+    language: "es",
+    type: "TextTrackType.SRT, // "application/x-subrip"
+    uri: "https://durian.blender.org/wp-content/content/subtitles/sintel_es.srt"
+  }
+]}
+```
+
+Platforms: Android ExoPlayer, iOS
 
 ## Referencing
 

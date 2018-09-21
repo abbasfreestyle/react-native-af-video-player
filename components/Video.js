@@ -380,7 +380,8 @@ class Video extends Component {
       selectedTextTrack,
       stereoPan,
       textTracks,
-      useTextureView
+      useTextureView,
+      bufferConfig
     } = this.props;
 
     const inline = {
@@ -530,8 +531,14 @@ Video.propTypes = {
   }),
   ignoreSilentSwitch: PropTypes.string,
   progressUpdateInterval: PropTypes.number,
-  selectedAudioTrack: PropTypes.object,
-  selectedTextTrack: PropTypes.object,
+  selectedAudioTrack: PropTypes.shape({
+    type: PropTypes.string,
+    value: PropTypes.string
+  }),
+  selectedTextTrack: PropTypes.shape({
+    type: PropTypes.string,
+    value: PropTypes.string
+  }),
   stereoPan: PropTypes.number,
   textTracks: PropTypes.array,
   useTextureView: PropTypes.bool
@@ -575,10 +582,16 @@ Video.defaultProps = {
     bufferForPlaybackMs: 2500,
     bufferForPlaybackAfterRebufferMs: 5000
   },
-  ignoreSilentSwitch: 'inherit',
+  ignoreSilentSwitch: 'obey',
   progressUpdateInterval: 250.0,
-  selectedAudioTrack: {},
-  selectedTextTrack: {},
+  selectedAudioTrack: {
+    type: '',
+    value: ''
+  },
+  selectedTextTrack: {
+    type: '',
+    value: ''
+  },
   stereoPan: 0.0,
   textTracks: [],
   useTextureView: false

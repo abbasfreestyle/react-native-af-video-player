@@ -53,7 +53,9 @@ const defaultTheme = {
   progress: '#FFF',
   loading: '#FFF',
   settings: '#FFF',
-  error: '#FFF'
+  error: '#FFF',
+  background: '#000',
+  buttonBackground: '#FFF'
 };
 
 class Video extends Component {
@@ -89,7 +91,6 @@ class Video extends Component {
   }
 
   onLoadStart() {
-    console.log('---- ONLOADSTART paused = true, loading = true');
     this.setState({ paused: true, loading: true })
   }
 
@@ -124,19 +125,12 @@ class Video extends Component {
   }
 
   onLoadAudio(data) {
-    console.log('ONLOADAUDIO loading = ', this.state.loading);
     if (!this.state.loading) return;
-    console.log('ONLOADAUDIO set loading = false', data.duration);
     this.setState({
       paused: !this.props.autoPlay,
       loading: false,
       duration: data.duration
-    }, () =>
-      {
-        console.log('ONLOADAUDIO paused = ', this.state.paused);
-        console.log('ONLOADAUDIO autoPlay = ', this.props.autoPlay);
-      }
-    );
+    });
   }
 
   // onBuffer() {
@@ -146,11 +140,11 @@ class Video extends Component {
 
   onEnd() {
     this.props.onEnd();
-    const { loop } = this.props;
+    const { loop, minimized } = this.props;
     if (!loop) this.pause();
     this.onSeekRelease(0);
     this.setState({ currentTime: 0 }, () => {
-      if (!loop) this.controls.showControls()
+      if (!loop && !minimized) this.controls.showControls()
     })
   }
 
@@ -239,7 +233,6 @@ class Video extends Component {
   }
 
   toggleAudioPlay() {
-    console.log('---TOGGLEPLAYAUDIO----');
     this.setState({ paused: !this.state.paused }, () => {
      this.props.onPlay(!this.state.paused);
     });
@@ -504,10 +497,6 @@ class Video extends Component {
       color: 'rgb(255, 255, 255)',
 
   };
-console.log('Progress', progress);
-console.log('CurrentTime', currentTime);
-console.log('Duration', duration);
-console.log('paused', paused);
     return (
       <View style={ style } >
         <VideoPlayer
@@ -525,7 +514,7 @@ console.log('paused', paused);
           // progressUpdateInterval={250.0}          // [iOS] Interval to fire onProgress (default to ~250ms)
           onLoadStart={() => this.onLoadStart()} // Callback when audio starts to load
           onLoad={e => this.onLoadAudio(e)} // Callback when audio loads
-          onProgress={e => { this.progress(e); console.log('PROGRESS');}} // Callback every ~250ms with currentTime
+          onProgress={e => { this.progress(e); }} // Callback every ~250ms with currentTime
           onEnd={() => this.onEnd()}
           onError={e => this.onError(e)}
           // onBuffer={() => this.onBuffer()} // Callback when remote video is buffering
@@ -538,12 +527,14 @@ console.log('paused', paused);
               buttonBackgroundColor={'rgb(255, 255, 255)'}
               onClosePress={onClosePress}
               progress={progress}
+              theme={setTheme}
               currentTime={currentTime}
               duration={duration}
               togglePlay={() => this.toggleAudioPlay()}
               paused={paused}
               loading={loading}
-
+              onSeek={val => this.seek(val)}
+              onSeekRelease={pos => this.onSeekRelease(pos)}
         />
       </View>
     )

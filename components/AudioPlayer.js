@@ -14,12 +14,6 @@ export default class AudioPlayer extends React.Component {
     super(props);
   }
 
-  componentWillMount() {
-  }
-
-  componentWillUnmount() {
-  }
-
   secondsToTime(seconds) {
     if (!seconds) return '00:00';
     const minute = parseInt(seconds / 60, 10);
@@ -35,37 +29,6 @@ export default class AudioPlayer extends React.Component {
     return `${minuteStr}:${secondStr}`;
   }
 
-  progressBar(style, barColor, spaceColor, percentage){
-    const styles = {
-      container: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center'
-      },
-      bar: {
-        flex: percentage,
-        backgroundColor: barColor,
-        height: style.height
-      },
-      barBackground: {
-        flex: 1 - percentage,
-        backgroundColor: spaceColor,
-        height: style.height,
-        borderWidth: 1,
-        borderColor: barColor
-      }
-    }
-
-      return (
-        <View
-          style={[styles.container, style]}
-        >
-          <View style={styles.bar} />
-          <View style={styles.barBackground} />
-        </View>
-      );
-  }
-
   /**
     In Abhängigkeit vom Abspielmodus wird entweder der Button für Pause oder
     für Play gerendert.
@@ -78,7 +41,7 @@ export default class AudioPlayer extends React.Component {
             style={{ backgroundColor: buttonBackgroundColor, borderRadius: style.width / 2 }}
           >
             <IconAsset
-              icon={this.props.paused ? 'button_pause' : 'button_play_audio'}
+              icon={this.props.paused ? 'button_play_audio' : 'button_pause'}
               iconStyle={{ height: style.height, width: style.width }}
             />
           </TouchableOpacity>
@@ -106,9 +69,9 @@ export default class AudioPlayer extends React.Component {
   */
   render() {
     const {
-      duration, style, barFillColor, barBackgroundColor,
+      onSeek, onSeekRelease, duration, style,
       buttonBackgroundColor, onClosePress,
-      togglePlay, loading, currentTime
+      togglePlay, loading, currentTime, theme, progress
     } = this.props;
     const heightPlayIcon = style.height * 0.72;
     const heightDeleteIcon = style.height * 0.5;
@@ -120,7 +83,7 @@ export default class AudioPlayer extends React.Component {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: style.backgroundColor,
+        backgroundColor: theme.background,
         borderColor: style.borderColor,
         borderRadius: style.borderRadius,
         borderWidth: style.borderWidth,
@@ -139,31 +102,17 @@ export default class AudioPlayer extends React.Component {
         minWidth: heightPlayIcon,
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        backgroundColor: style.backgroundColor,
-        //paddingLeft: common.PAD_LEFT,
+        backgroundColor: theme.background,
         paddingLeft: 10,
+        marginRight: 10,
       },
       currentTime: {
           flex: 0.15,
           textAlign: 'center',
-          backgroundColor: style.backgroundColor,
+          backgroundColor: theme.background,
           color: style.color,
           //fontSize: common.FS_14(),
           fontSize: 14,
-      },
-      bar: {
-        flex: 0.45,
-        height: 10,
-        backgroundColor: style.backgroundColor,
-        padding: 0
-      },
-      diffTime: {
-            flex: 0.15,
-            textAlign: 'center',
-            backgroundColor: style.backgroundColor,
-            color: style.color,
-            //fontSize: common.FS_14(),
-            fontSize: 14,
       },
       deleteButton: {
         width: heightDeleteIcon,
@@ -171,37 +120,33 @@ export default class AudioPlayer extends React.Component {
         minWidht: heightDeleteIcon,
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        backgroundColor: style.backgroundColor,
-        //paddingRight: common.PAD_RIGHT,
-        paddingRight: 10
+        backgroundColor: theme.background,
+        paddingRight: 10,
+        marginLeft: 10
       },
     };
-    //if (common.isFontScaled()) {
-    if (false) {
-      styles.currentTime = { ...styles.currentTime, ...{ flex: 0.22 } };
-      styles.bar = { ...styles.bar, ...{ flex: 0.28 } };
-      styles.diffTime = { ...styles.diffTime, ...{ flex: 0.22 } };
-    }
-    let diff = 10.0;
-    let percentage = 0.5;
 
-    //console.log('---- Audioplayer --> loading = ', loading);
     if (loading) {
       return(
         <View style={styles.container} >
-          <WdrSansText style={styles.currentTime}>
+          <Text style={{color: theme.background, backgroundColor: background}}>
             {'Audio wird geladen ...'}
-          </WdrSansText>
+          </Text>
         </View>
       );
     }
 
     return (
       <View style={styles.container} >
-        {this.getButtons(styles.buttons, buttonBackgroundColor, togglePlay)}
-          <Time time={currentTime} theme={'#FFFFFF'} />
-        {this.progressBar(styles.bar, barFillColor, barBackgroundColor, percentage)}
-          <Time time={duration} theme={'#FFFFFF'} />
+        {this.getButtons(styles.buttons, theme.buttonBackground, togglePlay)}
+          <Time time={currentTime} theme={theme.seconds} />
+        <Scrubber
+          onSeek={pos => onSeek(pos)}
+          onSeekRelease={pos => onSeekRelease(pos)}
+          progress={progress}
+          theme={{ scrubberThumb: theme.scrubberThumb, scrubberBar: theme.scrubberBar }}
+        />
+          <Time time={duration} theme={theme.duration} />
         {this.getDeleteButton(styles.deleteButton, onClosePress)}
       </View>
     );

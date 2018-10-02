@@ -127,7 +127,7 @@ class Controls extends Component {
       currentTime,
       duration,
       theme,
-      inlineOnly,
+      minimized,
       settings,
       onSettingsPress,
       alternatePlayBtn,
@@ -180,7 +180,7 @@ class Controls extends Component {
             currentTime={currentTime}
             duration={duration}
             theme={controlBar}
-            inlineOnly={inlineOnly}
+            minimized={minimized}
             settings={settings}
             onSettingsPress={() => onSettingsPress()}
           />
@@ -206,7 +206,7 @@ Controls.propTypes = {
   onSeekRelease: PropTypes.func.isRequired,
   onMorePress: PropTypes.func.isRequired,
   paused: PropTypes.bool.isRequired,
-  inlineOnly: PropTypes.bool.isRequired,
+  minimized: PropTypes.bool.isRequired,
   fullscreen: PropTypes.bool.isRequired,
   muted: PropTypes.bool.isRequired,
   more: PropTypes.bool.isRequired,

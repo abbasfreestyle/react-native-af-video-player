@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Text } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { ToggleIcon, Time, Scrubber } from './'
 
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const ControlBar = (props) => {
+const normalView = (props) => {
   const {
     onSeek,
     onSeekRelease,
@@ -59,6 +59,11 @@ const ControlBar = (props) => {
       />}
     </LinearGradient>
   )
+}
+
+
+const ControlBar = (props) => {
+    return (normalView(props));
 };
 
 ControlBar.propTypes = {
@@ -67,7 +72,7 @@ ControlBar.propTypes = {
   onSeek: PropTypes.func.isRequired,
   onSeekRelease: PropTypes.func.isRequired,
   muted: PropTypes.bool.isRequired,
-  inlineOnly: PropTypes.bool.isRequired,
+  minimized: PropTypes.bool.isRequired,
   progress: PropTypes.number.isRequired,
   currentTime: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,

@@ -2,12 +2,14 @@
 import React from 'react';
 import {
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  Text
 } from 'react-native';
+import Icons from 'react-native-vector-icons/MaterialIcons'
 import { IconAsset } from './IconAsset';
 //import * as common from '../../styles';
 import { WdrSansText } from './WdrSansText';
-import { Time, Scrubber } from './'
+import { Time, Scrubber, Loading } from './'
 
 export default class AudioPlayer extends React.Component {
   constructor(props) {
@@ -49,6 +51,25 @@ export default class AudioPlayer extends React.Component {
       );
   }
 
+  getRetryButton(style, buttonBackgroundColor, onRetry) {
+      return (
+        <View style={style} >
+          {/* <TouchableOpacity
+            onPress={onRetry}
+            style={{ backgroundColor: buttonBackgroundColor, borderRadius: style.width / 2 }}
+          > */}
+            <Icons
+              name="replay"
+              size={60}
+              color={this.props.theme.error}
+              onPress={onRetry}
+            />
+          {/* </TouchableOpacity> */}
+        </View>
+      );
+  }
+
+
   getDeleteButton(style, onClosePress) {
     return (
       <View style={style} >
@@ -71,7 +92,8 @@ export default class AudioPlayer extends React.Component {
     const {
       onSeek, onSeekRelease, duration, style,
       buttonBackgroundColor, onClosePress,
-      togglePlay, loading, currentTime, theme, progress
+      togglePlay, loading, currentTime, theme, progress,
+      renderError, onPressRetry
     } = this.props;
     const heightPlayIcon = style.height * 0.72;
     const heightDeleteIcon = style.height * 0.5;
@@ -84,9 +106,6 @@ export default class AudioPlayer extends React.Component {
         alignItems: 'center',
         justifyContent: 'space-between',
         backgroundColor: theme.background,
-        borderColor: style.borderColor,
-        borderRadius: style.borderRadius,
-        borderWidth: style.borderWidth,
         height: style.height,
         zIndex: 99,
         position: 'absolute',
@@ -103,16 +122,8 @@ export default class AudioPlayer extends React.Component {
         flexDirection: 'row',
         justifyContent: 'flex-start',
         backgroundColor: theme.background,
-        paddingLeft: 10,
-        marginRight: 10,
-      },
-      currentTime: {
-          flex: 0.15,
-          textAlign: 'center',
-          backgroundColor: theme.background,
-          color: style.color,
-          //fontSize: common.FS_14(),
-          fontSize: 14,
+        paddingLeft: style.padding,
+        marginRight: style.padding,
       },
       deleteButton: {
         width: heightDeleteIcon,
@@ -121,17 +132,27 @@ export default class AudioPlayer extends React.Component {
         flexDirection: 'row',
         justifyContent: 'flex-end',
         backgroundColor: theme.background,
-        paddingRight: 10,
-        marginLeft: 10
+        paddingRight: style.padding,
+        marginLeft: style.padding
       },
     };
 
+    if (renderError) {
+      return(
+        <View style={styles.container}>
+          {this.getRetryButton(styles.buttons, theme.buttonBackground, onPressRetry)}
+          <Text style={{ color: theme.loading }} >Retry</Text>
+          {this.getDeleteButton(styles.deleteButton, onClosePress)}
+        </View>
+      );
+    }
+
     if (loading) {
       return(
-        <View style={styles.container} >
-          <Text style={{color: theme.background, backgroundColor: background}}>
-            {'Audio wird geladen ...'}
-          </Text>
+        <View style={styles.container}>
+          {this.getButtons(styles.buttons, theme.buttonBackground, () => {})}
+          <Loading theme={theme.loading} />
+          {this.getDeleteButton(styles.deleteButton, onClosePress)}
         </View>
       );
     }

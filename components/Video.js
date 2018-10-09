@@ -343,6 +343,7 @@ class Video extends Component {
       alignSelf: 'stretch'
     };
     const textStyle = { color: 'white', padding: 10 };
+
     return (
       <Animated.View
         style={[styles.background, fullScreen ? styles.fullScreen : inline]}
@@ -466,7 +467,7 @@ class Video extends Component {
     )
   }
 
-  renderMinimizedPlayer() {
+  renderMinimizedPlayer(renderError) {
     const { paused, muted, loading, progress, duration, currentTime } = this.state;
     const { url, loop, title, logo, rate, style, volume, placeholder, theme,
       onTimedMetadata, resizeMode, onMorePress, inlineOnly, minimized,
@@ -485,18 +486,10 @@ class Video extends Component {
     const audioplayerStyle = {
       flexDirection: 'row',
       alignSelf: 'stretch',
-      backgroundColor: 'rgb(0, 52, 94)',
-      borderRadius: 0,
-      borderTopColor: 'rgb(255, 255, 255)',
-      borderTopWidth: 2,
-      borderLeftWidth: 0,
-      borderRightWidth: 0,
-      borderBottomWidth: 0,
-      height: 50,
-      //width: 300,
-      color: 'rgb(255, 255, 255)',
+      height: style.height,
+      padding: style.padding,
+    };
 
-  };
     return (
       <View style={ style } >
         <VideoPlayer
@@ -535,6 +528,8 @@ class Video extends Component {
               loading={loading}
               onSeek={val => this.seek(val)}
               onSeekRelease={pos => this.onSeekRelease(pos)}
+              onPressRetry={() => this.setState({ renderError: false })}
+              renderError={renderError}
         />
       </View>
     )
@@ -543,10 +538,10 @@ class Video extends Component {
 
 
   render() {
-    if (this.state.renderError) return this.renderError()
     if (this.props.minimized) {
-      return this.renderMinimizedPlayer();
+      return this.renderMinimizedPlayer(this.state.renderError);
     }
+    if (this.state.renderError) return this.renderError()
     return this.renderPlayer()
   }
 }

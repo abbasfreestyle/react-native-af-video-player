@@ -359,6 +359,10 @@ class Video extends Component {
     )
   }
 
+  onAudioBecomingNoisy() {
+    if (!this.state.paused) this.togglePlay();
+  }
+
   renderPlayer() {
     const {
       fullScreen,
@@ -390,7 +394,17 @@ class Video extends Component {
       playWhenInactive,
       onSettingsPress,
       alternatePlayBtn,
-      mediaType
+      mediaType,
+      allowsExternalPlayback,
+      audioOnly,
+      ignoreSilentSwitch,
+      progressUpdateInterval,
+      selectedAudioTrack,
+      selectedTextTrack,
+      stereoPan,
+      textTracks,
+      useTextureView,
+      bufferConfig
     } = this.props;
     const inline = {
       height: inlineHeight,
@@ -418,18 +432,29 @@ class Video extends Component {
             <Image resizeMode="cover" style={styles.image} {...checkSource(placeholder)} />
         }
         <VideoPlayer
-          {...checkSource(url)}
-          paused={paused}
-          resizeMode={resizeMode}
-          repeat={loop}
-          style={fullScreen ? styles.fullScreen : inline}
           ref={(ref) => { this.player = ref }}
-          rate={rate}
-          volume={volume}
+          {...checkSource(url)}
+          allowsExternalPlayback={allowsExternalPlayback}
+          audioOnly={audioOnly}
+          bufferConfig={bufferConfig}
+          ignoreSilentSwitch={ignoreSilentSwitch}
           muted={muted}
+          paused={paused}
           playInBackground={playInBackground} // Audio continues to play when app entering background.
           playWhenInactive={playWhenInactive} // [iOS] Video continues to play when control or notification center are shown.
-          // progressUpdateInterval={250.0}          // [iOS] Interval to fire onProgress (default to ~250ms)
+          progressUpdateInterval={progressUpdateInterval} // [iOS] Interval to fire onProgress (default to ~250ms)
+          rate={rate}
+          repeat={loop}
+          resizeMode={resizeMode}
+          selectedAudioTrack={selectedAudioTrack}
+          selectedTextTrack={selectedTextTrack}
+          stereoPan={stereoPan}
+          textTracks={textTracks}
+          useTextureView={useTextureView}
+          volume={volume}
+          style={fullScreen ? styles.fullScreen : inline}
+
+          onAudioBecomingNoisy={() => this.onAudioBecomingNoisy()}
           onLoadStart={() => this.onLoadStart()} // Callback when video starts to load
           onLoad={e => this.onLoad(e)} // Callback when video loads
           onProgress={e => this.progress(e)} // Callback every ~250ms with currentTime
@@ -591,7 +616,28 @@ Video.propTypes = {
   togglePlayCB: PropTypes.func,
   onSettingsPress: PropTypes.func,
   alternatePlayBtn: PropTypes.bool,
-  mediaType: PropTypes.oneOf(['video', 'audio'])
+  mediaType: PropTypes.oneOf(['video', 'audio']),
+  allowsExternalPlayback: PropTypes.bool,
+  audioOnly: PropTypes.bool,
+  bufferConfig: PropTypes.shape({
+    minBufferMs: PropTypes.number,
+    maxBufferMs: PropTypes.number,
+    bufferForPlaybackMs: PropTypes.number,
+    bufferForPlaybackRebufferMs: PropTypes.number
+  }),
+  ignoreSilentSwitch: PropTypes.string,
+  progressUpdateInterval: PropTypes.number,
+  selectedAudioTrack: PropTypes.shape({
+    type: PropTypes.string,
+    value: PropTypes.string
+  }),
+  selectedTextTrack: PropTypes.shape({
+    type: PropTypes.string,
+    value: PropTypes.string
+  }),
+  stereoPan: PropTypes.number,
+  textTracks: PropTypes.array,
+  useTextureView: PropTypes.bool
 };
 
 Video.defaultProps = {
@@ -624,7 +670,28 @@ Video.defaultProps = {
   resizeMode: 'contain',
   onSettingsPress: undefined,
   alternatePlayBtn: false,
-  mediaType: 'video'
+  mediaType: 'video',
+  allowsExternalPlayback: true,
+  audioOnly: false,
+  bufferConfig: {
+    minBufferMs: 15000,
+    maxBufferMs: 50000,
+    bufferForPlaybackMs: 2500,
+    bufferForPlaybackAfterRebufferMs: 5000
+  },
+  ignoreSilentSwitch: 'obey',
+  progressUpdateInterval: 250.0,
+  selectedAudioTrack: {
+    type: '',
+    value: ''
+  },
+  selectedTextTrack: {
+    type: '',
+    value: ''
+  },
+  stereoPan: 0.0,
+  textTracks: [],
+  useTextureView: false
 };
 
 export default Video

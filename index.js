@@ -1,7 +1,8 @@
 import Video from './components/Video'
 export {
   Container,
-  ScrollView
+  ScrollView,
+  FlatList
 } from './components'
 
 export default Video

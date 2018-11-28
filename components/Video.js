@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Text,
   StyleSheet,
@@ -9,21 +9,21 @@ import {
   Animated,
   Image,
   Alert
-} from "react-native";
-import VideoPlayer from "react-native-video";
-import KeepAwake from "react-native-keep-awake";
-import Orientation from "react-native-orientation";
-import Icons from "react-native-vector-icons/MaterialIcons";
-import { Controls } from "./";
-import { checkSource } from "./utils";
-const Win = Dimensions.get("window");
-const backgroundColor = "#000";
+} from 'react-native';
+import VideoPlayer from 'react-native-video';
+import KeepAwake from 'react-native-keep-awake';
+import Orientation from 'react-native-orientation';
+import Icons from 'react-native-vector-icons/MaterialIcons';
+import { Controls } from './';
+import { checkSource } from './utils';
+const Win = Dimensions.get('window');
+const backgroundColor = '#000';
 
 const styles = StyleSheet.create({
   background: {
     backgroundColor,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     zIndex: 98
   },
   fullScreen: {
@@ -38,17 +38,17 @@ const styles = StyleSheet.create({
 });
 
 const defaultTheme = {
-  title: "#FFF",
-  more: "#FFF",
-  center: "#FFF",
-  fullscreen: "#FFF",
-  volume: "#FFF",
-  scrubberThumb: "#FFF",
-  scrubberBar: "#FFF",
-  seconds: "#FFF",
-  duration: "#FFF",
-  progress: "#FFF",
-  loading: "#FFF"
+  title: '#FFF',
+  more: '#FFF',
+  center: '#FFF',
+  fullscreen: '#FFF',
+  volume: '#FFF',
+  scrubberThumb: '#FFF',
+  scrubberBar: '#FFF',
+  seconds: '#FFF',
+  duration: '#FFF',
+  progress: '#FFF',
+  loading: '#FFF'
 };
 
 class Video extends Component {
@@ -73,13 +73,13 @@ class Video extends Component {
   }
 
   componentDidMount() {
-    Dimensions.addEventListener("change", this.onRotated);
-    BackHandler.addEventListener("hardwareBackPress", this.BackHandler);
+    Dimensions.addEventListener('change', this.onRotated);
+    BackHandler.addEventListener('hardwareBackPress', this.BackHandler);
   }
 
   componentWillUnmount() {
-    Dimensions.removeEventListener("change", this.onRotated);
-    BackHandler.removeEventListener("hardwareBackPress", this.BackHandler);
+    Dimensions.removeEventListener('change', this.onRotated);
+    BackHandler.removeEventListener('hardwareBackPress', this.BackHandler);
   }
 
   onLoadStart() {
@@ -91,7 +91,7 @@ class Video extends Component {
     this.props.onLoad(data);
     const { height, width } = data.naturalSize;
     const ratio =
-      height === "undefined" && width === "undefined" ? 9 / 16 : height / width;
+      height === 'undefined' && width === 'undefined' ? 9 / 16 : height / width;
     const inlineHeight = this.props.lockRatio
       ? Win.width / this.props.lockRatio
       : Win.width * ratio;
@@ -140,16 +140,16 @@ class Video extends Component {
   onRotated({ window: { width, height } }) {
     // Add this condition incase if inline and fullscreen options are turned on
     if (this.props.inlineOnly) return;
-    const orientation = width > height ? "LANDSCAPE" : "PORTRAIT";
+    const orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
     if (this.props.rotateToFullScreen) {
-      if (orientation === "LANDSCAPE") {
+      if (orientation === 'LANDSCAPE') {
         this.setState({ fullScreen: true }, () => {
           this.animToFullscreen(height);
           this.props.onFullScreen(this.state.fullScreen);
         });
         return;
       }
-      if (orientation === "PORTRAIT") {
+      if (orientation === 'PORTRAIT') {
         this.setState(
           {
             fullScreen: false,
@@ -186,7 +186,7 @@ class Video extends Component {
         case error === false:
           type = error;
           break;
-        case typeof error === "object":
+        case typeof error === 'object':
           type = Alert.alert(
             error.title,
             error.message,
@@ -196,9 +196,9 @@ class Video extends Component {
           break;
         default:
           type = Alert.alert(
-            "Oops!",
-            "There was an error playing this video, please try again later.",
-            [{ text: "Close" }]
+            'Oops!',
+            'There was an error playing this video, please try again later.',
+            [{ text: 'Close' }]
           );
           break;
       }
@@ -337,9 +337,9 @@ class Video extends Component {
     const { fullScreen } = this.state;
     const inline = {
       height: this.animInline,
-      alignSelf: "stretch"
+      alignSelf: 'stretch'
     };
-    const textStyle = { color: "white", padding: 10 };
+    const textStyle = { color: 'white', padding: 10 };
     return (
       <Animated.View
         style={[styles.background, fullScreen ? styles.fullScreen : inline]}
@@ -387,7 +387,7 @@ class Video extends Component {
 
     const inline = {
       height: inlineHeight,
-      alignSelf: "stretch"
+      alignSelf: 'stretch'
     };
 
     const setTheme = {
@@ -405,7 +405,7 @@ class Video extends Component {
           fullScreen ? null : style
         ]}
       >
-        <StatusBar hidden={fullScreen} />
+        {fullScreen && <StatusBar hidden />}
         {((loading && placeholder) || currentTime < 0.01) && (
           <Image
             resizeMode="cover"
@@ -470,7 +470,7 @@ class Video extends Component {
 }
 
 Video.propTypes = {
-  url: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  url: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   error: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
@@ -523,9 +523,9 @@ Video.defaultProps = {
   volume: 1,
   lockRatio: undefined,
   logo: undefined,
-  title: "",
+  title: '',
   theme: defaultTheme,
-  resizeMode: "contain"
+  resizeMode: 'contain'
 };
 
 export default Video;

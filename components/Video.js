@@ -89,7 +89,7 @@ class Video extends Component {
   onLoad(data) {
     if (!this.state.loading) return
     this.props.onLoad(data)
-    const { height, width } = data.naturalSize   
+    const { height, width } = data.naturalSize
     const ratio = height === 'undefined' && width === 'undefined' ?
       (9 / 16) : (height / width)
     const inlineHeight = this.props.lockRatio ?
@@ -242,9 +242,9 @@ class Video extends Component {
           const initialOrient = Orientation.getInitialOrientation()
           const height = orientation !== initialOrient ?
             Win.width : Win.height
-            this.props.onFullScreen(this.state.fullScreen)
-            if (this.props.rotateToFullScreen) Orientation.lockToLandscape()
-            this.animToFullscreen(height)
+          this.props.onFullScreen(this.state.fullScreen)
+          if (this.props.rotateToFullScreen) Orientation.lockToLandscape()
+          this.animToFullscreen(height)
         } else {
           if (this.props.fullScreenOnly) {
             this.setState({ paused: true }, () => this.props.onPlay(!this.state.paused))
@@ -352,7 +352,8 @@ class Video extends Component {
       onMorePress,
       inlineOnly,
       playInBackground,
-      playWhenInactive
+      playWhenInactive,
+      controlDuration,
     } = this.props
 
     const inline = {
@@ -421,6 +422,7 @@ class Video extends Component {
           onMorePress={() => onMorePress()}
           theme={setTheme}
           inlineOnly={inlineOnly}
+          controlDuration={controlDuration}
         />
       </Animated.View>
     )
@@ -471,7 +473,8 @@ Video.propTypes = {
   logo: PropTypes.string,
   title: PropTypes.string,
   theme: PropTypes.object,
-  resizeMode: PropTypes.string
+  resizeMode: PropTypes.string,
+  controlDuration: PropTypes.number,
 }
 
 Video.defaultProps = {
@@ -500,7 +503,8 @@ Video.defaultProps = {
   logo: undefined,
   title: '',
   theme: defaultTheme,
-  resizeMode: 'contain'
+  resizeMode: 'contain',
+  controlDuration: 3,
 }
 
 export default Video

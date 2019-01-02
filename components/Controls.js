@@ -68,7 +68,7 @@ class Controls extends Component {
           break
         case this.state.hideControls:
           break
-        case this.state.seconds > 3:
+        case this.state.seconds > this.props.controlDuration:
           this.hideControls()
           break
         default:

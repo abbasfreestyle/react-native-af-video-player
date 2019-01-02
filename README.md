@@ -97,6 +97,7 @@ onError               | function | No       | (error) => {}             | Return
 onPlay                | function | No       | (playing) => {}           | Returns a boolean during playback
 error                 | boolean, object | No | true                     | Pass in an object to Alert. See https://facebook.github.io/react-native/docs/alert.html
 theme                 | object   | No       | all white                 | Pass in an object to theme. (See example below to see the full list of available settings)
+controlDuration             | number   | No       | 3                 | Set the visibility time of the pause button and the progress bar after the video was started
 
 ## Referencing
 

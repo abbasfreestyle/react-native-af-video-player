@@ -1,15 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import {
-  Text,
-  StyleSheet,
-  StatusBar,
-  Dimensions,
-  BackHandler,
-  Animated,
-  Image,
-  Alert
-} from 'react-native'
+import React from 'react'
 
 interface RNVideoProps {
   url: string | number;

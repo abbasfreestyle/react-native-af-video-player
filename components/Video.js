@@ -349,6 +349,8 @@ class Video extends Component {
       theme,
       onTimedMetadata,
       resizeMode,
+      moreIcon,
+      onLogoPress,
       onMorePress,
       inlineOnly,
       playInBackground,
@@ -419,6 +421,8 @@ class Video extends Component {
           logo={logo}
           title={title}
           more={!!onMorePress}
+          moreIcon={moreIcon}
+          onLogoPress={() => onLogoPress()}
           onMorePress={() => onMorePress()}
           theme={setTheme}
           inlineOnly={inlineOnly}

@@ -18,7 +18,7 @@
     "react-test-renderer": "16.0.0-beta.5"
   },
   "description": "A customisable React Native video player for Android and IOS",
-  "homepage": "https://github.com/abbasfreestyle/react-native-af-video-player#readme",
+  "homepage": "https://github.com/jay0512/react-native-af-video-player",
   "keywords": [
     "react-component",
     "react-native",
@@ -30,14 +30,14 @@
   ],
   "maintainers": [
     {
-      "name": "abbasfreestyle",
-      "email": "abbasfreestyle@gmail.com"
+      "name": "jay patel",
+      "email": "jaypatelvicky5@gmail.com"
     }
   ],
   "license": "MIT",
   "author": {
-    "name": "Abbas Farid",
-    "email": "abbasfreestyle@gmail.com",
-    "url": "https://github.com/abbasfreestyle"
+    "name": "Jay Patel",
+    "email": "jaypatelvicky5@gmail.com",
+    "url": "https://github.com/jay0512"
   }
 }

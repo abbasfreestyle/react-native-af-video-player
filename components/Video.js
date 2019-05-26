@@ -318,7 +318,7 @@ class Video extends Component {
         <Icons
           name="replay"
           size={60}
-          color={this.props.theme}
+          color="white"
           onPress={() => this.setState({ renderError: false })}
         />
       </Animated.View>

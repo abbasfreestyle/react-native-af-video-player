@@ -354,6 +354,7 @@ class Video extends Component {
       playInBackground,
       playWhenInactive,
       controlDuration,
+      hideFullScreenControl
     } = this.props
 
     const inline = {
@@ -423,6 +424,7 @@ class Video extends Component {
           theme={setTheme}
           inlineOnly={inlineOnly}
           controlDuration={controlDuration}
+          hideFullScreenControl={hideFullScreenControl}
         />
       </Animated.View>
     )
@@ -454,6 +456,7 @@ Video.propTypes = {
   loop: PropTypes.bool,
   autoPlay: PropTypes.bool,
   inlineOnly: PropTypes.bool,
+  hideFullScreenControl: PropTypes.bool,
   fullScreenOnly: PropTypes.bool,
   playInBackground: PropTypes.bool,
   playWhenInactive: PropTypes.bool,

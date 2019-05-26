@@ -23,7 +23,8 @@ const ControlBar = (props) => {
     muted,
     fullscreen,
     theme,
-    inlineOnly
+    inlineOnly,
+    hideFullScreenControl
   } = props
 
   return (
@@ -45,7 +46,7 @@ const ControlBar = (props) => {
         size={20}
       />
       <Time time={duration} theme={theme.duration} />
-      { !inlineOnly &&
+      { !inlineOnly || !hideFullScreenControl &&
       <ToggleIcon
         paddingRight
         onPress={() => props.toggleFS()}
@@ -66,6 +67,7 @@ ControlBar.propTypes = {
   fullscreen: PropTypes.bool.isRequired,
   muted: PropTypes.bool.isRequired,
   inlineOnly: PropTypes.bool.isRequired,
+  hideFullScreenControl: PropTypes.bool.isRequired,
   progress: PropTypes.number.isRequired,
   currentTime: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,

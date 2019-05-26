@@ -75,6 +75,7 @@ title                 | string   | No       | ''                        | Adds a
 placeholder           | string   | No       | undefined                 | Adds an image placeholder while it's loading and stopped at the beginning
 logo                  | string   | No       | undefined                 | Adds an image logo at the top left corner of the video
 theme                 | string   | No       | 'white'                   | Adds an optional theme colour to the players controls
+hideFullScreenControl | bool     | No       | false                     | This hides the full screen control
 style                 | number, object | No | {}                        | Apply styles directly to the Video player (ignored in fullscreen mode)
 resizeMode            | string   | No       | 'contain'                 | Fills the whole screen at aspect ratio. contain, cover etc
 rotateToFullScreen    | bool     | No       | false                     | Tapping the fullscreen button will rotate the screen. Also rotating the screen will automatically switch to fullscreen mode

@@ -127,7 +127,8 @@ class Controls extends Component {
       currentTime,
       duration,
       theme,
-      inlineOnly
+      inlineOnly,
+      hideFullScreenControl
     } = this.props
 
     const { center, ...controlBar } = theme
@@ -164,6 +165,7 @@ class Controls extends Component {
             duration={duration}
             theme={controlBar}
             inlineOnly={inlineOnly}
+            hideFullScreenControl={hideFullScreenControl}
           />
         </Animated.View>
       </Touchable>
@@ -188,6 +190,7 @@ Controls.propTypes = {
   onMorePress: PropTypes.func.isRequired,
   paused: PropTypes.bool.isRequired,
   inlineOnly: PropTypes.bool.isRequired,
+  hideFullScreenControl: PropTypes.bool.isRequired,
   fullscreen: PropTypes.bool.isRequired,
   muted: PropTypes.bool.isRequired,
   more: PropTypes.bool.isRequired,

@@ -1,66 +1,13 @@
 {
-  "_args": [
-    [
-      "react-native-af-video-player@0.2.1",
-      "/Users/andradalechintan/Projects/roa/mobile-app/roa"
-    ]
-  ],
-  "_from": "react-native-af-video-player@0.2.1",
-  "_id": "react-native-af-video-player@0.2.1",
-  "_inBundle": false,
-  "_integrity": "sha512-0+69zfk6nX9lFgfI+miHsUh1k32WouE53vWqyT2kHcAN4iDxa8mqcyMGeTnZ2gby62sx3T032OSbbAr1qRYZ6A==",
-  "_location": "/react-native-af-video-player",
-  "_phantomChildren": {
-    "camelcase": "4.1.0",
-    "cliui": "3.2.0",
-    "decamelize": "1.2.0",
-    "error-ex": "1.3.2",
-    "find-up": "2.1.0",
-    "get-caller-file": "1.0.3",
-    "graceful-fs": "4.1.15",
-    "keymirror": "0.1.1",
-    "lodash": "4.17.11",
-    "normalize-package-data": "2.5.0",
-    "os-locale": "2.1.0",
-    "prop-types": "15.7.2",
-    "require-directory": "2.1.1",
-    "require-main-filename": "1.0.1",
-    "set-blocking": "2.0.0",
-    "string-width": "2.1.1",
-    "strip-bom": "3.0.0",
-    "which-module": "2.0.0",
-    "y18n": "3.2.1",
-    "yargs-parser": "7.0.0"
-  },
-  "_requested": {
-    "type": "version",
-    "registry": true,
-    "raw": "react-native-af-video-player@0.2.1",
-    "name": "react-native-af-video-player",
-    "escapedName": "react-native-af-video-player",
-    "rawSpec": "0.2.1",
-    "saveSpec": null,
-    "fetchSpec": "0.2.1"
-  },
-  "_requiredBy": [
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/react-native-af-video-player/-/react-native-af-video-player-0.2.1.tgz",
-  "_spec": "0.2.1",
-  "_where": "/Users/andradalechintan/Projects/roa/mobile-app/roa",
-  "author": {
-    "name": "Abbas Farid",
-    "email": "abbasfreestyle@gmail.com",
-    "url": "https://github.com/abbasfreestyle"
-  },
+  "name": "react-native-af-video-player",
+  "version": "0.2.1",
   "dependencies": {
     "react-native-keep-awake": "^2.0.6",
-    "react-native-linear-gradient": "^2.3.0",
+    "react-native-linear-gradient": "2.3.0",
     "react-native-orientation": "^3.1.0",
-    "react-native-slider": "git+https://github.com/abbasfreestyle/react-native-slider.git",
+    "react-native-slider": "https://github.com/abbasfreestyle/react-native-slider.git",
     "react-native-vector-icons": "^4.4.2"
   },
-  "description": "A customisable React Native video player for Android and IOS",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-jest": "21.2.0",
@@ -69,6 +16,7 @@
     "jest": "21.2.1",
     "react-test-renderer": "16.0.0-beta.5"
   },
+  "description": "A customisable React Native video player for Android and IOS",
   "homepage": "https://github.com/abbasfreestyle/react-native-af-video-player#readme",
   "keywords": [
     "react-component",
@@ -79,19 +27,19 @@
     "player",
     "fullscreen"
   ],
-  "license": "MIT",
   "maintainers": [
     {
       "name": "abbasfreestyle",
       "email": "abbasfreestyle@gmail.com"
     }
   ],
-  "name": "react-native-af-video-player",
-  "peerDependencies": {
-    "prop-types": "*",
-    "react": "*",
-    "react-native": "*",
-    "react-native-video": "*"
+  "license": "MIT",
+  "author": {
+    "name": "Abbas Farid",
+    "email": "abbasfreestyle@gmail.com",
+    "url": "https://github.com/abbasfreestyle"
   },
-  "version": "0.2.1"
+  "peerDependencies": {
+    "react-native-video": "*"
+  }
 }

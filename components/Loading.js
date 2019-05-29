@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Animated
 } from 'react-native'
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,6 +17,9 @@ const styles = StyleSheet.create({
   line: {
     height: 5,
     width: 75
+  },
+  closeButton: {
+    alignItems: 'flex-end',
   }
 })
 

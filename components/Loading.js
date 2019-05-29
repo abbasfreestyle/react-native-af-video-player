@@ -4,9 +4,10 @@ import {
   View,
   Easing,
   StyleSheet,
-  Animated
+  Animated,
+  TouchableOpacity
 } from 'react-native'
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icons from 'react-native-vector-icons/MaterialIcons'
 
 const styles = StyleSheet.create({
   container: {
@@ -20,6 +21,8 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     alignItems: 'flex-end',
+    paddingTop: 2,
+    paddingRight: 2,
   }
 })
 
@@ -72,16 +75,20 @@ class Loading extends Component {
       return (
         <View style={{flex:1}}>
           <View style={styles.closeButton}>
-            <Icon.Button
+          <TouchableOpacity
+              onPress={() => onLoadingCloseButtonPress()}
+            >
+            <Icons
               name="close"
               style={styles.closeButton}
-              iconStyle={{marginRight:0, marginTop:0}}
+              iconStyle={{marginRight:5, marginTop:5}}
+              size={25}
               underlayColor="transparent"
               backgroundColor="transparent"
               title="close"
-              onPress={() => onLoadingCloseButtonPress()}
               color="white"
             />
+            </TouchableOpacity>
           </View>
           <View style={styles.container}>
             <Animated.View style={[

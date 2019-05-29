@@ -106,9 +106,12 @@ class Controls extends Component {
   }
 
   loading() {
+    const {
+      onLoadingCloseButtonPress,
+    } = this.props
     return (
       <View style={styles.container}>
-        <Loading theme={this.props.theme.loading} />
+        <Loading theme={this.props.theme.loading} onLoadingCloseButtonPress={() => onLoadingCloseButtonPress()} />
       </View>
     )
   }

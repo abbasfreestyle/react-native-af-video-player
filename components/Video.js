@@ -351,6 +351,7 @@ class Video extends Component {
       resizeMode,
       moreIcon,
       onLogoPress,
+      onLoadingCloseButtonPress,
       onMorePress,
       inlineOnly,
       playInBackground,
@@ -422,6 +423,7 @@ class Video extends Component {
           title={title}
           more={!!onMorePress}
           moreIcon={moreIcon}
+          onLoadingCloseButtonPress={() => onLoadingCloseButtonPress()}
           onLogoPress={() => onLogoPress()}
           onMorePress={() => onMorePress()}
           theme={setTheme}

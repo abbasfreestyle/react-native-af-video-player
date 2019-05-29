@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
 })
 
 class Loading extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.anim = {
       width: new Animated.Value(10),
       translateX: new Animated.Value(-50)
@@ -61,18 +61,35 @@ class Loading extends Component {
 
   render() {
     const { translateX, width } = this.anim
+    const {
+      onLoadingCloseButtonPress,
+    } = this.props
     if (this.props.loading) {
       return (
-        <View style={styles.container}>
-          <Animated.View style={[
-            styles.line,
-            {
-              backgroundColor: this.props.theme,
-              width,
-              transform: [{ translateX }]
-            }
-          ]}
-          />
+        <View style={{flex:1}}>
+          <View style={styles.closeButton}>
+            <Icon.Button
+              name="close"
+              style={styles.closeButton}
+              iconStyle={{marginRight:0, marginTop:0}}
+              underlayColor="transparent"
+              backgroundColor="transparent"
+              title="close"
+              onPress={() => onLoadingCloseButtonPress()}
+              color="white"
+            />
+          </View>
+          <View style={styles.container}>
+            <Animated.View style={[
+              styles.line,
+              {
+                backgroundColor: this.props.theme,
+                width,
+                transform: [{ translateX }]
+              }
+            ]}
+            />
+          </View>
         </View>
       )
     }

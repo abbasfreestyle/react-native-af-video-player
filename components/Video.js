@@ -399,7 +399,7 @@ class Video extends Component {
           muted={muted}
           playInBackground={playInBackground} // Audio continues to play when app entering background.
           playWhenInactive={playWhenInactive} // [iOS] Video continues to play when control or notification center are shown.
-          // progressUpdateInterval={250.0}          // [iOS] Interval to fire onProgress (default to ~250ms)
+          progressUpdateInterval={1000}          // [iOS] Interval to fire onProgress (default to ~250ms)
           onLoadStart={() => this.onLoadStart()} // Callback when video starts to load
           onLoad={e => this.onLoad(e)} // Callback when video loads
           onProgress={e => this.progress(e)} // Callback every ~250ms with currentTime

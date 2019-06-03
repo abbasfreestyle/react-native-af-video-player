@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import icPlayButton from './assets/ic_post_video_play.png'
+import icPauseButton from './assets/ic_post_video_pause.png'
 
 const backgroundColor = 'transparent'
 
@@ -23,7 +24,7 @@ const PlayButton = props => (
       onPress={() => props.onPress()}
     >
       <Image 
-      source={icPlayButton}
+      source={props.paused ? icPlayButton: icPauseButton}
       style={{width:64, height:64}}
       />
     </TouchableOpacity>

@@ -359,7 +359,8 @@ class Video extends Component {
       onMorePress,
       inlineOnly,
       playInBackground,
-      playWhenInactive
+      playWhenInactive,
+      hideFullScreenControl
     } = this.props
 
     const inline = {
@@ -428,6 +429,7 @@ class Video extends Component {
           onMorePress={() => onMorePress()}
           theme={setTheme}
           inlineOnly={inlineOnly}
+          hideFullScreenControl={hideFullScreenControl}
         />
       </Animated.View>
     )
@@ -478,7 +480,8 @@ Video.propTypes = {
   logo: PropTypes.string,
   title: PropTypes.string,
   theme: PropTypes.object,
-  resizeMode: PropTypes.string
+  resizeMode: PropTypes.string,
+  hideFullScreenControl: PropTypes.bool,
 }
 
 Video.defaultProps = {
@@ -493,6 +496,7 @@ Video.defaultProps = {
   playWhenInactive: false,
   rotateToFullScreen: false,
   lockPortraitOnFsExit: false,
+  hideFullScreenControl: false,
   onEnd: () => {},
   onLoad: () => {},
   onPlay: () => {},

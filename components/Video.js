@@ -75,12 +75,12 @@ class Video extends Component {
 
   componentDidMount() {
     Dimensions.addEventListener('change', this.onRotated)
-    BackHandler.addEventListener('hardwareBackPress', this.BackHandler)
+    // BackHandler.addEventListener('hardwareBackPress', this.BackHandler)
   }
 
   componentWillUnmount() {
     Dimensions.removeEventListener('change', this.onRotated)
-    BackHandler.removeEventListener('hardwareBackPress', this.BackHandler)
+    // BackHandler.removeEventListener('hardwareBackPress', this.BackHandler)
   }
 
   onLoadStart() {

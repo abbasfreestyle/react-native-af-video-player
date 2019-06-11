@@ -3,9 +3,7 @@ import PropTypes from 'prop-types'
 import {
   Text,
   StyleSheet,
-  StatusBar,
   Dimensions,
-  BackHandler,
   Animated,
   Image,
   Alert
@@ -69,18 +67,15 @@ class Video extends Component {
     }
     this.animInline = new Animated.Value(Win.width * 0.5625)
     this.animFullscreen = new Animated.Value(props.resizedVideoHeight || Win.width)
-    this.BackHandler = this.BackHandler.bind(this)
     this.onRotated = this.onRotated.bind(this)
   }
 
   componentDidMount() {
     Dimensions.addEventListener('change', this.onRotated)
-    // BackHandler.addEventListener('hardwareBackPress', this.BackHandler)
   }
 
   componentWillUnmount() {
     Dimensions.removeEventListener('change', this.onRotated)
-    // BackHandler.removeEventListener('hardwareBackPress', this.BackHandler)
   }
 
   onLoadStart() {
@@ -383,7 +378,6 @@ class Video extends Component {
           fullScreen ? null : style
         ]}
       >
-        <StatusBar hidden={fullScreen} />
         {
           ((loading && placeholder) || currentTime < 0.01) ?
           <Image resizeMode="cover" style={styles.image} {...checkSource(placeholder)} /> : null

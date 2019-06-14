@@ -357,6 +357,8 @@ class Video extends Component {
       playInBackground,
       playWhenInactive,
       controlDuration,
+      textTracks,
+      selectedTextTrack
     } = this.props
 
     const inline = {
@@ -386,6 +388,8 @@ class Video extends Component {
         }
         <VideoPlayer
           {...checkSource(url)}
+          textTracks={textTracks}
+          selectedTextTrack={selectedTextTrack}
           paused={paused}
           resizeMode={resizeMode}
           repeat={loop}
@@ -481,6 +485,9 @@ Video.propTypes = {
   theme: PropTypes.object,
   resizeMode: PropTypes.string,
   controlDuration: PropTypes.number,
+  textTracks: PropTypes.array,
+  selectedTextTrack: PropTypes.object
+
 }
 
 Video.defaultProps = {

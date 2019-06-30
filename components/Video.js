@@ -56,7 +56,7 @@ class Video extends Component {
     super(props);
     this.state = {
       paused: !props.autoPlay,
-      muted: false,
+      muted: this.props.mute,
       fullScreen: true,
       inlineHeight: Win.width * 0.5625,
       loading: false,
@@ -456,6 +456,7 @@ Video.propTypes = {
     PropTypes.object,
   ]),
   loop: PropTypes.bool,
+  mute: PropTypes.bool,
   autoPlay: PropTypes.bool,
   inlineOnly: PropTypes.bool,
   fullScreenOnly: PropTypes.bool,
@@ -486,6 +487,7 @@ Video.defaultProps = {
   style: {},
   error: true,
   loop: false,
+  mute:false,
   autoPlay: false,
   inlineOnly: false,
   fullScreenOnly: false,

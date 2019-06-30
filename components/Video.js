@@ -357,7 +357,8 @@ class Video extends Component {
       playInBackground,
       playWhenInactive,
       hideFullScreenControl,
-      controlDuration
+      controlDuration,
+      disableControls
     } = this.props;
 
     const inline = {
@@ -407,6 +408,7 @@ class Video extends Component {
         />
         <Controls
           ref={(ref) => { this.controls = ref; }}
+          disableControls={disableControls}
           toggleMute={() => this.toggleMute()}
           toggleFS={() => this.toggleFS()}
           togglePlay={() => this.togglePlay()}
@@ -460,6 +462,7 @@ Video.propTypes = {
   autoPlay: PropTypes.bool,
   inlineOnly: PropTypes.bool,
   fullScreenOnly: PropTypes.bool,
+  disableControls: PropTypes.bool,
   playInBackground: PropTypes.bool,
   playWhenInactive: PropTypes.bool,
   rotateToFullScreen: PropTypes.bool,
@@ -487,10 +490,11 @@ Video.defaultProps = {
   style: {},
   error: true,
   loop: false,
-  mute:false,
+  mute: false,
   autoPlay: false,
   inlineOnly: false,
   fullScreenOnly: false,
+  disableControls: false,
   playInBackground: false,
   playWhenInactive: false,
   rotateToFullScreen: false,

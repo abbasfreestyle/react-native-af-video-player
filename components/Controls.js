@@ -128,7 +128,8 @@ class Controls extends Component {
       duration,
       theme,
       inlineOnly,
-      hideFullScreenControl
+      hideFullScreenControl,
+      disableControls
     } = this.props
 
     const { center, ...controlBar } = theme
@@ -151,7 +152,8 @@ class Controls extends Component {
               theme={center}
             />
           </Animated.View>
-          <ControlBar
+          {!disableControls ? 
+            <ControlBar
             toggleFS={() => this.props.toggleFS()}
             toggleMute={() => this.props.toggleMute()}
             togglePlay={() => this.props.togglePlay()}
@@ -166,7 +168,8 @@ class Controls extends Component {
             theme={controlBar}
             inlineOnly={inlineOnly}
             hideFullScreenControl={hideFullScreenControl}
-          />
+            />
+          :null}
         </Animated.View>
       </Touchable>
     )

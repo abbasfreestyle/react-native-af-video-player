@@ -2,20 +2,20 @@
   "name": "react-native-af-video-player",
   "version": "0.2.1",
   "dependencies": {
-    "react-native-keep-awake": "^2.0.6",
-    "react-native-linear-gradient": "2.3.0",
-    "react-native-orientation": "^3.1.0",
+    "react-native-keep-awake": "^4.0.0",
+    "react-native-linear-gradient": "^2.5.6",
+    "react-native-orientation": "^3.1.3",
     "react-native-slider": "https://github.com/abbasfreestyle/react-native-slider.git",
-    "react-native-vector-icons": "^4.4.2",
-    "react-native-video": "^2.0.0"
+    "react-native-vector-icons": "^6.6.0",
+    "react-native-video": "^5.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-jest": "21.2.0",
+    "babel-jest": "^24.8.0",
     "babel-preset-flow": "^6.23.0",
-    "babel-preset-react-native": "4.0.0",
-    "jest": "21.2.1",
-    "react-test-renderer": "16.0.0-beta.5"
+    "babel-preset-react-native": "^4.0.1",
+    "jest": "^24.8.0",
+    "react-test-renderer": "^16.8.6"
   },
   "description": "A customisable React Native video player for Android and IOS",
   "homepage": "https://github.com/abbasfreestyle/react-native-af-video-player#readme",

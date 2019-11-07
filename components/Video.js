@@ -235,6 +235,43 @@ class Video extends Component {
     })
   }
 
+  forward() {
+    const {currentTime,duration} = this.state;
+    if(currentTime+10<duration){
+      this.setState({
+        currentTime : currentTime+10
+      },()=>{
+        const {currentTime} = this.state;
+        this.seekTo(currentTime);
+      })
+    }else {
+      this.setState({
+        currentTime : duration
+      },()=>{
+        this.seekTo(duration);
+      })
+    }
+  }
+
+  rewind() {
+    const {currentTime} = this.state;
+    if(currentTime>5){
+      this.setState({
+        currentTime : currentTime-5
+      },()=>{
+        const {currentTime} = this.state;
+        this.seekTo(currentTime-5);
+      })
+    }else{
+      this.setState({
+        currentTime : 0
+      },()=>{
+        this.seekTo(0);
+      })
+      this.seekTo(0);
+    }
+  }
+
   toggleFS() {
     this.setState({ fullScreen: !this.state.fullScreen }, () => {
       Orientation.getOrientation((e, orientation) => {
@@ -408,6 +445,7 @@ class Video extends Component {
           toggleMute={() => this.toggleMute()}
           toggleFS={() => this.toggleFS()}
           togglePlay={() => this.togglePlay()}
+          forward={()=>this.forward()}
           paused={paused}
           muted={muted}
           fullscreen={fullScreen}

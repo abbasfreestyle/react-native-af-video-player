@@ -21,6 +21,10 @@ const styles = StyleSheet.create({
   },
   flex: {
     flex: 1
+  },
+  flexR:{
+    flex: 1,
+    flexDirection:'row',
   }
 })
 
@@ -143,12 +147,22 @@ class Controls extends Component {
             onMorePress={() => onMorePress()}
             theme={{ title: theme.title, more: theme.more }}
           />
-          <Animated.View style={[styles.flex, { transform: [{ scale: this.scale }] }]}>
+          <Animated.View style={[styles.flexR, { transform: [{ scale: this.scale }] }]}>
+            <SkipButton
+              onPress={() => this.props.rewind()}
+              theme={center}
+              rewind={true}
+            />
             <PlayButton
               onPress={() => this.props.togglePlay()}
               paused={paused}
               loading={loading}
               theme={center}
+            />
+            <SkipButton
+              onPress={() => this.props.forward()}
+              theme={center}
+              rewind={false}
             />
           </Animated.View>
           <ControlBar

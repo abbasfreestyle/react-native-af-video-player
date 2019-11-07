@@ -446,6 +446,7 @@ class Video extends Component {
           toggleFS={() => this.toggleFS()}
           togglePlay={() => this.togglePlay()}
           forward={()=>this.forward()}
+          rewind={()=>this.rewind()}
           paused={paused}
           muted={muted}
           fullscreen={fullScreen}

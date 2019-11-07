@@ -11,7 +11,8 @@ import {
   ControlBar,
   Loading,
   TopBar,
-  ProgressBar
+  ProgressBar,
+  SkipButton
 } from './'
 
 const styles = StyleSheet.create({
@@ -199,6 +200,8 @@ Controls.propTypes = {
   toggleFS: PropTypes.func.isRequired,
   toggleMute: PropTypes.func.isRequired,
   togglePlay: PropTypes.func.isRequired,
+  forward: PropTypes.func.isRequired,
+  rewind: PropTypes.func.isRequired,
   onSeek: PropTypes.func.isRequired,
   onSeekRelease: PropTypes.func.isRequired,
   onMorePress: PropTypes.func.isRequired,

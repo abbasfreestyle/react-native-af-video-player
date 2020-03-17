@@ -11,5 +11,5 @@ export * from './ProgressBar'
 export * from './ScrollView'
 export * from './Container'
 export * from './SkipButton'
-
+export * from './MoreOptions'
 export default Video

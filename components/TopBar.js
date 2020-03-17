@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 
 import LinearGradient from 'react-native-linear-gradient'
-import { ToggleIcon } from './'
+import { MoreOptions } from './'
 import { checkSource } from './utils'
 
 const backgroundColor = 'transparent'
@@ -58,7 +58,7 @@ const TopBar = (props) => {
           {title}
         </Text>
         { more &&
-          <ToggleIcon
+          <MoreOptions
             style={styles.more}
             onPress={() => onMorePress()}
             paddingRight

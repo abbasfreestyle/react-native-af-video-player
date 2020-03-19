@@ -81,6 +81,7 @@ resizeMode            | string   | No       | 'contain'                 | Fills 
 rotateToFullScreen    | bool     | No       | false                     | Tapping the fullscreen button will rotate the screen. Also rotating the screen will automatically switch to fullscreen mode
 fullScreenOnly        | bool     | No       | false                     | This will play only in fullscreen mode
 inlineOnly            | bool     | No       | false                     | This hides the fullscreen button and only plays the video in inline mode
+disableForwardSeek    | bool     | No       | false                     | This disables the possibility of fast forward the video
 playInBackground      | bool     | No       | false                     | Audio continues to play when app enters background.
 playWhenInactive      | bool     | No       | false                     | [iOS] Video continues to play when control or notification center are shown.
 rate                  | number   | No       | 1                         | Adjusts the speed of the video. 0 = stopped, 1.0 = normal

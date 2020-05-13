@@ -354,7 +354,8 @@ class Video extends Component {
       playInBackground,
       playWhenInactive,
       controlDuration,
-      hideFullScreenControl
+      hideFullScreenControl,
+      hideSeekBar
     } = this.props
 
     const inline = {
@@ -425,6 +426,7 @@ class Video extends Component {
           inlineOnly={inlineOnly}
           controlDuration={controlDuration}
           hideFullScreenControl={hideFullScreenControl}
+          hideSeekBar={hideSeekBar}
         />
       </Animated.View>
     )
@@ -478,6 +480,7 @@ Video.propTypes = {
   theme: PropTypes.object,
   resizeMode: PropTypes.string,
   controlDuration: PropTypes.number,
+  hideSeekBar: PropTypes.bool
 }
 
 Video.defaultProps = {
@@ -508,6 +511,7 @@ Video.defaultProps = {
   theme: defaultTheme,
   resizeMode: 'contain',
   controlDuration: 3,
+  hideSeekBar: false
 }
 
 export default Video

@@ -354,7 +354,8 @@ class Video extends Component {
       playInBackground,
       playWhenInactive,
       controlDuration,
-      hideFullScreenControl
+      hideFullScreenControl,
+      ignoreSilentSwitch
     } = this.props
 
     const inline = {
@@ -402,6 +403,7 @@ class Video extends Component {
           onError={e => this.onError(e)}
           // onBuffer={() => this.onBuffer()} // Callback when remote video is buffering
           onTimedMetadata={e => onTimedMetadata(e)} // Callback when the stream receive some metadata
+          ignoreSilentSwitch={ignoreSilentSwitch}
         />
         <Controls
           ref={(ref) => { this.controls = ref }}

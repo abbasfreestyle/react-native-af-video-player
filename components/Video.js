@@ -12,7 +12,7 @@ import {
 } from 'react-native'
 import VideoPlayer from 'react-native-video'
 import KeepAwake from 'react-native-keep-awake'
-import Orientation from 'react-native-orientation'
+import * as ScreenOrientation from 'expo-screen-orientation';
 import Icons from 'react-native-vector-icons/MaterialIcons'
 import { Controls } from './'
 import { checkSource } from './utils'
@@ -109,7 +109,7 @@ class Video extends Component {
           this.setState({ fullScreen: true }, () => {
             this.props.onFullScreen(this.state.fullScreen)
             this.animToFullscreen(Win.height)
-            if (this.props.rotateToFullScreen) Orientation.lockToLandscape()
+            if (this.props.rotateToFullScreen) ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE)
           })
         }
       }
@@ -193,9 +193,9 @@ class Video extends Component {
         this.animToInline()
         this.props.onFullScreen(this.state.fullScreen)
         if (this.props.fullScreenOnly && !this.state.paused) this.togglePlay()
-        if (this.props.rotateToFullScreen) Orientation.lockToPortrait()
+        if (this.props.rotateToFullScreen) ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT)
         setTimeout(() => {
-          if (!this.props.lockPortraitOnFsExit) Orientation.unlockAllOrientations()
+          if (!this.props.lockPortraitOnFsExit) ScreenOrientation.unlockAsync()
         }, 1500)
       })
       return true
@@ -214,17 +214,17 @@ class Video extends Component {
   togglePlay() {
     this.setState({ paused: !this.state.paused }, () => {
       this.props.onPlay(!this.state.paused)
-      Orientation.getOrientation((e, orientation) => {
+      ScreenOrientation.getOrientationAsync().then((orientation) => {
         if (this.props.inlineOnly) return
         if (!this.state.paused) {
           if (this.props.fullScreenOnly && !this.state.fullScreen) {
             this.setState({ fullScreen: true }, () => {
               this.props.onFullScreen(this.state.fullScreen)
-              const initialOrient = Orientation.getInitialOrientation()
-              const height = orientation !== initialOrient ?
+              // const initialOrient = Orientation.getInitialOrientation()
+              const height = this.props.rotateToFullScreen ?
                 Win.width : Win.height
               this.animToFullscreen(height)
-              if (this.props.rotateToFullScreen) Orientation.lockToLandscape()
+              if (this.props.rotateToFullScreen) ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE)
             })
           }
           KeepAwake.activate()
@@ -237,23 +237,23 @@ class Video extends Component {
 
   toggleFS() {
     this.setState({ fullScreen: !this.state.fullScreen }, () => {
-      Orientation.getOrientation((e, orientation) => {
+      ScreenOrientation.getOrientationAsync().then((orientation) => {
         if (this.state.fullScreen) {
-          const initialOrient = Orientation.getInitialOrientation()
-          const height = orientation !== initialOrient ?
+          // const initialOrient = Orientation.getInitialOrientation()
+          const height = this.props.rotateToFullScreen ?
             Win.width : Win.height
           this.props.onFullScreen(this.state.fullScreen)
-          if (this.props.rotateToFullScreen) Orientation.lockToLandscape()
+          if (this.props.rotateToFullScreen) ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE)
           this.animToFullscreen(height)
         } else {
           if (this.props.fullScreenOnly) {
             this.setState({ paused: true }, () => this.props.onPlay(!this.state.paused))
           }
           this.props.onFullScreen(this.state.fullScreen)
-          if (this.props.rotateToFullScreen) Orientation.lockToPortrait()
+          if (this.props.rotateToFullScreen) ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT)
           this.animToInline()
           setTimeout(() => {
-            if (!this.props.lockPortraitOnFsExit) Orientation.unlockAllOrientations()
+            if (!this.props.lockPortraitOnFsExit) ScreenOrientation.unlockAsync()
           }, 1500)
         }
       })

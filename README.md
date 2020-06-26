@@ -30,7 +30,6 @@ Then link
 react-native link react-native-video
 react-native link react-native-keep-awake
 react-native link react-native-vector-icons
-react-native link react-native-orientation
 react-native link react-native-linear-gradient
 ```
 

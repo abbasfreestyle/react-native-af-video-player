@@ -35,10 +35,10 @@ class ScrollView extends Component {
   }
 
   renderChildren(children) {
-    if (child === null) {
-      return null;
-    }
     return React.Children.map(children, (child, key) => {
+      if (child === null) {
+        return null;
+      }
       const element = child.type.name;
       switch (true) {
         case element === "Container": {

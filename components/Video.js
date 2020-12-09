@@ -261,23 +261,18 @@ class Video extends Component {
       Orientation.getOrientation((e, orientation) => {
         if (this.state.fullScreen) {
           const initialOrient = Orientation.getInitialOrientation();
-          if (
-            this.props.lockedOrientation === "PORTRAIT" &&
-            !this.props.checkIfIphone
-          ) {
+          if (this.props.lockedOrientation === "PORTRAIT" && !this.props.checkIfIphone ){
             const height = Win.height;
             if (this.props.rotateToFullScreen) Orientation.lockToLandscape();
             this.animToFullscreen(height);
-          } else if (
-            this.props.lockedOrientation === "PORTRAIT" &&
-            this.props.checkIfIphone
-          ) {
+          }
+          else if (this.props.lockedOrientation === "PORTRAIT" && this.props.checkIfIphone){
             const height = Win.height - this.props.fullScreenHeightOffset;
             if (this.props.rotateToFullScreen) Orientation.lockToLandscape();
             this.animToFullscreen(height);
-          } else {
-            const height =
-              orientation !== initialOrient ? Win.width : Win.height;
+          }
+          else {
+            const height = orientation !== initialOrient ? Win.width : Win.height;
             if (this.props.rotateToFullScreen) Orientation.lockToLandscape();
             this.animToFullscreen(height);
           }

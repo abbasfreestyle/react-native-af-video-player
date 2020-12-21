@@ -11,7 +11,7 @@ import {
   Alert
 } from "react-native";
 import VideoPlayer from "react-native-video";
-import KeepAwake from "react-native-keep-awake";
+// import KeepAwake from "react-native-keep-awake";
 import Orientation from "react-native-orientation";
 import Icons from "react-native-vector-icons/MaterialIcons";
 import { Controls } from "./";
@@ -101,7 +101,7 @@ class Video extends Component {
         paused: !this.props.autoPlay,
         loading: false,
         inlineHeight,
-        duration: data.duration
+        duration: data.duration,
       },
       () => {
         Animated.timing(this.animInline, {
@@ -110,7 +110,7 @@ class Video extends Component {
         }).start();
         this.props.onPlay(!this.state.paused);
         if (!this.state.paused) {
-          KeepAwake.activate();
+          // KeepAwake.activate();
           if (this.props.fullScreenOnly) {
             this.setState({ fullScreen: true }, () => {
               this.props.onFullScreen(this.state.fullScreen);
@@ -248,9 +248,9 @@ class Video extends Component {
               if (this.props.rotateToFullScreen) Orientation.lockToLandscape();
             });
           }
-          KeepAwake.activate();
+          // KeepAwake.activate();
         } else {
-          KeepAwake.deactivate();
+          // KeepAwake.deactivate();
         }
       });
     });
@@ -297,6 +297,7 @@ class Video extends Component {
       });
     });
   }
+
 
   animToFullscreen(height) {
     Animated.parallel([

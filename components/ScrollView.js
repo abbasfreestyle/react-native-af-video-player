@@ -70,6 +70,7 @@ class ScrollView extends Component {
       bounces,
       children,
       onScroll,
+      updateScrollRef,
       scrollEventThrottle,
       ...scrollProps
     } = this.props;
@@ -78,6 +79,7 @@ class ScrollView extends Component {
         {...scrollProps}
         ref={scroll => {
           this.scroll = scroll;
+          updateScrollRef && updateScrollRef(scroll);
         }}
         bounces={fullscreen ? !fullscreen : bounces}
         onScroll={event => {

@@ -101,12 +101,13 @@ class Video extends Component {
         paused: !this.props.autoPlay,
         loading: false,
         inlineHeight,
-        duration: data.duration,
+        duration: data.duration
       },
       () => {
         Animated.timing(this.animInline, {
           toValue: inlineHeight,
-          duration: 200
+          duration: 200,
+          useNativeDriver: false
         }).start();
         this.props.onPlay(!this.state.paused);
         if (!this.state.paused) {
@@ -261,18 +262,23 @@ class Video extends Component {
       Orientation.getOrientation((e, orientation) => {
         if (this.state.fullScreen) {
           const initialOrient = Orientation.getInitialOrientation();
-          if (this.props.lockedOrientation === "PORTRAIT" && !this.props.checkIfIphone ){
+          if (
+            this.props.lockedOrientation === "PORTRAIT" &&
+            !this.props.checkIfIphone
+          ) {
             const height = Win.height;
             if (this.props.rotateToFullScreen) Orientation.lockToLandscape();
             this.animToFullscreen(height);
-          }
-          else if (this.props.lockedOrientation === "PORTRAIT" && this.props.checkIfIphone){
+          } else if (
+            this.props.lockedOrientation === "PORTRAIT" &&
+            this.props.checkIfIphone
+          ) {
             const height = Win.height - this.props.fullScreenHeightOffset;
             if (this.props.rotateToFullScreen) Orientation.lockToLandscape();
             this.animToFullscreen(height);
-          }
-          else {
-            const height = orientation !== initialOrient ? Win.width : Win.height;
+          } else {
+            const height =
+              orientation !== initialOrient ? Win.width : Win.height;
             if (this.props.rotateToFullScreen) Orientation.lockToLandscape();
             this.animToFullscreen(height);
           }
@@ -298,11 +304,18 @@ class Video extends Component {
     });
   }
 
-
   animToFullscreen(height) {
     Animated.parallel([
-      Animated.timing(this.animFullscreen, { toValue: height, duration: 600 }),
-      Animated.timing(this.animInline, { toValue: height, duration: 600 })
+      Animated.timing(this.animFullscreen, {
+        toValue: height,
+        duration: 600,
+        useNativeDriver: false
+      }),
+      Animated.timing(this.animInline, {
+        toValue: height,
+        duration: 600,
+        useNativeDriver: false
+      })
     ]).start();
   }
 
@@ -311,11 +324,13 @@ class Video extends Component {
     Animated.parallel([
       Animated.timing(this.animFullscreen, {
         toValue: newHeight,
-        duration: 100
+        duration: 100,
+        useNativeDriver: false
       }),
       Animated.timing(this.animInline, {
         toValue: this.state.inlineHeight,
-        duration: 100
+        duration: 100,
+        useNativeDriver: false
       })
     ]).start();
   }

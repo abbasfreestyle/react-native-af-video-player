@@ -76,17 +76,11 @@ class Video extends Component {
   componentDidMount() {
     Dimensions.addEventListener("change", this.onRotated);
     BackHandler.addEventListener("hardwareBackPress", this.BackHandler);
-    Orientation.addOrientationListener(this._orientationDidChange);
-  }
-
-  _orientationDidChange = (orientation) => {
-    this.getInlineHeight()
   }
 
   componentWillUnmount() {
     Dimensions.removeEventListener("change", this.onRotated);
     BackHandler.removeEventListener("hardwareBackPress", this.BackHandler);
-    Orientation.removeOrientationListener(this._orientationDidChange);
   }
 
   onLoadStart() {
@@ -131,7 +125,6 @@ class Video extends Component {
   }
 
   onLoad(data) {
-    const Win = Dimensions.get("window");
     this.data = data
     if (!this.state.loading) return;
     this.props.onLoad(data);
@@ -155,6 +148,7 @@ class Video extends Component {
 
   onRotated({ window: { width, height } }) {
     // Add this condition incase if inline and fullscreen options are turned on
+    this.getInlineHeight();
     if (this.props.inlineOnly) return;
     const orientation = width > height ? "LANDSCAPE" : "PORTRAIT";
     if (this.props.rotateToFullScreen) {

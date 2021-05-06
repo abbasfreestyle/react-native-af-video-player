@@ -70,32 +70,38 @@ class Video extends Component {
     this.animFullscreen = new Animated.Value(Win.width * 0.5625);
     this.BackHandler = this.BackHandler.bind(this);
     this.onRotated = this.onRotated.bind(this);
+    this.data;
   }
 
   componentDidMount() {
     Dimensions.addEventListener("change", this.onRotated);
     BackHandler.addEventListener("hardwareBackPress", this.BackHandler);
+    Orientation.addOrientationListener(this._orientationDidChange);
+  }
+
+  _orientationDidChange = (orientation) => {
+    this.getInlineHeight()
   }
 
   componentWillUnmount() {
     Dimensions.removeEventListener("change", this.onRotated);
     BackHandler.removeEventListener("hardwareBackPress", this.BackHandler);
+    Orientation.removeOrientationListener(this._orientationDidChange);
   }
 
   onLoadStart() {
     this.setState({ paused: true, loading: true });
   }
 
-  onLoad(data) {
+  getInlineHeight = () => {
+    const data = this.data;
     const Win = Dimensions.get("window");
-    if (!this.state.loading) return;
-    this.props.onLoad(data);
     const { height, width } = data.naturalSize;
     const ratio =
       height === "undefined" && width === "undefined" ? 9 / 16 : height / width;
     const inlineHeight = this.props.lockRatio
-      ? Win.width / this.props.lockRatio
-      : Win.width * ratio;
+    ? Win.width / this.props.lockRatio
+    : Win.width * ratio;
     this.setState(
       {
         paused: !this.props.autoPlay,
@@ -122,6 +128,14 @@ class Video extends Component {
         }
       }
     );
+  }
+
+  onLoad(data) {
+    const Win = Dimensions.get("window");
+    this.data = data
+    if (!this.state.loading) return;
+    this.props.onLoad(data);
+    this.getInlineHeight()
   }
 
   // onBuffer() {

@@ -79,38 +79,14 @@ class Video extends Component {
 		this.setState({ paused: true, loading: true });
 	}
 
-	getInlineHeight = () => {
+	onOrientationChange = () => {
 		const data = this.data;
 		const Win = Dimensions.get('window');
 		const { height, width } = _.get(data, 'naturalSize');
 		const ratio = height === 'undefined' && width === 'undefined' ? 9 / 16 : height / width;
 		const inlineHeight = this.props.lockRatio ? Win.width / this.props.lockRatio : Win.width * ratio;
-		this.setState(
-			{
-				paused: !this.props.autoPlay,
-				loading: false,
-				inlineHeight,
-				duration: data.duration,
-			},
-			() => {
-				Animated.timing(this.animInline, {
-					toValue: inlineHeight,
-					duration: 200,
-					useNativeDriver: false,
-				}).start();
-				this.props.onPlay(!this.state.paused);
-				if (!this.state.paused) {
-					// KeepAwake.activate();
-					if (this.props.fullScreenOnly) {
-						this.setState({ fullScreen: true }, () => {
-							this.props.onFullScreen(this.state.fullScreen);
-							this.animToFullscreen(Win.height);
-							if (this.props.rotateToFullScreen) Orientation.lockToLandscape();
-						});
-					}
-				}
-			}
-		);
+
+		this.setState({ inlineHeight });
 	};
 
 	onLoad(data) {
@@ -138,7 +114,7 @@ class Video extends Component {
 	onRotated({ window: { width, height } }) {
 		// Add this condition incase if inline and fullscreen options are turned on
 		if (this.data) {
-			this.getInlineHeight();
+			this.onOrientationChange();
 		}
 		if (this.props.inlineOnly) return;
 		const orientation = width > height ? 'LANDSCAPE' : 'PORTRAIT';
@@ -198,6 +174,40 @@ class Video extends Component {
 			return type;
 		});
 	}
+
+	getInlineHeight = () => {
+		const data = this.data;
+		const Win = Dimensions.get('window');
+		const { height, width } = _.get(data, 'naturalSize');
+		const ratio = height === 'undefined' && width === 'undefined' ? 9 / 16 : height / width;
+		const inlineHeight = this.props.lockRatio ? Win.width / this.props.lockRatio : Win.width * ratio;
+		this.setState(
+			{
+				paused: !this.props.autoPlay,
+				loading: false,
+				inlineHeight,
+				duration: data.duration,
+			},
+			() => {
+				Animated.timing(this.animInline, {
+					toValue: inlineHeight,
+					duration: 200,
+					useNativeDriver: false,
+				}).start();
+				this.props.onPlay(!this.state.paused);
+				if (!this.state.paused) {
+					// KeepAwake.activate();
+					if (this.props.fullScreenOnly) {
+						this.setState({ fullScreen: true }, () => {
+							this.props.onFullScreen(this.state.fullScreen);
+							this.animToFullscreen(Win.height);
+							if (this.props.rotateToFullScreen) Orientation.lockToLandscape();
+						});
+					}
+				}
+			}
+		);
+	};
 
 	BackHandler() {
 		if (this.state.fullScreen) {

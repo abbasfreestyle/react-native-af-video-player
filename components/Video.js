@@ -80,10 +80,8 @@ class Video extends Component {
 	}
 
 	onOrientationChange = () => {
-		const data = this.data;
 		const Win = Dimensions.get('window');
-		const { height, width } = _.get(data, 'naturalSize');
-		const ratio = height === 'undefined' && width === 'undefined' ? 9 / 16 : height / width;
+		const ratio = 9 / 16;
 		const inlineHeight = this.props.lockRatio ? Win.width / this.props.lockRatio : Win.width * ratio;
 
 		this.setState({ inlineHeight });
@@ -178,8 +176,7 @@ class Video extends Component {
 	getInlineHeight = () => {
 		const data = this.data;
 		const Win = Dimensions.get('window');
-		const { height, width } = _.get(data, 'naturalSize');
-		const ratio = height === 'undefined' && width === 'undefined' ? 9 / 16 : height / width;
+		const ratio = 9 / 16;
 		const inlineHeight = this.props.lockRatio ? Win.width / this.props.lockRatio : Win.width * ratio;
 		this.setState(
 			{

@@ -267,7 +267,7 @@ class Video extends Component {
 						if (this.props.rotateToFullScreen) Orientation.lockToLandscape();
 						this.animToFullscreen(height);
 					} else {
-						const height = orientation !== initialOrient ? Win.width : Win.height;
+						const { height } = Dimensions.get('window');
 						if (this.props.rotateToFullScreen) Orientation.lockToLandscape();
 						this.animToFullscreen(height);
 					}

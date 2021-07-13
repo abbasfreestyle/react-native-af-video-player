@@ -105,7 +105,7 @@ class Video extends Component {
 		if (!loop) this.pause();
 		this.onSeekRelease(0);
 		this.setState({ currentTime: 0 }, () => {
-			if (!loop) this.controls.showControls();
+			if (!loop) this.controls?.showControls?.();
 		});
 	}
 
@@ -385,6 +385,7 @@ class Video extends Component {
 			playWhenInactive,
 			controlDuration,
 			hideFullScreenControl,
+			hideVideoControls
 		} = this.props;
 
 		const inline = {
@@ -431,7 +432,7 @@ class Video extends Component {
 					// onBuffer={() => this.onBuffer()} // Callback when remote video is buffering
 					onTimedMetadata={(e) => onTimedMetadata(e)} // Callback when the stream receive some metadata
 				/>
-				<Controls
+				{hideVideoControls ? null : <Controls
 					ref={(ref) => {
 						this.controls = ref;
 					}}
@@ -455,7 +456,7 @@ class Video extends Component {
 					inlineOnly={inlineOnly}
 					controlDuration={controlDuration}
 					hideFullScreenControl={hideFullScreenControl}
-				/>
+				/>}
 			</Animated.View>
 		);
 	}
@@ -496,6 +497,7 @@ Video.propTypes = {
 	theme: PropTypes.object,
 	resizeMode: PropTypes.string,
 	controlDuration: PropTypes.number,
+	hideVideoControls: PropTypes.bool
 };
 
 Video.defaultProps = {
@@ -510,14 +512,14 @@ Video.defaultProps = {
 	playWhenInactive: false,
 	rotateToFullScreen: false,
 	lockPortraitOnFsExit: false,
-	onEnd: () => {},
-	onLoad: () => {},
-	onPlay: () => {},
-	onError: () => {},
-	onProgress: () => {},
+	onEnd: () => { },
+	onLoad: () => { },
+	onPlay: () => { },
+	onError: () => { },
+	onProgress: () => { },
 	onMorePress: undefined,
-	onFullScreen: () => {},
-	onTimedMetadata: () => {},
+	onFullScreen: () => { },
+	onTimedMetadata: () => { },
 	rate: 1,
 	volume: 1,
 	lockRatio: undefined,
@@ -526,6 +528,7 @@ Video.defaultProps = {
 	theme: defaultTheme,
 	resizeMode: 'contain',
 	controlDuration: 3,
+	hideVideoControls: false
 };
 
 export default Video;

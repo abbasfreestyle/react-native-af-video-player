@@ -291,6 +291,7 @@ class Video extends Component {
 	}
 
 	animToFullscreen(height) {
+		this.animFullscreen = new Animated.Value(0);
 		Animated.parallel([
 			Animated.timing(this.animFullscreen, {
 				toValue: height,
@@ -385,7 +386,7 @@ class Video extends Component {
 			playWhenInactive,
 			controlDuration,
 			hideFullScreenControl,
-			hideVideoControls
+			hideVideoControls,
 		} = this.props;
 
 		const inline = {
@@ -432,31 +433,33 @@ class Video extends Component {
 					// onBuffer={() => this.onBuffer()} // Callback when remote video is buffering
 					onTimedMetadata={(e) => onTimedMetadata(e)} // Callback when the stream receive some metadata
 				/>
-				{hideVideoControls ? null : <Controls
-					ref={(ref) => {
-						this.controls = ref;
-					}}
-					toggleMute={() => this.toggleMute()}
-					toggleFS={() => this.toggleFS()}
-					togglePlay={() => this.togglePlay()}
-					paused={paused}
-					muted={muted}
-					fullscreen={fullScreen}
-					loading={loading}
-					onSeek={(val) => this.seek(val)}
-					onSeekRelease={(pos) => this.onSeekRelease(pos)}
-					progress={progress}
-					currentTime={currentTime}
-					duration={duration}
-					logo={logo}
-					title={title}
-					more={!!onMorePress}
-					onMorePress={() => onMorePress()}
-					theme={setTheme}
-					inlineOnly={inlineOnly}
-					controlDuration={controlDuration}
-					hideFullScreenControl={hideFullScreenControl}
-				/>}
+				{hideVideoControls ? null : (
+					<Controls
+						ref={(ref) => {
+							this.controls = ref;
+						}}
+						toggleMute={() => this.toggleMute()}
+						toggleFS={() => this.toggleFS()}
+						togglePlay={() => this.togglePlay()}
+						paused={paused}
+						muted={muted}
+						fullscreen={fullScreen}
+						loading={loading}
+						onSeek={(val) => this.seek(val)}
+						onSeekRelease={(pos) => this.onSeekRelease(pos)}
+						progress={progress}
+						currentTime={currentTime}
+						duration={duration}
+						logo={logo}
+						title={title}
+						more={!!onMorePress}
+						onMorePress={() => onMorePress()}
+						theme={setTheme}
+						inlineOnly={inlineOnly}
+						controlDuration={controlDuration}
+						hideFullScreenControl={hideFullScreenControl}
+					/>
+				)}
 			</Animated.View>
 		);
 	}
@@ -497,7 +500,7 @@ Video.propTypes = {
 	theme: PropTypes.object,
 	resizeMode: PropTypes.string,
 	controlDuration: PropTypes.number,
-	hideVideoControls: PropTypes.bool
+	hideVideoControls: PropTypes.bool,
 };
 
 Video.defaultProps = {
@@ -512,14 +515,14 @@ Video.defaultProps = {
 	playWhenInactive: false,
 	rotateToFullScreen: false,
 	lockPortraitOnFsExit: false,
-	onEnd: () => { },
-	onLoad: () => { },
-	onPlay: () => { },
-	onError: () => { },
-	onProgress: () => { },
+	onEnd: () => {},
+	onLoad: () => {},
+	onPlay: () => {},
+	onError: () => {},
+	onProgress: () => {},
 	onMorePress: undefined,
-	onFullScreen: () => { },
-	onTimedMetadata: () => { },
+	onFullScreen: () => {},
+	onTimedMetadata: () => {},
 	rate: 1,
 	volume: 1,
 	lockRatio: undefined,
@@ -528,7 +531,7 @@ Video.defaultProps = {
 	theme: defaultTheme,
 	resizeMode: 'contain',
 	controlDuration: 3,
-	hideVideoControls: false
+	hideVideoControls: false,
 };
 
 export default Video;
